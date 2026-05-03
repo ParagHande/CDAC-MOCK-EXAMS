@@ -1,0 +1,862 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A milkman buys milk at ₹32/litre, adds 25% water (free of cost), and sells the mixture at ₹36/litre. What is his actual profit percentage?",
+      "options": [
+        "40.625%",
+        "37.5%",
+        "43.75%",
+        "34.375%"
+      ],
+      "answer": "40.625%",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "A sells an article to B at 20% profit, B sells it to C at 10% loss, and C sells it to D at 25% profit. If D pays ₹6,750, what was A's cost price?",
+      "options": [
+        "₹4,500",
+        "₹4,000",
+        "₹5,000",
+        "₹4,200"
+      ],
+      "answer": "₹4,500",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "On selling 56 articles, a vendor gains the selling price of 14 articles. What is his gain percentage?",
+      "options": [
+        "25%",
+        "20%",
+        "33.33%",
+        "28%"
+      ],
+      "answer": "33.33%",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "Scenario:\nA clothing store buys shirts at ₹500 each. It marks them at 60% above cost. During a clearance sale it gives a 25% discount on the marked price, and then an additional flat ₹50 off per shirt to loyal customers.\nWhat is the profit or loss percentage for the store on each shirt sold to a loyal customer?",
+      "options": [
+        "4% profit",
+        "4% loss",
+        "2% profit",
+        "6% loss"
+      ],
+      "answer": "4% profit",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 5,
+      "question": "A tap can fill a cistern in 8 hours. After half the cistern is filled, three more identical taps are opened. How long does it take to fill the cistern completely from the start?",
+      "options": [
+        "5 hours",
+        "4 hours 30 min",
+        "4 hours",
+        "5 hours 30 min"
+      ],
+      "answer": "5 hours",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "P can finish a work in 18 days and Q can do the same work in 24 days. They work together for 6 days, after which R joins and the remaining work finishes in 4 days. How many days would R alone take?",
+      "options": [
+        "36 days",
+        "40 days",
+        "48 days",
+        "32 days"
+      ],
+      "answer": "36 days",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "Scenario:\nA software team of 8 developers can complete a module in 30 days. After 10 days, 2 developers resign. The project manager wants to finish within the original 30-day deadline. How many new developers must be hired immediately on Day 11?",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": "3",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 8,
+      "question": "Two buses leave cities X and Y (630 km apart) simultaneously towards each other. Bus from X travels at 70 km/h and from Y at 56 km/h. At what distance from city X do they meet?",
+      "options": [
+        "350 km",
+        "315 km",
+        "360 km",
+        "280 km"
+      ],
+      "answer": "350 km",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "A man swims 3 km/h in still water across a 750 m wide river with a 4 km/h current, aiming perpendicular to the bank. How far downstream does he land and how long does the crossing take?",
+      "options": [
+        "1,000 m; 15 min",
+        "900 m; 15 min",
+        "1,100 m; 12 min",
+        "800 m; 18 min"
+      ],
+      "answer": "1,000 m; 15 min",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 10,
+      "question": "Scenario:\nA delivery van must cover 240 km. It travels the first 80 km at 40 km/h and the next 80 km at 30 km/h due to traffic. What minimum speed must it maintain on the last 80 km to average at least 40 km/h overall?",
+      "options": [
+        "80 km/h",
+        "90 km/h",
+        "120 km/h",
+        "100 km/h"
+      ],
+      "answer": "120 km/h",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 11,
+      "question": "A sum at compound interest (annual) amounts to ₹10,240 in 2 years and ₹12,288 in 3 years. What is the annual rate of interest?",
+      "options": [
+        "18%",
+        "20%",
+        "22%",
+        "25%"
+      ],
+      "answer": "20%",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "Scenario:\nA student borrows ₹3,00,000 at 9% per annum SI for 4 years. The bank offers an alternative: 8% CI per annum for the same period. Which option costs less interest and by how much (approx)?",
+      "options": [
+        "SI costs less by ₹7,188",
+        "CI costs less by ₹7,188",
+        "SI costs less by ₹3,969",
+        "Both cost the same"
+      ],
+      "answer": "CI costs less by ₹7,188",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 13,
+      "question": "The ratio of income to savings of a person is 4:1. His income rises by 25% and savings rise by 40%. What is the new ratio of income to expenditure?",
+      "options": [
+        "11:9",
+        "5:4",
+        "9:5",
+        "7:3"
+      ],
+      "answer": "9:5",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "In a group of 30 students the average weight is 55 kg. When 5 new students join, the average drops to 54 kg. What is the average weight of the 5 new students?",
+      "options": [
+        "48 kg",
+        "49 kg",
+        "50 kg",
+        "51 kg"
+      ],
+      "answer": "49 kg",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 15,
+      "question": "The sum of digits of a 2-digit number is 12. If the digits are reversed the new number is 18 more than the original. Find the original number.",
+      "options": [
+        "57",
+        "48",
+        "39",
+        "75"
+      ],
+      "answer": "57",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "A city's population grew 10% in Year 1, fell 5% in Year 2, then grew 20% in Year 3. If the final population is 1,25,136, what was the population before Year 1?",
+      "options": [
+        "1,00,000",
+        "1,02,000",
+        "98,000",
+        "1,05,000"
+      ],
+      "answer": "1,00,000",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 17,
+      "question": "The table shows monthly household expenses (₹ Thousands) across 5 categories for 3 months.\nIn which month was total expenditure highest, and by how much more than the lowest month (in ₹ Thousands)?",
+      "diagramType": "table",
+      "diagramData": {
+        "representation": "Monthly Household Expenses (₹ Thousands)",
+        "headers": [
+          "Category",
+          "January",
+          "February",
+          "March"
+        ],
+        "values": [
+          [
+            "Food",
+            18,
+            15,
+            20
+          ],
+          [
+            "Rent",
+            25,
+            25,
+            25
+          ],
+          [
+            "Transport",
+            8,
+            7,
+            10
+          ],
+          [
+            "Education",
+            12,
+            12,
+            14
+          ],
+          [
+            "Miscellaneous",
+            9,
+            6,
+            11
+          ]
+        ]
+      },
+      "options": [
+        "March — ₹15 more than February",
+        "January — ₹7 more than February",
+        "March — ₹10 more than January",
+        "March — ₹14 more than February"
+      ],
+      "answer": "March — ₹15 more than February",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "Using the same household expenses table:\nWhat percentage of the total 3-month expenditure goes to Education? (Round to 2 decimal places.)",
+      "diagramType": "table",
+      "diagramData": {
+        "representation": "Monthly Household Expenses (₹ Thousands)",
+        "headers": [
+          "Category",
+          "January",
+          "February",
+          "March"
+        ],
+        "values": [
+          [
+            "Food",
+            18,
+            15,
+            20
+          ],
+          [
+            "Rent",
+            25,
+            25,
+            25
+          ],
+          [
+            "Transport",
+            8,
+            7,
+            10
+          ],
+          [
+            "Education",
+            12,
+            12,
+            14
+          ],
+          [
+            "Miscellaneous",
+            9,
+            6,
+            11
+          ]
+        ]
+      },
+      "options": [
+        "15.32%",
+        "16.87%",
+        "14.65%",
+        "17.00%"
+      ],
+      "answer": "15.32%",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "The bar chart shows exports (₹ Crores) of a company across 5 sectors for two consecutive years.\nWhich sector recorded the highest absolute increase from Year 1 to Year 2?",
+      "diagramType": "chart",
+      "diagramData": {
+        "representation": "Bar Chart — Sector-wise Exports (₹ Crores)",
+        "chartType": "bar",
+        "xAxis": "Sector — Year",
+        "yAxis": "Exports (₹ Crores)",
+        "values": [
+          {
+            "label": "Textile Y1",
+            "value": 320
+          },
+          {
+            "label": "Textile Y2",
+            "value": 410
+          },
+          {
+            "label": "Chemical Y1",
+            "value": 280
+          },
+          {
+            "label": "Chemical Y2",
+            "value": 390
+          },
+          {
+            "label": "Software Y1",
+            "value": 500
+          },
+          {
+            "label": "Software Y2",
+            "value": 650
+          },
+          {
+            "label": "Pharma Y1",
+            "value": 190
+          },
+          {
+            "label": "Pharma Y2",
+            "value": 260
+          },
+          {
+            "label": "Agri Y1",
+            "value": 240
+          },
+          {
+            "label": "Agri Y2",
+            "value": 305
+          }
+        ]
+      },
+      "options": [
+        "Textile (+90)",
+        "Chemical (+110)",
+        "Software (+150)",
+        "Pharma (+70)"
+      ],
+      "answer": "Software (+150)",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 20,
+      "question": "The pie chart shows project budget allocation for ₹72 Lakhs.\nIf Testing and Deployment budgets are swapped and the overall budget rises by 12.5%, what is the new Testing allocation in ₹ Lakhs?",
+      "diagramType": "chart",
+      "diagramData": {
+        "representation": "Pie Chart — Project Budget Allocation (₹72 Lakhs)",
+        "chartType": "pie",
+        "values": [
+          {
+            "label": "Development",
+            "percentage": 40
+          },
+          {
+            "label": "Testing",
+            "percentage": 15
+          },
+          {
+            "label": "Deployment",
+            "percentage": 25
+          },
+          {
+            "label": "Management",
+            "percentage": 12
+          },
+          {
+            "label": "Contingency",
+            "percentage": 8
+          }
+        ]
+      },
+      "options": [
+        "₹18.00 Lakhs",
+        "₹20.25 Lakhs",
+        "₹22.50 Lakhs",
+        "₹16.20 Lakhs"
+      ],
+      "answer": "₹20.25 Lakhs",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "Scenario:\nA hotel has 80 rooms. On weekdays (5 days) it charges ₹2,500/room with 70% occupancy. On weekends (2 days) it charges ₹3,500/room with 90% occupancy. What is the hotel's total weekly revenue?",
+      "options": [
+        "₹9,38,000",
+        "₹9,52,000",
+        "₹9,76,000",
+        "₹9,24,000"
+      ],
+      "answer": "₹9,52,000",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "Scenario:\nA farmer has a rectangular field 120 m × 80 m. He fences all 4 sides and adds 2 internal fences parallel to the shorter side to divide the field into 3 equal plots. Fencing costs ₹85/m. What is the total fencing cost?",
+      "options": [
+        "₹61,200",
+        "₹57,800",
+        "₹68,000",
+        "₹54,400"
+      ],
+      "answer": "₹61,200",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 23,
+      "question": "Scenario:\nIn a quiz, correct answers earn +4 marks and wrong answers give −1. There are 50 questions; unattempted = 0. A student attempts all 50 and scores 125. How many did the student answer correctly?",
+      "options": [
+        "35",
+        "37",
+        "33",
+        "39"
+      ],
+      "answer": "35",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 24,
+      "question": "Scenario:\nTaps A, B, C fill a pool in 6, 8, 12 hours respectively. All three open at 6:00 AM. Tap C closes at 8:00 AM. Tap B closes at 9:00 AM. At what time does the pool become completely full?",
+      "options": [
+        "10:10 AM",
+        "10:24 AM",
+        "10:30 AM",
+        "10:48 AM"
+      ],
+      "answer": "10:24 AM",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 25,
+      "question": "In a code language:\n  '2 5' means 'good boy'\n  '4 1 7' means 'good cold morning'\n  '5 7 3' means 'cold windy day'\nWhat does code '4' stand for?",
+      "options": [
+        "cold",
+        "morning",
+        "good",
+        "day"
+      ],
+      "answer": "morning",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 26,
+      "question": "If REASON is coded as 5, BELIEVED is coded as 7, and GOVERNMENT is coded as 10, what is the coding rule and what is the code for KNOWLEDGE?",
+      "options": [
+        "8",
+        "9",
+        "10",
+        "7"
+      ],
+      "answer": "9",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "Find the next term in the series:\n1, 4, 9, 25, 49, 121, ?",
+      "options": [
+        "144",
+        "169",
+        "196",
+        "225"
+      ],
+      "answer": "169",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Find the missing value in the number grid where each row follows: Col3 = Col1 × Col2 + Col1",
+      "diagramType": "number-grid",
+      "diagramData": {
+        "representation": "3×3 Number Grid — Rule: Col3 = Col1 × Col2 + Col1",
+        "grid": [
+          [
+            3,
+            4,
+            15
+          ],
+          [
+            5,
+            3,
+            20
+          ],
+          [
+            4,
+            "?",
+            28
+          ]
+        ],
+        "rule": "Col3 = Col1 × Col2 + Col1"
+      },
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "6",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "A woman says, 'The mother of my father's only sister is my grandmother.' She has no other aunts or uncles on her father's side.\nThrough this relation, how many grandmothers does she identify?",
+      "options": [
+        "One — her paternal grandmother",
+        "Two — maternal and paternal",
+        "Cannot be determined",
+        "One — her maternal grandmother"
+      ],
+      "answer": "One — her paternal grandmother",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 30,
+      "question": "Scenario:\nAt a wedding, Deepa introduces Rohan: 'His father's only brother is married to my mother's only sister.'\nHow is Deepa related to Rohan?",
+      "options": [
+        "Cousin",
+        "Sister-in-law",
+        "Sister",
+        "Aunt"
+      ],
+      "answer": "Cousin",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    },
+    {
+      "id": 31,
+      "question": "Sana walks 5 km North, then 5 km East, then 5 km South, then 5 km West, then 3 km North.\nHow far and in which direction is she from her starting point?",
+      "options": [
+        "3 km North",
+        "5 km North-East",
+        "3 km South",
+        "5 km North-West"
+      ],
+      "answer": "3 km North",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Eight people sit in two parallel rows of 4, facing each other. Row A (persons 1–4) faces South; Row B (persons 5–8) faces North.\n\nClues:\n1. Person 1 is at the left end of Row A\n2. Person 5 faces Person 2\n3. Person 8 is at the right end of Row B\n4. Person 3 is not adjacent to Person 1\n5. Person 6 faces Person 4\n6. Person 7 is to the left of Person 8\n\nWho sits exactly opposite Person 3?",
+      "diagramType": "arrangement",
+      "diagramData": {
+        "representation": "Two rows facing each other\nRow A (South-facing, left→right): 1, 2, 3, 4\nRow B (North-facing, left→right): 5, 6, 7, 8",
+        "persons": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "constraints": [
+          "Person 1 is at the left end of Row A",
+          "Person 5 faces Person 2",
+          "Person 8 is at the right end of Row B",
+          "Person 3 is not adjacent to Person 1",
+          "Person 6 faces Person 4",
+          "Person 7 is to the left of Person 8"
+        ],
+        "arrangement_clockwise": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "—",
+          "8",
+          "7",
+          "6",
+          "5"
+        ]
+      },
+      "options": [
+        "Person 7",
+        "Person 5",
+        "Person 6",
+        "Person 8"
+      ],
+      "answer": "Person 7",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "Using the same two-row arrangement (Row A: 1,2,3,4 | Row B: 5 faces 2, 6 faces 4, 7 left of 8):\nWho is the only person adjacent to Person 1 in Row A?",
+      "diagramType": "arrangement",
+      "diagramData": {
+        "representation": "Two rows facing each other\nRow A (South-facing, left→right): 1, 2, 3, 4\nRow B (North-facing, left→right): 5, 6, 7, 8",
+        "persons": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "arrangement_clockwise": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "—",
+          "8",
+          "7",
+          "6",
+          "5"
+        ]
+      },
+      "options": [
+        "Person 2",
+        "Persons 2 and 4",
+        "Person 4",
+        "Persons 5 and 2"
+      ],
+      "answer": "Person 2",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "Statements:\n1. All keys are locks.\n2. All locks are doors.\n3. Some doors are windows.\n\nConclusions:\nI.  All keys are doors.\nII. Some locks are windows.\nIII. Some keys are windows.\n\nWhich conclusions definitely follow?",
+      "options": [
+        "Only I follows",
+        "Only I and II follow",
+        "Only I, II, and III follow",
+        "Only II and III follow"
+      ],
+      "answer": "Only I follows",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "Statements:\n1. No river is an ocean.\n2. All oceans are seas.\n3. Some seas are lakes.\n\nConclusions:\nI.  No river is a sea.\nII. Some seas are oceans.\nIII. Some lakes are seas.\n\nWhich conclusions definitely follow?",
+      "options": [
+        "Only II and III follow",
+        "Only I and III follow",
+        "Only III follows",
+        "Only II follows"
+      ],
+      "answer": "Only II and III follow",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "Five cities are ranked 1–5 by air quality (1 = best, 5 = worst): Delhi, Mumbai, Chennai, Kolkata, Pune.\n\nClues:\n1. Delhi is ranked worse than Mumbai but better than Kolkata\n2. Chennai has the best air quality\n3. Pune is ranked exactly between Mumbai and Kolkata\n4. Mumbai is ranked 2nd\n\nWhat is Kolkata's rank?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "2"
+      ],
+      "answer": "5",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "Find the missing value in this number grid where each column follows: Row3 = Row1 + (2 × Row2)",
+      "diagramType": "number-grid",
+      "diagramData": {
+        "representation": "3×3 Number Grid — Rule: Row3 = Row1 + (2 × Row2)",
+        "grid": [
+          [
+            3,
+            5,
+            7
+          ],
+          [
+            4,
+            6,
+            8
+          ],
+          [
+            11,
+            "?",
+            23
+          ]
+        ],
+        "rule": "Row3 = Row1 + (2 × Row2)"
+      },
+      "options": [
+        "16",
+        "17",
+        "18",
+        "15"
+      ],
+      "answer": "17",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 38,
+      "question": "Scenario:\nA train visits 6 stops — A, B, C, D, E, F — in some order.\n\nClues:\n1. The train stops at D after B but before C\n2. A is the first stop\n3. F is the last stop\n4. E is between C and F\n5. B is the second stop\n\nWhat is the correct order?",
+      "options": [
+        "A, B, D, C, E, F",
+        "A, B, C, D, E, F",
+        "A, B, D, E, C, F",
+        "A, B, C, E, D, F"
+      ],
+      "answer": "A, B, D, C, E, F",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": true
+    },
+    {
+      "id": 39,
+      "question": "Scenario:\nThe table shows test scores of 4 students in 3 subjects. A student passes only if they score ≥ 50 in ALL subjects. Who passes?",
+      "diagramType": "case",
+      "diagramData": {
+        "representation": "Caselet — Student Test Scores (Pass = ≥50 in all 3 subjects)",
+        "headers": [
+          "Student",
+          "Maths",
+          "Physics",
+          "Chemistry"
+        ],
+        "values": [
+          [
+            "Ananya",
+            72,
+            48,
+            65
+          ],
+          [
+            "Bhuvan",
+            55,
+            60,
+            58
+          ],
+          [
+            "Chitra",
+            49,
+            71,
+            53
+          ],
+          [
+            "Dhruv",
+            63,
+            55,
+            47
+          ]
+        ]
+      },
+      "options": [
+        "Only Bhuvan passes",
+        "Ananya and Bhuvan pass",
+        "Bhuvan and Dhruv pass",
+        "Only Ananya passes"
+      ],
+      "answer": "Only Bhuvan passes",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    },
+    {
+      "id": 40,
+      "question": "Scenario:\nFive painters — Jay, Kim, Leo, Mia, Ned — are each assigned one of 5 rooms: Red, Blue, Green, Yellow, White.\n\nClues:\n1. Jay paints Red or Blue\n2. Kim does not paint White or Yellow\n3. Leo paints Green\n4. Mia paints Yellow\n5. Jay does not paint Blue\n\nWhich room does Ned paint and which does Kim paint?",
+      "options": [
+        "Ned: White, Kim: Blue",
+        "Ned: Blue, Kim: White",
+        "Ned: White, Kim: Red",
+        "Ned: Yellow, Kim: Blue"
+      ],
+      "answer": "Ned: White, Kim: Blue",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    }
+  ]
+}

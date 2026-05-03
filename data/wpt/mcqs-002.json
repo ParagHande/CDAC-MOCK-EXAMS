@@ -1,0 +1,851 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Refer to the CORS preflight request flow below. Why does the browser send an OPTIONS request before the actual POST?\n\nBrowser → OPTIONS /api/data (preflight) → Server → Access-Control-Allow-Origin: * → Browser → POST /api/data (actual request) → Server → 200 OK",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "CORS Preflight Flow",
+        "values": [
+          "Step 1: Browser detects cross-origin POST with custom headers",
+          "Step 2: Browser sends OPTIONS /api/data with Access-Control-Request-Method: POST",
+          "Step 3: Server responds with CORS headers (Access-Control-Allow-Origin, etc.)",
+          "Step 4: If preflight passes, browser sends actual POST request",
+          "Step 5: Server responds 200 OK with data"
+        ]
+      },
+      "options": [
+        "OPTIONS is sent because POST requests are not supported for cross-origin requests",
+        "The browser sends a preflight OPTIONS request to check if the server allows the actual cross-origin request before sending it",
+        "OPTIONS is an optimisation — it caches the CORS headers to avoid re-sending them",
+        "The server forces OPTIONS before POST for all requests, not just cross-origin"
+      ],
+      "answer": "The browser sends a preflight OPTIONS request to check if the server allows the actual cross-origin request before sending it",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "Scenario:\nA developer builds a REST API. They use HTTP 200 for all responses including errors, returning { error: 'Not Found' } in the body for missing resources. Why is this considered a bad practice?",
+      "options": [
+        "HTTP 200 with an error body is faster than using proper status codes",
+        "It violates REST semantics — clients and intermediaries (caches, proxies) rely on HTTP status codes to understand response meaning; 200 tells them the request succeeded even when it failed",
+        "HTTP 200 cannot carry a JSON body with an error field",
+        "Only 5xx codes should be used for all errors in REST APIs"
+      ],
+      "answer": "It violates REST semantics — clients and intermediaries (caches, proxies) rely on HTTP status codes to understand response meaning; 200 tells them the request succeeded even when it failed",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "What is the primary difference between a GET and POST request in terms of data transmission and caching?",
+      "options": [
+        "GET sends data in the URL query string and can be cached; POST sends data in the request body and is not cached by default",
+        "GET is encrypted; POST is plain text",
+        "POST can handle larger payloads because it uses chunked encoding; GET is limited to 100 bytes",
+        "GET and POST are identical — the difference is only in the method name used"
+      ],
+      "answer": "GET sends data in the URL query string and can be cached; POST sends data in the request body and is not cached by default",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "Scenario:\nAn API endpoint returns this header:\nCache-Control: max-age=3600, must-revalidate\n\nA browser requests the resource at 10:00 AM and again at 11:30 AM. What happens on the second request?",
+      "options": [
+        "Browser uses cached response — max-age=3600 means 1 hour, and 1.5 hours have not yet elapsed",
+        "Browser sends a new request — 3600 seconds = 60 minutes; the cache has expired at 11:00 AM",
+        "Browser sends a conditional request — must-revalidate forces a server check every time",
+        "Browser blocks the second request — must-revalidate prevents duplicate fetches"
+      ],
+      "answer": "Browser sends a new request — 3600 seconds = 60 minutes; the cache has expired at 11:00 AM",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 5,
+      "question": "What does the Domain Name System (DNS) resolve, and at which step does it occur in a typical browser page load?",
+      "options": [
+        "DNS resolves IP addresses to domain names; it occurs after the HTTP response is received",
+        "DNS resolves domain names to IP addresses; it occurs before the TCP connection is established",
+        "DNS resolves SSL certificates; it occurs during the TLS handshake",
+        "DNS resolves port numbers; it occurs after the TCP handshake"
+      ],
+      "answer": "DNS resolves domain names to IP addresses; it occurs before the TCP connection is established",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "A developer adds this HTML5 audio element. Which statement correctly describes its behaviour?\n\n<audio controls autoplay loop>\n  <source src='song.mp3' type='audio/mpeg'>\n  <source src='song.ogg' type='audio/ogg'>\n  Your browser does not support audio.\n</audio>",
+      "options": [
+        "The browser plays only song.ogg because it is listed second",
+        "The browser plays song.mp3 first; if unsupported, falls back to song.ogg; autoplay starts automatically; loop repeats indefinitely",
+        "Both audio files play simultaneously",
+        "The text 'Your browser does not support audio.' always displays alongside the audio player"
+      ],
+      "answer": "The browser plays song.mp3 first; if unsupported, falls back to song.ogg; autoplay starts automatically; loop repeats indefinitely",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "dom",
+      "diagramData": {
+        "representation": "DOM Before and After insertBefore",
+        "values": [
+          "BEFORE: ul#list → [li:A] [li:B] [li:C]",
+          "createElement('li') → newItem.textContent = 'D'",
+          "list.insertBefore(newItem, list.firstChild) → inserts before li:A",
+          "AFTER: ul#list → [li:D] [li:A] [li:B] [li:C]"
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "question": "Consider this DOM manipulation. What is the state of the DOM after this code runs?",
+      "diagramType": "dom",
+      "diagramData": {
+        "representation": "DOM Before and After Manipulation",
+        "values": [
+          "BEFORE: <ul id='list'><li>A</li><li>B</li><li>C</li></ul>",
+          "CODE: const list = document.getElementById('list');",
+          "CODE: const newItem = document.createElement('li');",
+          "CODE: newItem.textContent = 'D';",
+          "CODE: list.insertBefore(newItem, list.firstChild);",
+          "AFTER: ?"
+        ]
+      },
+      "options": [
+        "<ul><li>A</li><li>B</li><li>C</li><li>D</li></ul>",
+        "<ul><li>D</li><li>A</li><li>B</li><li>C</li></ul>",
+        "<ul><li>A</li><li>D</li><li>B</li><li>C</li></ul>",
+        "<ul><li>D</li></ul> — insertBefore replaces all children"
+      ],
+      "answer": "<ul><li>D</li><li>A</li><li>B</li><li>C</li></ul>",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "Scenario:\nA developer uses the HTML5 Geolocation API:\n\nnavigator.geolocation.getCurrentPosition(\n  pos => console.log(pos.coords.latitude),\n  err => console.log('Error:', err.code)\n);\n\nThe user denies the location permission. What is logged?",
+      "options": [
+        "The device's last known latitude",
+        "Error: 1 — code 1 means PERMISSION_DENIED",
+        "Error: 0 — code 0 means unknown error",
+        "Nothing — geolocation silently fails when denied"
+      ],
+      "answer": "Error: 1 — code 1 means PERMISSION_DENIED",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 9,
+      "question": "What is the difference between innerHTML and textContent when setting content on a DOM element?",
+      "options": [
+        "innerHTML sets only plain text; textContent parses and renders HTML tags",
+        "textContent sets plain text (HTML tags treated as literal characters); innerHTML parses and renders HTML tags — making innerHTML potentially dangerous if content is user-supplied (XSS risk)",
+        "Both are identical — they both parse HTML and set text",
+        "innerHTML is faster than textContent for setting large amounts of text"
+      ],
+      "answer": "textContent sets plain text (HTML tags treated as literal characters); innerHTML parses and renders HTML tags — making innerHTML potentially dangerous if content is user-supplied (XSS risk)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "dom",
+      "diagramData": {
+        "representation": "innerHTML vs textContent — XSS Risk",
+        "values": [
+          "element.innerHTML = '<b>Bold</b>' → renders: Bold (bold text in DOM)",
+          "element.textContent = '<b>Bold</b>' → renders: <b>Bold</b> (literal string, not parsed)",
+          "User-supplied HTML via innerHTML → XSS vulnerability (malicious script executes)",
+          "User-supplied text via textContent → safe (treated as plain text only)"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "question": "A developer writes this Bootstrap grid structure. On a medium (md) screen, how many columns does each div occupy?\n\n<div class='row'>\n  <div class='col-md-4'>A</div>\n  <div class='col-md-4'>B</div>\n  <div class='col-md-4'>C</div>\n</div>",
+      "diagramType": "layout",
+      "diagramData": {
+        "representation": "Bootstrap 12-Column Grid Layout on md Screen",
+        "values": [
+          "Bootstrap grid total columns: 12",
+          "Each div: col-md-4 = 4 out of 12 columns",
+          "3 divs × 4 columns = 12 columns total (fills entire row)",
+          "On screens smaller than md: each div stacks to full width (12 cols)"
+        ]
+      },
+      "options": [
+        "Each div occupies 3 columns — the 4 refers to padding",
+        "Each div occupies 4 of 12 columns — three divs share the row equally",
+        "Each div occupies the full 12 columns and stacks vertically",
+        "Each div occupies 6 columns — Bootstrap rounds up to the nearest even number"
+      ],
+      "answer": "Each div occupies 4 of 12 columns — three divs share the row equally",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "Scenario:\nA designer sets: position: absolute on a child element. Which parent element does it position itself relative to?",
+      "options": [
+        "Always relative to the <body> element",
+        "Relative to the nearest ancestor with position: static (the default)",
+        "Relative to the nearest ancestor with a position value other than static (relative, absolute, fixed, or sticky)",
+        "Relative to the browser viewport, like position: fixed"
+      ],
+      "answer": "Relative to the nearest ancestor with a position value other than static (relative, absolute, fixed, or sticky)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 12,
+      "question": "What is the difference between display: none and visibility: hidden in CSS?",
+      "options": [
+        "Both are identical — the element is hidden and removed from the layout",
+        "display: none removes the element from the document flow (no space occupied); visibility: hidden makes the element invisible but it still occupies its layout space",
+        "visibility: hidden removes the element from the document flow; display: none only hides it visually",
+        "display: none is for block elements; visibility: hidden is for inline elements"
+      ],
+      "answer": "display: none removes the element from the document flow (no space occupied); visibility: hidden makes the element invisible but it still occupies its layout space",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 13,
+      "question": "What is the output of this code?",
+      "snippetLines": [
+        "var x = 10;",
+        "function test() {",
+        "  console.log(x);",
+        "  var x = 20;",
+        "  console.log(x);",
+        "}",
+        "test();"
+      ],
+      "options": [
+        "10, 20",
+        "undefined, 20",
+        "20, 20",
+        "ReferenceError"
+      ],
+      "answer": "undefined, 20",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "What does this code log?",
+      "snippetLines": [
+        "const obj = { a: 1, b: 2, c: 3 };",
+        "const { a, ...rest } = obj;",
+        "console.log(a);",
+        "console.log(rest);"
+      ],
+      "options": [
+        "1, { b: 2, c: 3 }",
+        "1, { a: 1, b: 2, c: 3 }",
+        "undefined, { b: 2, c: 3 }",
+        "SyntaxError — rest spread in destructuring is invalid"
+      ],
+      "answer": "1, { b: 2, c: 3 }",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 15,
+      "question": "What is the output of this immediately-invoked function with a closure?",
+      "snippetLines": [
+        "const fns = [];",
+        "for (var i = 0; i < 3; i++) {",
+        "  fns.push((function(j) {",
+        "    return function() { return j; };",
+        "  })(i));",
+        "}",
+        "console.log(fns[0](), fns[1](), fns[2]());"
+      ],
+      "options": [
+        "0, 1, 2",
+        "3, 3, 3",
+        "undefined, undefined, undefined",
+        "0, 0, 0"
+      ],
+      "answer": "0, 1, 2",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "What does this code output?",
+      "snippetLines": [
+        "async function delay(ms) {",
+        "  return new Promise(resolve => setTimeout(resolve, ms));",
+        "}",
+        "async function run() {",
+        "  console.log('start');",
+        "  await delay(100);",
+        "  console.log('end');",
+        "}",
+        "run();",
+        "console.log('after');"
+      ],
+      "options": [
+        "start, end, after",
+        "start, after, end",
+        "after, start, end",
+        "start, after (end never logs — delay resolves after script ends)"
+      ],
+      "answer": "start, after, end",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 17,
+      "question": "What does this RegEx code output?",
+      "snippetLines": [
+        "const email = 'user@example.com';",
+        "const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;",
+        "console.log(pattern.test(email));",
+        "console.log(pattern.test('bad@'));",
+        "console.log(pattern.test('no-at-sign'));"
+      ],
+      "options": [
+        "true, true, false",
+        "true, false, false",
+        "false, false, false",
+        "true, false, true"
+      ],
+      "answer": "true, false, false",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "What does this code print?",
+      "snippetLines": [
+        "function* gen() {",
+        "  yield 1;",
+        "  yield 2;",
+        "  yield 3;",
+        "}",
+        "const g = gen();",
+        "console.log(g.next().value);",
+        "console.log(g.next().value);",
+        "console.log(g.next().done);"
+      ],
+      "options": [
+        "1, 2, false",
+        "1, 2, true",
+        "1, 1, false",
+        "undefined, undefined, true"
+      ],
+      "answer": "1, 2, false",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "Scenario:\nA developer uses event delegation. When a user clicks the <li> inside the <ul>, what gets logged?",
+      "snippetLines": [
+        "// HTML: <ul id='list'><li id='item'>Click me</li></ul>",
+        "document.getElementById('list').addEventListener('click', function(e) {",
+        "  console.log(e.target.id, e.currentTarget.id);",
+        "});"
+      ],
+      "options": [
+        "list, list",
+        "item, list",
+        "list, item",
+        "item, item"
+      ],
+      "answer": "item, list",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 20,
+      "question": "What does this jQuery code do when executed on a page with three <p> elements?",
+      "snippetLines": [
+        "$('p').each(function(index) {",
+        "  $(this).text('Paragraph ' + (index + 1));",
+        "});"
+      ],
+      "options": [
+        "Sets the text of only the first <p> to 'Paragraph 1'",
+        "Sets the text of each <p> to 'Paragraph 1', 'Paragraph 2', 'Paragraph 3' respectively",
+        "Appends 'Paragraph 1', 'Paragraph 2', 'Paragraph 3' after each <p>",
+        "Removes all <p> elements and replaces them with a single paragraph"
+      ],
+      "answer": "Sets the text of each <p> to 'Paragraph 1', 'Paragraph 2', 'Paragraph 3' respectively",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "Scenario:\nA developer writes this Axios error handling code. When the server returns HTTP 500, which block executes?",
+      "snippetLines": [
+        "axios.get('/api/data')",
+        "  .then(response => {",
+        "    console.log('success', response.data);",
+        "  })",
+        "  .catch(error => {",
+        "    console.log('error', error.response.status);",
+        "  });"
+      ],
+      "options": [
+        "The .then() block — HTTP 500 is a valid server response",
+        "The .catch() block — Axios rejects the promise for any non-2xx HTTP status",
+        "Both blocks execute in sequence",
+        "Neither block — HTTP 500 causes an unhandled exception"
+      ],
+      "answer": "The .catch() block — Axios rejects the promise for any non-2xx HTTP status",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "What is the correct way to stringify a JavaScript object to JSON and back, and what limitation does JSON.stringify have with functions?",
+      "options": [
+        "JSON.stringify converts objects to JSON strings; JSON.parse reverses it; functions are included as-is in the output",
+        "JSON.stringify converts objects to JSON strings; JSON.parse reverses it; functions and undefined values are omitted from the output",
+        "JSON.parse converts objects to JSON strings; JSON.stringify reverses it",
+        "JSON.stringify and JSON.parse cannot handle nested objects"
+      ],
+      "answer": "JSON.stringify converts objects to JSON strings; JSON.parse reverses it; functions and undefined values are omitted from the output",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "Scenario:\nA developer makes an AJAX call but gets a CORS error in the browser. The server is on api.example.com and the page is on app.example.com. Which server-side header fixes this?",
+      "options": [
+        "Content-Type: application/json",
+        "Access-Control-Allow-Origin: https://app.example.com",
+        "X-Requested-With: XMLHttpRequest",
+        "Authorization: Bearer token"
+      ],
+      "answer": "Access-Control-Allow-Origin: https://app.example.com",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 24,
+      "question": "What does this Node.js callback-based code output if the file exists?",
+      "snippetLines": [
+        "const fs = require('fs');",
+        "fs.readFile('./data.txt', 'utf8', (err, data) => {",
+        "  if (err) {",
+        "    console.log('Error:', err.code);",
+        "    return;",
+        "  }",
+        "  console.log(data.trim().toUpperCase());",
+        "});",
+        "console.log('Reading file...');"
+      ],
+      "options": [
+        "Data content in uppercase, then 'Reading file...'",
+        "'Reading file...', then data content in uppercase",
+        "'Reading file...', then 'Error: ENOENT'",
+        "Error — fs.readFile cannot be used with callbacks in modern Node.js"
+      ],
+      "answer": "'Reading file...', then data content in uppercase",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 25,
+      "question": "Scenario:\nWhat happens when this Node.js Promise-based code runs and the fetch rejects?",
+      "snippetLines": [
+        "async function getData() {",
+        "  try {",
+        "    const data = await Promise.reject(new Error('network fail'));",
+        "    console.log(data);",
+        "  } catch (e) {",
+        "    console.log('caught:', e.message);",
+        "  } finally {",
+        "    console.log('done');",
+        "  }",
+        "}",
+        "getData();"
+      ],
+      "options": [
+        "caught: network fail, done",
+        "network fail, done",
+        "caught: network fail (finally does not run after catch)",
+        "Unhandled promise rejection — try/catch doesn't catch Promise.reject"
+      ],
+      "answer": "caught: network fail, done",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 26,
+      "question": "What does this Node.js HTTP server code do when a GET / request arrives?",
+      "snippetLines": [
+        "const http = require('http');",
+        "const server = http.createServer((req, res) => {",
+        "  if (req.method === 'GET' && req.url === '/') {",
+        "    res.writeHead(200, { 'Content-Type': 'text/html' });",
+        "    res.end('<h1>Hello Node</h1>');",
+        "  } else {",
+        "    res.writeHead(404);",
+        "    res.end('Not Found');",
+        "  }",
+        "});",
+        "server.listen(3000);"
+      ],
+      "options": [
+        "Serves 'Hello Node' as HTML for GET / requests; returns 404 for all other routes or methods",
+        "Serves 'Hello Node' for all GET requests regardless of URL",
+        "The server crashes — res.end() cannot accept HTML strings directly",
+        "Returns 200 for all requests — the else block is unreachable"
+      ],
+      "answer": "Serves 'Hello Node' as HTML for GET / requests; returns 404 for all other routes or methods",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "What is the output of this Node.js event loop timing code?",
+      "snippetLines": [
+        "setImmediate(() => console.log('setImmediate'));",
+        "setTimeout(() => console.log('setTimeout'), 0);",
+        "process.nextTick(() => console.log('nextTick'));",
+        "console.log('sync');"
+      ],
+      "options": [
+        "sync, nextTick, setTimeout, setImmediate",
+        "sync, nextTick, setImmediate, setTimeout",
+        "sync, setTimeout, nextTick, setImmediate",
+        "nextTick, sync, setTimeout, setImmediate"
+      ],
+      "answer": "sync, nextTick, setTimeout, setImmediate",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Scenario:\nAn Express app defines an error-handling middleware. Which signature is required for Express to treat it as an error handler rather than a regular middleware?",
+      "snippetLines": [
+        "// Option A:",
+        "app.use((req, res, next) => { res.status(500).send('Error'); });",
+        "",
+        "// Option B:",
+        "app.use((err, req, res, next) => { res.status(500).json({ error: err.message }); });"
+      ],
+      "options": [
+        "Option A — error handlers only need req, res, next",
+        "Option B — Express identifies error-handling middleware by the four-parameter signature (err, req, res, next)",
+        "Both are valid error handlers — Express detects errors from the response status code",
+        "Neither — error handlers must be defined using app.error() not app.use()"
+      ],
+      "answer": "Option B — Express identifies error-handling middleware by the four-parameter signature (err, req, res, next)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 29,
+      "question": "Scenario:\nA developer uses Express Router to organise routes:\n\n// routes/users.js\nconst router = express.Router();\nrouter.get('/:id', handler);\nmodule.exports = router;\n\n// app.js\napp.use('/users', usersRouter);\n\nWhat URL triggers the handler?",
+      "options": [
+        "GET /:id only",
+        "GET /users only",
+        "GET /users/:id — the router prefix /users is prepended to /:id",
+        "GET /users/:id and GET /:id both trigger the handler"
+      ],
+      "answer": "GET /users/:id — the router prefix /users is prepended to /:id",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 30,
+      "question": "What is the purpose of a template engine in Express (e.g., EJS, Handlebars)?",
+      "options": [
+        "Template engines replace the need for a database by storing data in HTML files",
+        "Template engines allow server-side rendering of HTML — they combine a template with data to generate dynamic HTML responses sent to the client",
+        "Template engines are used to validate incoming form data on the server",
+        "Template engines compile JavaScript to CSS for styling Express apps"
+      ],
+      "answer": "Template engines allow server-side rendering of HTML — they combine a template with data to generate dynamic HTML responses sent to the client",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "What does this React component log to the console during its lifecycle (mount → update count → unmount)?",
+      "snippetLines": [
+        "import { useState, useEffect } from 'react';",
+        "function App() {",
+        "  const [count, setCount] = useState(0);",
+        "  useEffect(() => {",
+        "    console.log('effect', count);",
+        "    return () => console.log('cleanup', count);",
+        "  }, [count]);",
+        "  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;",
+        "}"
+      ],
+      "options": [
+        "effect 0 (on mount only — dependency array prevents further runs)",
+        "effect 0 on mount; cleanup 0, effect 1 on first count update",
+        "cleanup 0 on mount, effect 0 after cleanup",
+        "effect runs on every render regardless of dependency array"
+      ],
+      "answer": "effect 0 on mount; cleanup 0, effect 1 on first count update",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Scenario:\nA React parent passes a function prop to a child. The child re-renders every time the parent renders, even when the function has not changed. Which hook prevents unnecessary re-renders of the child?",
+      "diagramType": "component",
+      "diagramData": {
+        "representation": "React Re-render Optimisation Pattern",
+        "values": [
+          "Parent renders → creates new function reference → passes as prop to Child",
+          "Child receives new prop reference → React.memo comparison fails → Child re-renders",
+          "WITH useCallback: Parent renders → useCallback returns SAME reference if deps unchanged",
+          "Child receives same prop reference → React.memo skips re-render"
+        ]
+      },
+      "options": [
+        "useRef — stores the function reference without causing re-renders",
+        "useCallback — memoises the function reference so the same reference is passed to the child unless dependencies change",
+        "useMemo — memoises the return value of the function",
+        "useState — stores the function in state so it does not change on render"
+      ],
+      "answer": "useCallback — memoises the function reference so the same reference is passed to the child unless dependencies change",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 33,
+      "question": "What does this React code render and why is using index as key considered problematic?",
+      "snippetLines": [
+        "const items = ['Apple', 'Banana', 'Cherry'];",
+        "function List() {",
+        "  return (",
+        "    <ul>",
+        "      {items.map((item, index) => (",
+        "        <li key={index}>{item}</li>",
+        "      ))}",
+        "    </ul>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "Renders correctly; using index as key is always safe for static lists",
+        "Renders correctly for static lists; but if items are reordered or removed, React may misidentify elements causing incorrect re-renders — stable unique IDs should be used as keys",
+        "Renders nothing — index cannot be used as a key in React",
+        "Throws an error — key must be a string, not a number"
+      ],
+      "answer": "Renders correctly for static lists; but if items are reordered or removed, React may misidentify elements causing incorrect re-renders — stable unique IDs should be used as keys",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "What does this React component render on initial load?",
+      "snippetLines": [
+        "import { useState } from 'react';",
+        "function Toggle() {",
+        "  const [show, setShow] = useState(true);",
+        "  return (",
+        "    <div>",
+        "      {show && <p>Visible</p>}",
+        "      {!show && <p>Hidden</p>}",
+        "      <button onClick={() => setShow(!show)}>Toggle</button>",
+        "    </div>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "Both 'Visible' and 'Hidden' paragraphs and the button",
+        "Only 'Visible' paragraph and the button",
+        "Only 'Hidden' paragraph and the button",
+        "Only the button — conditional rendering hides both paragraphs initially"
+      ],
+      "answer": "Only 'Visible' paragraph and the button",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "Scenario:\nA React developer lifts state up. The component tree is shown. What prop must ItemForm receive to add a new item to the parent's list?",
+      "diagramType": "state-flow",
+      "diagramData": {
+        "representation": "Lifted State — Parent manages item list",
+        "values": [
+          "App: state = { items: [] }",
+          "  ├── ItemForm: needs to add item to App's state",
+          "  │     INPUT: new item text",
+          "  │     NEEDS: a function prop to call with new item",
+          "  └── ItemList: receives items prop from App",
+          "        renders each item from App's state"
+        ]
+      },
+      "options": [
+        "A direct reference to App's state array so ItemForm can push to it",
+        "A callback function (e.g., onAddItem) passed from App that calls setItems when invoked with the new item",
+        "A useRef pointing to App's state so ItemForm can mutate it",
+        "ItemForm does not need a prop — React context automatically shares state"
+      ],
+      "answer": "A callback function (e.g., onAddItem) passed from App that calls setItems when invoked with the new item",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 36,
+      "question": "What is the output of this React code using useRef?",
+      "snippetLines": [
+        "import { useRef, useEffect } from 'react';",
+        "function App() {",
+        "  const countRef = useRef(0);",
+        "  useEffect(() => {",
+        "    countRef.current += 1;",
+        "    console.log('render count:', countRef.current);",
+        "  });",
+        "  return <div>Check console</div>;",
+        "}"
+      ],
+      "options": [
+        "render count: 1 on first render; 2 on next; increments per render without causing re-renders",
+        "render count: 1 every time — useRef resets to 0 on each render",
+        "Infinite loop — useRef update triggers re-render which triggers another effect",
+        "Nothing — useRef cannot be used inside useEffect"
+      ],
+      "answer": "render count: 1 on first render; 2 on next; increments per render without causing re-renders",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "Scenario:\nA React-Redux app has this reducer. A developer dispatches { type: 'ADD', payload: 4 }. What is the new state?",
+      "snippetLines": [
+        "const initialState = { items: [1, 2, 3] };",
+        "function reducer(state = initialState, action) {",
+        "  switch (action.type) {",
+        "    case 'ADD':",
+        "      return { ...state, items: [...state.items, action.payload] };",
+        "    case 'CLEAR':",
+        "      return { ...state, items: [] };",
+        "    default:",
+        "      return state;",
+        "  }",
+        "}"
+      ],
+      "options": [
+        "{ items: [1, 2, 3, 4] } — spread creates a new array with 4 appended",
+        "{ items: [4] } — ADD replaces the array with only the new item",
+        "{ items: [1, 2, 3] } — state is not mutated when using spread",
+        "Error — you cannot spread an array inside an object spread"
+      ],
+      "answer": "{ items: [1, 2, 3, 4] } — spread creates a new array with 4 appended",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 38,
+      "question": "What is the purpose of the useSelector hook in React-Redux?",
+      "options": [
+        "useSelector dispatches an action to the Redux store",
+        "useSelector subscribes a component to the Redux store and extracts a slice of state; the component re-renders whenever the selected state changes",
+        "useSelector creates a new Redux store inside a component",
+        "useSelector replaces the need for a Redux reducer by managing local state"
+      ],
+      "answer": "useSelector subscribes a component to the Redux store and extracts a slice of state; the component re-renders whenever the selected state changes",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 39,
+      "question": "Scenario:\nA developer writes this React Error Boundary class component. What renders when a child component throws during rendering?",
+      "snippetLines": [
+        "class ErrorBoundary extends React.Component {",
+        "  constructor(props) {",
+        "    super(props);",
+        "    this.state = { hasError: false };",
+        "  }",
+        "  static getDerivedStateFromError(error) {",
+        "    return { hasError: true };",
+        "  }",
+        "  render() {",
+        "    if (this.state.hasError) return <h1>Something went wrong.</h1>;",
+        "    return this.props.children;",
+        "  }",
+        "}"
+      ],
+      "options": [
+        "The entire React app crashes and shows a blank page",
+        "The ErrorBoundary catches the error and renders 'Something went wrong.' in place of the failed child",
+        "getDerivedStateFromError runs but does not prevent the crash",
+        "Error boundaries only work with async errors, not rendering errors"
+      ],
+      "answer": "The ErrorBoundary catches the error and renders 'Something went wrong.' in place of the failed child",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 40,
+      "question": "Scenario:\nA MERN stack developer designs a login flow. Trace the correct full-stack data flow from form submission to authenticated response.",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "MERN Login Data Flow",
+        "values": [
+          "Step 1: React form captures username + password → dispatches Redux action",
+          "Step 2: Redux thunk calls Axios POST /api/auth/login with credentials",
+          "Step 3: Express route receives request → validates body → queries MongoDB",
+          "Step 4: MongoDB returns user document → Express checks password hash",
+          "Step 5: On match → Express signs JWT → sends { token } response",
+          "Step 6: Axios receives response → Redux action updates store with token",
+          "Step 7: React re-renders based on new auth state → redirects to dashboard"
+        ]
+      },
+      "options": [
+        "React → Redux → Axios → Express → MongoDB → Express → Axios → Redux → React",
+        "React → Express → Redux → MongoDB → Axios → React",
+        "Redux → React → MongoDB → Express → Axios",
+        "React → Axios → MongoDB → Express → Redux → React"
+      ],
+      "answer": "React → Redux → Axios → Express → MongoDB → Express → Axios → Redux → React",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    }
+  ]
+}

@@ -1,0 +1,850 @@
+
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A developer inspects network traffic and sees this WebSocket upgrade flow. What is the purpose of the Upgrade header in the HTTP handshake?\n\nGET /chat HTTP/1.1\nHost: server.example.com\nUpgrade: websocket\nConnection: Upgrade\nSec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==\n\nHTTP/1.1 101 Switching Protocols\nUpgrade: websocket\nConnection: Upgrade",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "WebSocket Upgrade Handshake",
+        "values": [
+          "Step 1: Client sends HTTP GET with Upgrade: websocket header",
+          "Step 2: Server responds 101 Switching Protocols",
+          "Step 3: Protocol switches from HTTP to WebSocket",
+          "Step 4: Full-duplex persistent connection established",
+          "Step 5: Server can now push data to client without polling"
+        ]
+      },
+      "options": [
+        "Upgrade tells the server to use HTTP/2 instead of HTTP/1.1",
+        "Upgrade requests the server to switch from HTTP to a different protocol — here WebSocket — enabling a persistent full-duplex connection",
+        "Upgrade is required for all HTTPS requests to enable TLS",
+        "Upgrade indicates the client wants to upgrade its browser version"
+      ],
+      "answer": "Upgrade requests the server to switch from HTTP to a different protocol — here WebSocket — enabling a persistent full-duplex connection",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "Scenario:\nA developer sets this header on API responses:\nAccess-Control-Allow-Origin: *\n\nA security auditor flags it as a risk for authenticated endpoints. Why?",
+      "options": [
+        "Wildcard * disables all CORS protection and slows the server",
+        "Access-Control-Allow-Origin: * allows any origin to make requests; for endpoints that rely on cookies or session-based authentication, this can expose data to malicious sites — credentialed requests require a specific origin, not *",
+        "* causes the response to be cached permanently by all CDNs",
+        "Wildcard is not a valid value — the header only accepts specific domains"
+      ],
+      "answer": "Access-Control-Allow-Origin: * allows any origin to make requests; for endpoints that rely on cookies or session-based authentication, this can expose data to malicious sites — credentialed requests require a specific origin, not *",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 3,
+      "question": "What is the difference between localStorage and sessionStorage in a browser?",
+      "options": [
+        "localStorage stores data on the server; sessionStorage stores data in the browser",
+        "localStorage persists data across browser sessions (until explicitly cleared); sessionStorage data is cleared when the browser tab or window is closed",
+        "sessionStorage is encrypted; localStorage stores plain text",
+        "Both are identical — they differ only in storage size limits"
+      ],
+      "answer": "localStorage persists data across browser sessions (until explicitly cleared); sessionStorage data is cleared when the browser tab or window is closed",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "Scenario:\nA REST API uses these HTTP methods. Which combination correctly implements a RESTful CRUD interface for a /products resource?\n\nCreate → ?\nRead all → ?\nRead one → ?\nUpdate → ?\nDelete → ?",
+      "options": [
+        "POST /products, GET /products, GET /products/:id, PUT /products/:id, DELETE /products/:id",
+        "PUT /products, GET /products, GET /products/:id, POST /products/:id, REMOVE /products/:id",
+        "POST /products/create, GET /products/all, GET /products/one/:id, POST /products/update, GET /products/delete",
+        "INSERT /products, SELECT /products, SELECT /products/:id, UPDATE /products/:id, DROP /products/:id"
+      ],
+      "answer": "POST /products, GET /products, GET /products/:id, PUT /products/:id, DELETE /products/:id",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "What happens when a browser encounters a self-signed SSL certificate on an HTTPS site?",
+      "options": [
+        "The browser accepts it automatically — all SSL certificates are equally trusted",
+        "The browser displays a security warning because the certificate is not signed by a trusted Certificate Authority (CA); the connection may still be encrypted but the identity cannot be verified",
+        "The browser upgrades the connection to HTTP since the certificate is invalid",
+        "The browser caches the certificate and trusts it for all future visits"
+      ],
+      "answer": "The browser displays a security warning because the certificate is not signed by a trusted Certificate Authority (CA); the connection may still be encrypted but the identity cannot be verified",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "A developer writes this HTML5 form. Which field will fail validation when the form is submitted with an empty name and age of 150?",
+      "diagramType": "dom",
+      "diagramData": {
+        "representation": "HTML5 Form with Validation Attributes",
+        "values": [
+          "<form>",
+          "  <input type='text' name='name' required minlength='2'>",
+          "  <input type='number' name='age' min='1' max='120'>",
+          "  <input type='email' name='email' required>",
+          "  <input type='url' name='website'>",
+          "  <button type='submit'>Submit</button>",
+          "</form>"
+        ]
+      },
+      "options": [
+        "Only the name field — required is not satisfied",
+        "Only the email field — it is empty and required",
+        "Both name (required+empty) and age (exceeds max=120) and email (required+empty)",
+        "No fields fail — HTML5 validation only works with JavaScript enabled"
+      ],
+      "answer": "Both name (required+empty) and age (exceeds max=120) and email (required+empty)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "What does document.querySelector('#app > .card:first-child') select?",
+      "options": [
+        "All elements with class 'card' inside #app",
+        "The first element with class 'card' that is a DIRECT child of #app",
+        "The first element with class 'card' anywhere inside #app (any depth)",
+        "The element with id 'app' that also has class 'card'"
+      ],
+      "answer": "The first element with class 'card' that is a DIRECT child of #app",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "dom",
+      "diagramData": {
+        "representation": "CSS Selector Specificity — querySelector('#app > .card:first-child')",
+        "values": [
+          "#app — ID selector targets the element with id='app'",
+          "> — child combinator: only DIRECT children qualify",
+          ".card — class selector: child must have class='card'",
+          ":first-child — pseudo-class: must be the first child element",
+          "Result: first .card that is an immediate child of #app"
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "question": "Scenario:\nA developer wants to prevent a form's default submission behaviour and handle it with JavaScript. Which code correctly does this?",
+      "snippetLines": [
+        "// Option A:",
+        "document.getElementById('form').addEventListener('submit', function() {",
+        "  handleFormData();",
+        "});",
+        "",
+        "// Option B:",
+        "document.getElementById('form').addEventListener('submit', function(e) {",
+        "  e.preventDefault();",
+        "  handleFormData();",
+        "});"
+      ],
+      "options": [
+        "Option A — addEventListener automatically prevents default behaviour",
+        "Option B — e.preventDefault() stops the browser from navigating/refreshing on submit",
+        "Both are equivalent — forms with addEventListener do not submit by default",
+        "Neither — you must use return false at the end of the function"
+      ],
+      "answer": "Option B — e.preventDefault() stops the browser from navigating/refreshing on submit",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 9,
+      "question": "What is the ARIA role attribute used for in HTML5?",
+      "options": [
+        "It styles HTML elements with predefined CSS classes",
+        "It defines JavaScript event handlers for interactive elements",
+        "It provides semantic meaning to elements for assistive technologies (screen readers) — especially when native HTML semantics are insufficient (e.g., role='button' on a <div>)",
+        "It sets the rendering priority of elements in the browser paint order"
+      ],
+      "answer": "It provides semantic meaning to elements for assistive technologies (screen readers) — especially when native HTML semantics are insufficient (e.g., role='button' on a <div>)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 10,
+      "question": "A developer defines these responsive Bootstrap classes. On an extra-small (xs) screen, how does this element render?\n\n<div class='col-12 col-md-6 col-lg-4'>Content</div>",
+      "diagramType": "layout",
+      "diagramData": {
+        "representation": "Bootstrap Responsive Column Behaviour",
+        "values": [
+          "xs (<576px): col-12 → full width (12/12 columns)",
+          "md (≥768px): col-md-6 → half width (6/12 columns)",
+          "lg (≥992px): col-lg-4 → one-third width (4/12 columns)",
+          "Bootstrap grid breakpoints: xs, sm, md, lg, xl, xxl"
+        ]
+      },
+      "options": [
+        "4 columns — col-lg-4 applies to all screen sizes",
+        "6 columns — col-md-6 is the default when no xs class is set",
+        "Full width (12 columns) — col-12 applies on xs screens",
+        "The element is hidden — no col-xs class is defined"
+      ],
+      "answer": "Full width (12 columns) — col-12 applies on xs screens",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "Scenario:\nA developer uses CSS Grid:\n\n.container { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 10px; }\n\nThe container is 400px wide. How wide is each column (excluding gaps)?",
+      "options": [
+        "100px, 200px, 100px — fr units divide remaining space after gaps; (400 - 20) / 4 total fractions = 95px per fr",
+        "133px, 133px, 133px — grid divides space equally regardless of fr values",
+        "1px, 2px, 1px — fr values are pixel values directly",
+        "The column widths depend on content, not the fr values"
+      ],
+      "answer": "100px, 200px, 100px — fr units divide remaining space after gaps; (400 - 20) / 4 total fractions = 95px per fr",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 12,
+      "question": "What does the CSS property z-index control, and what prerequisite must be met for it to work?",
+      "options": [
+        "z-index sets the element's opacity; it works on all elements",
+        "z-index controls the stacking order of overlapping elements along the z-axis; it only works on elements with a position value other than static (e.g., relative, absolute, fixed, sticky)",
+        "z-index controls the element's zoom level in the browser",
+        "z-index sets the order of elements in the DOM; it works on all elements regardless of position"
+      ],
+      "answer": "z-index controls the stacking order of overlapping elements along the z-axis; it only works on elements with a position value other than static (e.g., relative, absolute, fixed, sticky)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 13,
+      "question": "What is the output of this code?",
+      "snippetLines": [
+        "const obj = {};",
+        "Object.defineProperty(obj, 'x', {",
+        "  value: 42,",
+        "  writable: false,",
+        "  enumerable: true",
+        "});",
+        "obj.x = 100;",
+        "console.log(obj.x);"
+      ],
+      "options": [
+        "100",
+        "42",
+        "undefined",
+        "TypeError"
+      ],
+      "answer": "42",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "What does this code log?",
+      "snippetLines": [
+        "const p = new Promise((resolve, reject) => {",
+        "  resolve('first');",
+        "  reject('second');",
+        "  resolve('third');",
+        "});",
+        "p.then(v => console.log(v)).catch(e => console.log(e));"
+      ],
+      "options": [
+        "first",
+        "second",
+        "first, second, third",
+        "third"
+      ],
+      "answer": "first",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 15,
+      "question": "What is the output of this code?",
+      "snippetLines": [
+        "function Person(name) {",
+        "  this.name = name;",
+        "}",
+        "Person.prototype.greet = function() {",
+        "  return `Hello, I am ${this.name}`;",
+        "};",
+        "const p1 = new Person('Alice');",
+        "const p2 = new Person('Bob');",
+        "p2.greet = function() { return 'I am overridden'; };",
+        "console.log(p1.greet());",
+        "console.log(p2.greet());"
+      ],
+      "options": [
+        "Hello, I am Alice / Hello, I am Bob",
+        "Hello, I am Alice / I am overridden",
+        "I am overridden / I am overridden",
+        "undefined / I am overridden"
+      ],
+      "answer": "Hello, I am Alice / I am overridden",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "What does this code output?",
+      "snippetLines": [
+        "const nums = [1, [2, [3, [4]]]];",
+        "console.log(nums.flat());",
+        "console.log(nums.flat(Infinity));"
+      ],
+      "options": [
+        "[1, 2, 3, 4] / [1, 2, 3, 4]",
+        "[1, 2, [3, [4]]] / [1, 2, 3, 4]",
+        "[1, [2, [3, [4]]]] / [1, 2, 3, 4]",
+        "[1, 2, 3, 4] / [1, [2, [3, [4]]]]"
+      ],
+      "answer": "[1, 2, [3, [4]]] / [1, 2, 3, 4]",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 17,
+      "question": "What does this code output?",
+      "snippetLines": [
+        "const add = (a) => (b) => a + b;",
+        "const add5 = add(5);",
+        "console.log(add5(3));",
+        "console.log(add(10)(20));"
+      ],
+      "options": [
+        "8 / 30",
+        "5 / 10",
+        "undefined / 30",
+        "8 / undefined"
+      ],
+      "answer": "8 / 30",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "What is the output of this JavaScript code?",
+      "snippetLines": [
+        "class Animal {",
+        "  constructor(name) { this.name = name; }",
+        "  speak() { return `${this.name} makes a sound`; }",
+        "}",
+        "class Dog extends Animal {",
+        "  speak() { return `${this.name} barks`; }",
+        "}",
+        "const d = new Dog('Rex');",
+        "console.log(d.speak());",
+        "console.log(d instanceof Animal);",
+        "console.log(d instanceof Dog);"
+      ],
+      "options": [
+        "Rex makes a sound / true / true",
+        "Rex barks / true / true",
+        "Rex barks / false / true",
+        "undefined barks / true / false"
+      ],
+      "answer": "Rex barks / true / true",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "Scenario:\nWhat is logged after this code runs? The HTML has: <p id='p1'>Hello</p>",
+      "snippetLines": [
+        "const el = document.getElementById('p1');",
+        "el.setAttribute('data-score', '99');",
+        "el.classList.add('highlight');",
+        "console.log(el.dataset.score);",
+        "console.log(el.className);"
+      ],
+      "options": [
+        "undefined / ''",
+        "'99' / 'highlight'",
+        "99 / highlight",
+        "'99' / '' (classList changes are not reflected in className)"
+      ],
+      "answer": "'99' / 'highlight'",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 20,
+      "question": "What does this jQuery animation code do?",
+      "snippetLines": [
+        "$('#box').hide(500).delay(1000).fadeIn(300);"
+      ],
+      "options": [
+        "Immediately hides #box, waits 1 second, then fades it back in over 300ms",
+        "Fades #box out over 500ms, waits 1000ms, then fades it back in over 300ms",
+        "Hides #box instantly, fades out for 1000ms, then shows in 300ms",
+        "Error — hide() and fadeIn() cannot be chained with delay()"
+      ],
+      "answer": "Fades #box out over 500ms, waits 1000ms, then fades it back in over 300ms",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "Scenario:\nA developer fetches data with the Fetch API:\n\nfetch('/api/data')\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.log('Error:', err.message));\n\nThe server returns HTTP 500 with a JSON body. What happens?",
+      "options": [
+        "The .catch() block fires with a network error",
+        "The first .then(res => res.json()) runs because fetch() only rejects on network failure; HTTP 500 is a valid response — the data logs successfully",
+        "The .catch() block fires because HTTP 500 is an error response",
+        "fetch() automatically retries on 500 responses"
+      ],
+      "answer": "The first .then(res => res.json()) runs because fetch() only rejects on network failure; HTTP 500 is a valid response — the data logs successfully",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "A developer creates a JSON file to store a cricket scoreboard. Which is a valid JSON representation?",
+      "options": [
+        "{ match: 'India vs Australia', score: { India: 287, Australia: 250 }, winner: 'India' }",
+        "{ \"match\": \"India vs Australia\", \"score\": { \"India\": 287, \"Australia\": 250 }, \"winner\": \"India\" }",
+        "{ \"match\": 'India vs Australia', \"score\": undefined, \"winner\": null }",
+        "{ \"match\": \"India vs Australia\", winner: \"India\", score: NaN }"
+      ],
+      "answer": "{ \"match\": \"India vs Australia\", \"score\": { \"India\": 287, \"Australia\": 250 }, \"winner\": \"India\" }",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "Scenario:\nA developer uses jQuery's $.ajax() to send a POST request. What is the correct configuration to send JSON data?",
+      "snippetLines": [
+        "$.ajax({",
+        "  url: '/api/save',",
+        "  method: 'POST',",
+        "  contentType: 'application/json',",
+        "  data: JSON.stringify({ name: 'Alice', age: 30 }),",
+        "  success: function(res) { console.log(res); },",
+        "  error: function(err) { console.log(err.status); }",
+        "});"
+      ],
+      "options": [
+        "This is incorrect — $.ajax does not support POST for JSON data",
+        "This is correct — contentType sets the request format; JSON.stringify serialises the data object; success and error handle the response",
+        "contentType should be 'text/plain' for JSON payloads",
+        "data should be passed as a plain object — JSON.stringify is not needed with $.ajax"
+      ],
+      "answer": "This is correct — contentType sets the request format; JSON.stringify serialises the data object; success and error handle the response",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 24,
+      "question": "What does this Node.js streams code do?",
+      "snippetLines": [
+        "const fs = require('fs');",
+        "const readStream = fs.createReadStream('input.txt', { encoding: 'utf8' });",
+        "const writeStream = fs.createWriteStream('output.txt');",
+        "readStream.pipe(writeStream);",
+        "writeStream.on('finish', () => console.log('Done'));"
+      ],
+      "options": [
+        "Reads input.txt into memory, reverses its content, then writes to output.txt",
+        "Reads input.txt in chunks and pipes each chunk to output.txt efficiently without loading the entire file into memory; logs 'Done' when complete",
+        "Copies input.txt to output.txt only if output.txt already exists",
+        "Crashes — pipe() requires both streams to have the same encoding"
+      ],
+      "answer": "Reads input.txt in chunks and pipes each chunk to output.txt efficiently without loading the entire file into memory; logs 'Done' when complete",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 25,
+      "question": "Scenario:\nA developer uses npm to manage packages. What is the difference between saving a package as a dependency vs a devDependency?",
+      "options": [
+        "devDependencies are installed globally; dependencies are installed locally",
+        "dependencies are required at runtime (e.g., express, react); devDependencies are only needed during development/build (e.g., eslint, jest) and are excluded from production installs with --production flag",
+        "Both are identical — npm treats them the same during npm install",
+        "dependencies are for the frontend; devDependencies are for the backend"
+      ],
+      "answer": "dependencies are required at runtime (e.g., express, react); devDependencies are only needed during development/build (e.g., eslint, jest) and are excluded from production installs with --production flag",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 26,
+      "question": "What does this Node.js code output?",
+      "snippetLines": [
+        "const path = require('path');",
+        "const fullPath = path.join('/users', 'alice', '..', 'bob', 'docs/report.pdf');",
+        "console.log(fullPath);",
+        "console.log(path.extname(fullPath));",
+        "console.log(path.basename(fullPath));"
+      ],
+      "options": [
+        "/users/alice/../bob/docs/report.pdf / .pdf / report.pdf",
+        "/users/bob/docs/report.pdf / .pdf / report.pdf",
+        "/users/bob/report.pdf / pdf / docs/report.pdf",
+        "Error — path.join does not resolve '..' segments"
+      ],
+      "answer": "/users/bob/docs/report.pdf / .pdf / report.pdf",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "What does this Node.js code do and what is the output order?",
+      "snippetLines": [
+        "const { Worker, isMainThread, parentPort } = require('worker_threads');",
+        "if (isMainThread) {",
+        "  const w = new Worker(__filename);",
+        "  w.on('message', msg => console.log('Main received:', msg));",
+        "  console.log('Main thread running');",
+        "} else {",
+        "  parentPort.postMessage('Hello from worker');",
+        "}"
+      ],
+      "options": [
+        "Main thread running / Main received: Hello from worker",
+        "Main received: Hello from worker / Main thread running",
+        "Hello from worker / Main thread running",
+        "Error — Worker threads cannot communicate with the main thread"
+      ],
+      "answer": "Main thread running / Main received: Hello from worker",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Scenario:\nAn Express developer wants to serve static files from a /public folder. Which code is correct?",
+      "snippetLines": [
+        "// Option A:",
+        "app.use(express.static('public'));",
+        "",
+        "// Option B:",
+        "app.get('/public', (req, res) => {",
+        "  res.sendFile(path.join(__dirname, 'public'));",
+        "});"
+      ],
+      "options": [
+        "Option B — sendFile is required to serve directories",
+        "Option A — express.static() serves all files in the public directory automatically under their respective paths",
+        "Both are equivalent for serving a directory of static files",
+        "Neither — Express cannot serve static files without a separate server"
+      ],
+      "answer": "Option A — express.static() serves all files in the public directory automatically under their respective paths",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 29,
+      "question": "What is the difference between app.use() and app.get() in Express?",
+      "options": [
+        "app.use() only works with POST requests; app.get() handles GET requests",
+        "app.use() registers middleware that applies to all HTTP methods and matches any path starting with the given prefix; app.get() registers a route handler only for HTTP GET requests on an exact path",
+        "app.use() sends a response; app.get() only reads request data",
+        "Both are identical — the method name does not affect routing"
+      ],
+      "answer": "app.use() registers middleware that applies to all HTTP methods and matches any path starting with the given prefix; app.get() registers a route handler only for HTTP GET requests on an exact path",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "layout",
+      "diagramData": {
+        "representation": "Express app.use() vs app.get() Path Matching",
+        "values": [
+          "app.use('/api') → matches: /api, /api/users, /api/products/1 (prefix match, all methods)",
+          "app.get('/api') → matches ONLY: GET /api (exact path, GET method only)",
+          "app.use(fn) (no path) → matches ALL routes, ALL methods",
+          "Middleware order matters — app.use() above routes runs first"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "question": "Scenario:\nA developer reads URL parameters and query strings in Express:\n\nGET /products/42?colour=red&size=L\n\napp.get('/products/:id', (req, res) => { ... });\n\nHow are :id, colour, and size accessed?",
+      "options": [
+        "req.params.id = '42', req.query.colour = 'red', req.query.size = 'L'",
+        "req.body.id = '42', req.body.colour = 'red', req.body.size = 'L'",
+        "req.url.id = '42', req.url.colour = 'red', req.url.size = 'L'",
+        "req.params.id = '42', req.params.colour = 'red', req.params.size = 'L'"
+      ],
+      "answer": "req.params.id = '42', req.query.colour = 'red', req.query.size = 'L'",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 31,
+      "question": "What does this React component render when the button is clicked the first time?",
+      "snippetLines": [
+        "import { useState } from 'react';",
+        "function App() {",
+        "  const [count, setCount] = useState(0);",
+        "  const increment = () => setCount(prev => prev + 1);",
+        "  return (",
+        "    <div>",
+        "      <p>{count}</p>",
+        "      <button onClick={increment}>+</button>",
+        "    </div>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "0 — setCount with functional update still uses stale state",
+        "1 — functional updater (prev => prev + 1) always uses the latest state",
+        "2 — React batches the update and runs it twice",
+        "undefined — count cannot be set with a functional form"
+      ],
+      "answer": "1 — functional updater (prev => prev + 1) always uses the latest state",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Scenario:\nA developer builds a React app with this context setup. What does ComponentB receive as value?",
+      "diagramType": "component",
+      "diagramData": {
+        "representation": "React Context — Provider to Consumer Data Flow",
+        "values": [
+          "const ThemeContext = React.createContext('light');",
+          "App renders: <ThemeContext.Provider value='dark'>",
+          "  <ComponentA>",
+          "    <ComponentB />   ← useContext(ThemeContext)",
+          "  </ComponentA>",
+          "</ThemeContext.Provider>",
+          "ComponentB calls: const theme = useContext(ThemeContext)"
+        ]
+      },
+      "options": [
+        "'light' — the default context value is always used",
+        "'dark' — useContext reads the nearest Provider's value above it in the tree",
+        "undefined — context values are not passed through intermediate components",
+        "Error — useContext requires the consumer to be a direct child of Provider"
+      ],
+      "answer": "'dark' — useContext reads the nearest Provider's value above it in the tree",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 33,
+      "question": "What does this React code output on first render and after clicking the button once?",
+      "snippetLines": [
+        "import { useReducer } from 'react';",
+        "const reducer = (state, action) => {",
+        "  switch(action.type) {",
+        "    case 'inc': return { count: state.count + 1 };",
+        "    case 'dec': return { count: state.count - 1 };",
+        "    default: return state;",
+        "  }",
+        "};",
+        "function App() {",
+        "  const [state, dispatch] = useReducer(reducer, { count: 5 });",
+        "  return <button onClick={() => dispatch({ type: 'inc' })}>{state.count}</button>;",
+        "}"
+      ],
+      "options": [
+        "Renders 0 first, then 1 after click",
+        "Renders 5 first, then 6 after click",
+        "Renders 5 first, then 5 after click — dispatch is asynchronous",
+        "Error — useReducer initial state must be a primitive"
+      ],
+      "answer": "Renders 5 first, then 6 after click",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "What is the output of this React code using useMemo?",
+      "snippetLines": [
+        "import { useState, useMemo } from 'react';",
+        "function App() {",
+        "  const [a, setA] = useState(2);",
+        "  const [b, setB] = useState(3);",
+        "  const product = useMemo(() => {",
+        "    console.log('computing');",
+        "    return a * b;",
+        "  }, [a]);",
+        "  return <div onClick={() => setB(b + 1)}>{product}</div>;",
+        "}"
+      ],
+      "options": [
+        "computing logs every time the component re-renders",
+        "computing logs only on first render and when 'a' changes; clicking (which changes 'b') does NOT recompute — product stays the same because b is not in the dependency array",
+        "computing never logs — useMemo is lazy and only runs when product is read",
+        "Error — useMemo must include all used variables in the dependency array"
+      ],
+      "answer": "computing logs only on first render and when 'a' changes; clicking (which changes 'b') does NOT recompute — product stays the same because b is not in the dependency array",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "Scenario:\nA React developer uses the useContext hook to avoid prop drilling. What problem does this pattern solve?",
+      "diagramType": "state-flow",
+      "diagramData": {
+        "representation": "Prop Drilling vs Context",
+        "values": [
+          "PROP DRILLING: App (user) → Layout (user prop) → Sidebar (user prop) → UserAvatar (user prop)",
+          "  Each intermediate component passes user prop even if it doesn't use it",
+          "CONTEXT: App creates UserContext.Provider with value={user}",
+          "  UserAvatar calls useContext(UserContext) — directly reads user",
+          "  Layout and Sidebar need no user prop at all"
+        ]
+      },
+      "options": [
+        "Context prevents unnecessary re-renders better than props",
+        "Context eliminates the need to pass props through intermediate components that don't use the data — solving prop drilling",
+        "Context replaces Redux entirely for all global state management needs",
+        "Context makes components stateless by moving all state to the Provider"
+      ],
+      "answer": "Context eliminates the need to pass props through intermediate components that don't use the data — solving prop drilling",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 36,
+      "question": "What does this React code with Refs do?",
+      "snippetLines": [
+        "import { useRef } from 'react';",
+        "function InputFocus() {",
+        "  const inputRef = useRef(null);",
+        "  const handleClick = () => {",
+        "    inputRef.current.focus();",
+        "    inputRef.current.value = 'Auto-filled';",
+        "  };",
+        "  return (",
+        "    <>",
+        "      <input ref={inputRef} type='text' />",
+        "      <button onClick={handleClick}>Fill</button>",
+        "    </>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "Clicking Fill updates React state and triggers a re-render showing 'Auto-filled'",
+        "Clicking Fill directly manipulates the DOM input — focuses it and sets its value to 'Auto-filled' — without triggering a React re-render (ref bypasses React state)",
+        "useRef cannot be used to access DOM elements — use getElementById instead",
+        "inputRef.current.value assignment throws an error — refs are read-only"
+      ],
+      "answer": "Clicking Fill directly manipulates the DOM input — focuses it and sets its value to 'Auto-filled' — without triggering a React re-render (ref bypasses React state)",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "Scenario:\nA developer uses Redux Thunk middleware to handle async actions. What does useDispatch return and how is the thunk invoked?",
+      "snippetLines": [
+        "const fetchUser = (id) => async (dispatch) => {",
+        "  dispatch({ type: 'FETCH_START' });",
+        "  const res = await fetch(`/api/users/${id}`);",
+        "  const data = await res.json();",
+        "  dispatch({ type: 'FETCH_SUCCESS', payload: data });",
+        "};",
+        "// In component:",
+        "const dispatch = useDispatch();",
+        "dispatch(fetchUser(42));"
+      ],
+      "options": [
+        "useDispatch returns the Redux store's state; fetchUser is called with the state",
+        "useDispatch returns the dispatch function; dispatching fetchUser(42) passes the thunk to Redux Thunk middleware which calls it with dispatch — enabling async operations inside actions",
+        "useDispatch subscribes the component to store changes; fetchUser runs automatically",
+        "Error — async functions cannot be dispatched in Redux without a special library"
+      ],
+      "answer": "useDispatch returns the dispatch function; dispatching fetchUser(42) passes the thunk to Redux Thunk middleware which calls it with dispatch — enabling async operations inside actions",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 38,
+      "question": "What is the key rule that Redux reducers must follow, and why?",
+      "options": [
+        "Reducers must be async functions to handle API calls",
+        "Reducers must be pure functions — given the same state and action, they always return the same new state without side effects or mutating the existing state; this enables time-travel debugging, predictable state, and efficient change detection",
+        "Reducers must use switch statements — if/else is not supported",
+        "Reducers must always return a new empty object to reset state"
+      ],
+      "answer": "Reducers must be pure functions — given the same state and action, they always return the same new state without side effects or mutating the existing state; this enables time-travel debugging, predictable state, and efficient change detection",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 39,
+      "question": "Scenario:\nA developer writes this React + Express full-stack data flow. Identify what is WRONG with this component.",
+      "snippetLines": [
+        "function UserList() {",
+        "  const [users, setUsers] = useState([]);",
+        "  fetch('/api/users')",
+        "    .then(r => r.json())",
+        "    .then(data => setUsers(data));",
+        "  return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>;",
+        "}"
+      ],
+      "options": [
+        "fetch() should use POST, not GET for fetching a list",
+        "The fetch call is inside the component body — it runs on every render; setUsers triggers a re-render; this creates an infinite loop. It must be inside useEffect(fn, [])",
+        "useState cannot hold an array — it must be initialised with null",
+        "The map() method needs an index key, not u.id"
+      ],
+      "answer": "The fetch call is inside the component body — it runs on every render; setUsers triggers a re-render; this creates an infinite loop. It must be inside useEffect(fn, [])",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 40,
+      "question": "Scenario:\nA developer deploys a MERN app and the React frontend at localhost:3000 cannot reach the Express API at localhost:5000 due to CORS. Study the solution flow and identify the CORRECT fix.",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "MERN Development CORS Solution Options",
+        "values": [
+          "OPTION A: Add cors npm package to Express → app.use(cors({ origin: 'http://localhost:3000' }))",
+          "OPTION B: Add proxy in React's package.json → 'proxy': 'http://localhost:5000'",
+          "OPTION C: Change React's port to 5000 to match Express",
+          "OPTION D: Disable CORS in the browser via a flag",
+          "Both A and B are valid development solutions; A is also suitable for production"
+        ]
+      },
+      "options": [
+        "Only Option C — ports must match for CORS to be avoided",
+        "Only Option D — browser flags permanently disable CORS",
+        "Both Option A (server-side CORS header via cors middleware) and Option B (package.json proxy for development) are correct; A is recommended for production",
+        "Option B only — package.json proxy works in both development and production"
+      ],
+      "answer": "Both Option A (server-side CORS header via cors middleware) and Option B (package.json proxy for development) are correct; A is recommended for production",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    }
+  ]
+}

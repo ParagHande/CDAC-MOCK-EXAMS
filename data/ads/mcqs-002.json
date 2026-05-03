@@ -1,0 +1,1219 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "Which of the following recurrence correctly represents the time complexity of Merge Sort?",
+      "options": [
+        "T(n)=T(n-1)+O(1)",
+        "T(n)=2T(n/2)+O(n)",
+        "T(n)=T(n/2)+O(1)",
+        "T(n)=2T(n-1)+O(n)"
+      ],
+      "answer": "T(n)=2T(n/2)+O(n)"
+    },
+    {
+      "id": 2,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "In an AVL tree, after an insertion causes an ancestor's balance factor to become +2 with its left child having balance factor +1, which single rotation is applied?",
+      "options": [
+        "Left Rotation (RR)",
+        "Right Rotation (LL)",
+        "Left-Right Rotation (LR)",
+        "Right-Left Rotation (RL)"
+      ],
+      "answer": "Right Rotation (LL)"
+    },
+    {
+      "id": 3,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "Floyd-Warshall algorithm computes all-pairs shortest paths. Its time complexity is:",
+      "options": [
+        "O(V²)",
+        "O(V² log V)",
+        "O(V³)",
+        "O(V·E)"
+      ],
+      "answer": "O(V³)"
+    },
+    {
+      "id": 4,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "In a hash table of size 10 using linear probing, keys 22, 32, 42 are inserted (hash = key%10). What is the probe count to INSERT key 52?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "4"
+    },
+    {
+      "id": 5,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "A complete binary tree with 15 nodes stored in an array (1-indexed). What is the index of the right child of node at index 4?",
+      "options": [
+        "8",
+        "9",
+        "10",
+        "5"
+      ],
+      "answer": "9"
+    },
+    {
+      "id": 6,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "Quicksort worst case occurs when:",
+      "options": [
+        "Pivot always splits array into two equal halves",
+        "Pivot is always the median element",
+        "Array is already sorted and first/last element is chosen as pivot",
+        "Array has all duplicate elements with random pivot"
+      ],
+      "answer": "Array is already sorted and first/last element is chosen as pivot"
+    },
+    {
+      "id": 7,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "Which data structure does Kruskal's algorithm use to efficiently detect cycle formation?",
+      "options": [
+        "Min-Heap",
+        "Adjacency Matrix",
+        "Disjoint Set Union (Union-Find)",
+        "Stack"
+      ],
+      "answer": "Disjoint Set Union (Union-Find)"
+    },
+    {
+      "id": 8,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "question": "The space complexity of a recursive DFS on a graph with V vertices and E edges is:",
+      "options": [
+        "O(E)",
+        "O(V+E)",
+        "O(V)",
+        "O(1)"
+      ],
+      "answer": "O(V)"
+    },
+    {
+      "id": 9,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "Which statement is TRUE for the given tree?",
+      "diagramType": "tree",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": 1,
+            "value": 25,
+            "x": 200,
+            "y": 40
+          },
+          {
+            "id": 2,
+            "value": 16,
+            "x": 120,
+            "y": 110
+          },
+          {
+            "id": 3,
+            "value": 33,
+            "x": 280,
+            "y": 110
+          },
+          {
+            "id": 4,
+            "value": 12,
+            "x": 60,
+            "y": 180
+          },
+          {
+            "id": 5,
+            "value": 17,
+            "x": 180,
+            "y": 180
+          },
+          {
+            "id": 6,
+            "value": 15,
+            "x": 140,
+            "y": 250
+          }
+        ],
+        "edges": [
+          {
+            "from": 1,
+            "to": 2
+          },
+          {
+            "from": 1,
+            "to": 3
+          },
+          {
+            "from": 2,
+            "to": 4
+          },
+          {
+            "from": 2,
+            "to": 5
+          },
+          {
+            "from": 5,
+            "to": 6
+          }
+        ]
+      },
+      "options": [
+        "Given tree is an AVL tree.",
+        "Given tree is not an AVL tree and not a BST.",
+        "Given tree is not an AVL tree but it is a Binary Search Tree.",
+        "Given tree is a complete binary tree."
+      ],
+      "answer": "Given tree is not an AVL tree but it is a Binary Search Tree."
+    },
+    {
+      "id": 10,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "What is the Inorder traversal of the following tree?",
+      "diagramType": "tree",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": 1,
+            "value": 8,
+            "x": 200,
+            "y": 30
+          },
+          {
+            "id": 2,
+            "value": 3,
+            "x": 100,
+            "y": 100
+          },
+          {
+            "id": 3,
+            "value": 11,
+            "x": 300,
+            "y": 100
+          },
+          {
+            "id": 4,
+            "value": 2,
+            "x": 50,
+            "y": 170
+          },
+          {
+            "id": 5,
+            "value": 7,
+            "x": 150,
+            "y": 170
+          },
+          {
+            "id": 6,
+            "value": 14,
+            "x": 260,
+            "y": 170
+          },
+          {
+            "id": 7,
+            "value": 15,
+            "x": 340,
+            "y": 170
+          },
+          {
+            "id": 8,
+            "value": 1,
+            "x": 20,
+            "y": 240
+          },
+          {
+            "id": 9,
+            "value": 9,
+            "x": 120,
+            "y": 240
+          }
+        ],
+        "edges": [
+          {
+            "from": 1,
+            "to": 2
+          },
+          {
+            "from": 1,
+            "to": 3
+          },
+          {
+            "from": 2,
+            "to": 4
+          },
+          {
+            "from": 2,
+            "to": 5
+          },
+          {
+            "from": 3,
+            "to": 6
+          },
+          {
+            "from": 3,
+            "to": 7
+          },
+          {
+            "from": 4,
+            "to": 8
+          },
+          {
+            "from": 5,
+            "to": 9
+          }
+        ]
+      },
+      "options": [
+        "1 2 3 5 7 14 9 15 11",
+        "1 2 3 5 7 9 14 11 15",
+        "1 2 3 5 9 7 14 11 15",
+        "1 2 3 5 7 9 11 14 15"
+      ],
+      "answer": "1 2 3 5 7 9 11 14 15"
+    },
+    {
+      "id": 11,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "Find the MST using Kruskal's algorithm. List the order in which edges are added.",
+      "diagramType": "graph",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": "a",
+            "x": 80,
+            "y": 160
+          },
+          {
+            "id": "b",
+            "x": 200,
+            "y": 70
+          },
+          {
+            "id": "c",
+            "x": 200,
+            "y": 260
+          },
+          {
+            "id": "d",
+            "x": 310,
+            "y": 70
+          },
+          {
+            "id": "e",
+            "x": 310,
+            "y": 230
+          },
+          {
+            "id": "f",
+            "x": 400,
+            "y": 150
+          }
+        ],
+        "edges": [
+          {
+            "from": "a",
+            "to": "b",
+            "weight": 1
+          },
+          {
+            "from": "a",
+            "to": "c",
+            "weight": 6
+          },
+          {
+            "from": "a",
+            "to": "d",
+            "weight": 3
+          },
+          {
+            "from": "b",
+            "to": "d",
+            "weight": 4
+          },
+          {
+            "from": "b",
+            "to": "f",
+            "weight": 2
+          },
+          {
+            "from": "c",
+            "to": "d",
+            "weight": 2
+          },
+          {
+            "from": "c",
+            "to": "e",
+            "weight": 4
+          },
+          {
+            "from": "d",
+            "to": "f",
+            "weight": 1
+          },
+          {
+            "from": "d",
+            "to": "e",
+            "weight": 3
+          },
+          {
+            "from": "e",
+            "to": "f",
+            "weight": 5
+          },
+          {
+            "from": "c",
+            "to": "f",
+            "weight": 7
+          }
+        ]
+      },
+      "options": [
+        "a-b, d-f, b-f, c-d, d-e",
+        "a-b, b-f, d-f, d-c, d-e",
+        "d-f, d-c, f-b, a-b, d-e",
+        "None of the above"
+      ],
+      "answer": "a-b, d-f, b-f, c-d, d-e"
+    },
+    {
+      "id": 12,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "Apply Dijkstra's algorithm starting from node S. What is the shortest distance from S to E?",
+      "diagramType": "graph",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": "S",
+            "x": 60,
+            "y": 160
+          },
+          {
+            "id": "A",
+            "x": 180,
+            "y": 60
+          },
+          {
+            "id": "B",
+            "x": 180,
+            "y": 260
+          },
+          {
+            "id": "C",
+            "x": 320,
+            "y": 60
+          },
+          {
+            "id": "E",
+            "x": 320,
+            "y": 260
+          }
+        ],
+        "edges": [
+          {
+            "from": "S",
+            "to": "A",
+            "weight": 10
+          },
+          {
+            "from": "S",
+            "to": "B",
+            "weight": 5
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "weight": 1
+          },
+          {
+            "from": "A",
+            "to": "B",
+            "weight": 2
+          },
+          {
+            "from": "B",
+            "to": "A",
+            "weight": 3
+          },
+          {
+            "from": "B",
+            "to": "E",
+            "weight": 2
+          },
+          {
+            "from": "C",
+            "to": "E",
+            "weight": 4
+          }
+        ]
+      },
+      "options": [
+        "7",
+        "9",
+        "11",
+        "8"
+      ],
+      "answer": "7"
+    },
+    {
+      "id": 13,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "What is the Preorder traversal of the following BST?",
+      "diagramType": "tree",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": 1,
+            "value": 50,
+            "x": 220,
+            "y": 40
+          },
+          {
+            "id": 2,
+            "value": 30,
+            "x": 120,
+            "y": 120
+          },
+          {
+            "id": 3,
+            "value": 70,
+            "x": 320,
+            "y": 120
+          },
+          {
+            "id": 4,
+            "value": 20,
+            "x": 60,
+            "y": 200
+          },
+          {
+            "id": 5,
+            "value": 40,
+            "x": 180,
+            "y": 200
+          },
+          {
+            "id": 6,
+            "value": 60,
+            "x": 270,
+            "y": 200
+          },
+          {
+            "id": 7,
+            "value": 80,
+            "x": 380,
+            "y": 200
+          }
+        ],
+        "edges": [
+          {
+            "from": 1,
+            "to": 2
+          },
+          {
+            "from": 1,
+            "to": 3
+          },
+          {
+            "from": 2,
+            "to": 4
+          },
+          {
+            "from": 2,
+            "to": 5
+          },
+          {
+            "from": 3,
+            "to": 6
+          },
+          {
+            "from": 3,
+            "to": 7
+          }
+        ]
+      },
+      "options": [
+        "20 30 40 50 60 70 80",
+        "50 30 20 40 70 60 80",
+        "50 70 80 60 30 40 20",
+        "20 40 30 60 80 70 50"
+      ],
+      "answer": "50 30 20 40 70 60 80"
+    },
+    {
+      "id": 14,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "Which is the correct adjacency matrix for the given undirected graph?",
+      "diagramType": "graph",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": "A",
+            "x": 80,
+            "y": 80
+          },
+          {
+            "id": "B",
+            "x": 240,
+            "y": 80
+          },
+          {
+            "id": "C",
+            "x": 80,
+            "y": 220
+          },
+          {
+            "id": "D",
+            "x": 240,
+            "y": 220
+          }
+        ],
+        "edges": [
+          {
+            "from": "A",
+            "to": "B",
+            "weight": 1
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "weight": 1
+          },
+          {
+            "from": "B",
+            "to": "D",
+            "weight": 1
+          },
+          {
+            "from": "C",
+            "to": "D",
+            "weight": 1
+          }
+        ]
+      },
+      "options": [
+        "A[0,1,1,0] B[1,0,0,1] C[1,0,0,1] D[0,1,1,0]",
+        "A[0,1,0,0] B[1,0,1,0] C[0,1,0,1] D[0,0,1,0]",
+        "A[0,1,1,1] B[1,0,0,1] C[1,0,0,1] D[1,1,1,0]",
+        "A[1,1,1,0] B[1,0,0,1] C[1,0,0,1] D[0,1,1,1]"
+      ],
+      "answer": "A[0,1,1,0] B[1,0,0,1] C[1,0,0,1] D[0,1,1,0]"
+    },
+    {
+      "id": 15,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "What is the Postorder traversal of the following binary tree?",
+      "diagramType": "tree",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": 1,
+            "value": 1,
+            "x": 200,
+            "y": 40
+          },
+          {
+            "id": 2,
+            "value": 2,
+            "x": 110,
+            "y": 120
+          },
+          {
+            "id": 3,
+            "value": 3,
+            "x": 290,
+            "y": 120
+          },
+          {
+            "id": 4,
+            "value": 4,
+            "x": 60,
+            "y": 200
+          },
+          {
+            "id": 5,
+            "value": 5,
+            "x": 160,
+            "y": 200
+          }
+        ],
+        "edges": [
+          {
+            "from": 1,
+            "to": 2
+          },
+          {
+            "from": 1,
+            "to": 3
+          },
+          {
+            "from": 2,
+            "to": 4
+          },
+          {
+            "from": 2,
+            "to": 5
+          }
+        ]
+      },
+      "options": [
+        "4 5 2 3 1",
+        "1 2 4 5 3",
+        "4 2 5 1 3",
+        "1 2 3 4 5"
+      ],
+      "answer": "4 5 2 3 1"
+    },
+    {
+      "id": 16,
+      "difficulty": "HARD",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "Perform BFS starting from node A. What is the correct BFS traversal order?",
+      "diagramType": "graph",
+      "diagramData": {
+        "nodes": [
+          {
+            "id": "A",
+            "x": 80,
+            "y": 160
+          },
+          {
+            "id": "B",
+            "x": 200,
+            "y": 70
+          },
+          {
+            "id": "C",
+            "x": 200,
+            "y": 260
+          },
+          {
+            "id": "D",
+            "x": 320,
+            "y": 70
+          },
+          {
+            "id": "E",
+            "x": 320,
+            "y": 260
+          }
+        ],
+        "edges": [
+          {
+            "from": "A",
+            "to": "B",
+            "weight": 1
+          },
+          {
+            "from": "A",
+            "to": "C",
+            "weight": 1
+          },
+          {
+            "from": "B",
+            "to": "D",
+            "weight": 1
+          },
+          {
+            "from": "C",
+            "to": "E",
+            "weight": 1
+          },
+          {
+            "from": "D",
+            "to": "E",
+            "weight": 1
+          }
+        ]
+      },
+      "options": [
+        "A B C D E",
+        "A D B E C",
+        "A B D C E",
+        "A C E B D"
+      ],
+      "answer": "A B C D E"
+    },
+    {
+      "id": 17,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "A stack contains elements [3, 7, 2, 9] (top=9). After push(5), pop(), push(1), pop(), what is the top of the stack?",
+      "options": [
+        "7",
+        "2",
+        "9",
+        "1"
+      ],
+      "answer": "2"
+    },
+    {
+      "id": 18,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "A circular queue of size 5 has front=2, rear=4. After two enqueue operations, what is the new rear index?",
+      "options": [
+        "6",
+        "0",
+        "1",
+        "5"
+      ],
+      "answer": "1"
+    },
+    {
+      "id": 19,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "A BST is built by inserting: 50, 30, 70, 20, 40 in that order. What is the height of the resulting BST? (Height of single node = 0)",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2"
+    },
+    {
+      "id": 20,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "scenario": true,
+      "question": "An array stores a max-heap: [90, 70, 80, 40, 60, 75, 20]. After extractMax(), what is the new root after re-heapification?",
+      "options": [
+        "70",
+        "80",
+        "75",
+        "60"
+      ],
+      "answer": "80"
+    },
+    {
+      "id": 21,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "question": "What is the maximum number of nodes in a binary tree of height h (root at height 0)?",
+      "options": [
+        "2h",
+        "2^h",
+        "2^(h+1) - 1",
+        "h²"
+      ],
+      "answer": "2^(h+1) - 1"
+    },
+    {
+      "id": 22,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "question": "In a circular queue implemented with array of size n, the condition for FULL is:",
+      "options": [
+        "rear == front",
+        "rear == n - 1",
+        "(rear + 1) % n == front",
+        "front == -1"
+      ],
+      "answer": "(rear + 1) % n == front"
+    },
+    {
+      "id": 23,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "question": "Which traversal of a BST gives nodes in non-decreasing (sorted) order?",
+      "options": [
+        "Preorder",
+        "Postorder",
+        "Inorder",
+        "Level Order"
+      ],
+      "answer": "Inorder"
+    },
+    {
+      "id": 24,
+      "difficulty": "MEDIUM",
+      "type": "THEORETICAL",
+      "question": "Which collision resolution technique suffers from PRIMARY clustering?",
+      "options": [
+        "Separate Chaining",
+        "Quadratic Probing",
+        "Double Hashing",
+        "Linear Probing"
+      ],
+      "answer": "Linear Probing"
+    },
+    {
+      "id": 25,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What is the time complexity of the following code?",
+      "snippetLines": [
+        "int count = 0;",
+        "for (int i = 1; i < n; i *= 2) {",
+        "    for (int j = 0; j < i; j++) {",
+        "        count++;",
+        "    }",
+        "}"
+      ],
+      "options": [
+        "O(n log n)",
+        "O(n)",
+        "O(log n)",
+        "O(n²)"
+      ],
+      "answer": "O(n)"
+    },
+    {
+      "id": 26,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What value does the following method return when called as mystery(5)?",
+      "snippetLines": [
+        "public static int mystery(int n) {",
+        "    if (n <= 1)",
+        "        return n;",
+        "    return mystery(n - 1) + mystery(n - 2);",
+        "}"
+      ],
+      "options": [
+        "5",
+        "8",
+        "4",
+        "3"
+      ],
+      "answer": "5"
+    },
+    {
+      "id": 27,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "After ONE full pass of the following Selection Sort code on arr={64,25,12,22,11}, what is the array state?",
+      "snippetLines": [
+        "int minIdx = 0;",
+        "for (int j = 1; j < arr.length; j++) {",
+        "    if (arr[j] < arr[minIdx])",
+        "        minIdx = j;",
+        "}",
+        "int temp = arr[minIdx];",
+        "arr[minIdx] = arr[0];",
+        "arr[0] = temp;"
+      ],
+      "options": [
+        "{11, 25, 12, 22, 64}",
+        "{11, 64, 25, 22, 12}",
+        "{12, 25, 64, 22, 11}",
+        "{25, 11, 12, 22, 64}"
+      ],
+      "answer": "{11, 25, 12, 22, 64}"
+    },
+    {
+      "id": 28,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What does the following function return for a non-empty singly linked list?",
+      "snippetLines": [
+        "public int func(Node head) {",
+        "    int count = 0;",
+        "    Node temp = head;",
+        "    while (temp != null) {",
+        "        count++;",
+        "        temp = temp.next;",
+        "    }",
+        "    return count;",
+        "}"
+      ],
+      "options": [
+        "Data of the last node",
+        "Total number of nodes in the list",
+        "Index of the middle node",
+        "Data of the first node"
+      ],
+      "answer": "Total number of nodes in the list"
+    },
+    {
+      "id": 29,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What is the time complexity of the following nested loop?",
+      "snippetLines": [
+        "int a = 0;",
+        "for (int i = 0; i < n; i++) {",
+        "    for (int j = i; j < n; j++) {",
+        "        a += (i + j);",
+        "    }",
+        "}"
+      ],
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(n²)",
+        "O(n³)"
+      ],
+      "answer": "O(n²)"
+    },
+    {
+      "id": 30,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What is printed when the following binary search runs with arr={2,4,6,8,10,12}, target=7?",
+      "snippetLines": [
+        "int low = 0, high = arr.length - 1, result = -1;",
+        "while (low <= high) {",
+        "    int mid = (low + high) / 2;",
+        "    if (arr[mid] == target) { result = mid; break; }",
+        "    else if (arr[mid] < target) low = mid + 1;",
+        "    else high = mid - 1;",
+        "}",
+        "System.out.println(result);"
+      ],
+      "options": [
+        "3",
+        "0",
+        "-1",
+        "6"
+      ],
+      "answer": "-1"
+    },
+    {
+      "id": 31,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What does the following recursive function compute when called as power(2, 10)?",
+      "snippetLines": [
+        "public static int power(int base, int exp) {",
+        "    if (exp == 0) return 1;",
+        "    if (exp % 2 == 0)",
+        "        return power(base * base, exp / 2);",
+        "    return base * power(base, exp - 1);",
+        "}"
+      ],
+      "options": [
+        "512",
+        "1024",
+        "256",
+        "2048"
+      ],
+      "answer": "1024"
+    },
+    {
+      "id": 32,
+      "difficulty": "HARD",
+      "type": "CODE",
+      "question": "What is the time complexity of the following code?",
+      "snippetLines": [
+        "int a = 0, i = N;",
+        "while (i > 0) {",
+        "    a += i;",
+        "    i /= 2;",
+        "}"
+      ],
+      "options": [
+        "O(N)",
+        "O(Sqrt(N))",
+        "O(N/2)",
+        "O(log N)"
+      ],
+      "answer": "O(log N)"
+    },
+    {
+      "id": 33,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What is printed by the following Java code?",
+      "snippetLines": [
+        "int[] arr = {1, 2, 3, 4, 5};",
+        "int result = 0;",
+        "for (int i = 0; i < arr.length; i++) {",
+        "    result += arr[i];",
+        "}",
+        "System.out.println(result);"
+      ],
+      "options": [
+        "10",
+        "15",
+        "5",
+        "0"
+      ],
+      "answer": "15"
+    },
+    {
+      "id": 34,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What is the output of the following recursive call sum(4)?",
+      "snippetLines": [
+        "public static int sum(int n) {",
+        "    if (n == 0) return 0;",
+        "    return n + sum(n - 1);",
+        "}"
+      ],
+      "options": [
+        "4",
+        "6",
+        "10",
+        "0"
+      ],
+      "answer": "10"
+    },
+    {
+      "id": 35,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "How many times is 'Hello' printed?",
+      "snippetLines": [
+        "for (int i = 0; i < 4; i++) {",
+        "    for (int j = i; j < 4; j++) {",
+        "        System.out.println(\"Hello\");",
+        "    }",
+        "}"
+      ],
+      "options": [
+        "16",
+        "10",
+        "8",
+        "4"
+      ],
+      "answer": "10"
+    },
+    {
+      "id": 36,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What is the output of the following stack operations?",
+      "snippetLines": [
+        "Stack<Integer> st = new Stack<>();",
+        "st.push(10);",
+        "st.push(20);",
+        "st.push(30);",
+        "st.pop();",
+        "st.push(40);",
+        "System.out.println(st.peek());"
+      ],
+      "options": [
+        "10",
+        "20",
+        "30",
+        "40"
+      ],
+      "answer": "40"
+    },
+    {
+      "id": 37,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What does fib(6) return using the following iterative implementation?",
+      "snippetLines": [
+        "public static int fib(int n) {",
+        "    if (n <= 1) return n;",
+        "    int a = 0, b = 1;",
+        "    for (int i = 2; i <= n; i++) {",
+        "        int c = a + b;",
+        "        a = b;",
+        "        b = c;",
+        "    }",
+        "    return b;",
+        "}"
+      ],
+      "options": [
+        "6",
+        "8",
+        "13",
+        "5"
+      ],
+      "answer": "8"
+    },
+    {
+      "id": 38,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What is printed after the following linked list traversal (list: 10 → 20 → 30 → null)?",
+      "snippetLines": [
+        "Node temp = head;",
+        "while (temp != null) {",
+        "    System.out.print(temp.data + \" \");",
+        "    temp = temp.next;",
+        "}"
+      ],
+      "options": [
+        "30 20 10",
+        "10 20 30",
+        "10 20",
+        "20 30"
+      ],
+      "answer": "10 20 30"
+    },
+    {
+      "id": 39,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What does the following code snippet correctly implement?",
+      "snippetLines": [
+        "public static void bubbleSort(int arr[]) {",
+        "    int n = arr.length;",
+        "    for (int i = 0; i < n - 1; i++) {",
+        "        for (int j = 0; j < n - i - 1; j++) {",
+        "            if (arr[j] > arr[j+1]) {",
+        "                int temp = arr[j];",
+        "                arr[j] = arr[j+1];",
+        "                arr[j+1] = temp;",
+        "            }",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "options": [
+        "Selection Sort ascending",
+        "Bubble Sort ascending",
+        "Insertion Sort ascending",
+        "Bubble Sort descending"
+      ],
+      "answer": "Bubble Sort ascending"
+    },
+    {
+      "id": 40,
+      "difficulty": "MEDIUM",
+      "type": "CODE",
+      "question": "What is the output of mystery(16)?",
+      "snippetLines": [
+        "public static int mystery(int n) {",
+        "    if (n == 1) return 0;",
+        "    return 1 + mystery(n / 2);",
+        "}"
+      ],
+      "options": [
+        "3",
+        "4",
+        "5",
+        "2"
+      ],
+      "answer": "4"
+    }
+  ]
+}

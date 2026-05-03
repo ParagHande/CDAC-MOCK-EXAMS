@@ -1,0 +1,1044 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Study this HTTP/1.1 persistent connection flow versus HTTP/2 multiplexing. A page needs 6 sub-resources. What is the key problem HTTP/1.1 suffers from that HTTP/2 solves?\n\nHTTP/1.1: GET /a → wait for response → GET /b → wait → GET /c ...\nHTTP/2:   Streams 1,3,5,7,9,11 sent simultaneously over ONE TCP connection",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "HTTP/1.1 vs HTTP/2 Multiplexing",
+        "values": [
+          "HTTP/1.1 — sequential requests per connection:",
+          "  Connection 1: GET /style.css → wait → GET /app.js → wait → GET /logo.png",
+          "  Connection 2: GET /font.woff → wait → GET /data.json → wait",
+          "  Problem: head-of-line blocking — each request waits for prior to complete",
+          "",
+          "HTTP/2 — multiple streams over ONE TCP connection simultaneously:",
+          "  Stream 1: GET /style.css  ─┐",
+          "  Stream 3: GET /app.js     ─┤ all in flight at once",
+          "  Stream 5: GET /logo.png   ─┘",
+          "  No head-of-line blocking at the HTTP layer"
+        ]
+      },
+      "options": [
+        "HTTP/1.1 uses UDP; HTTP/2 uses TCP — the protocol change eliminates blocking",
+        "HTTP/1.1 suffers from head-of-line blocking — each request on a connection must wait for the prior response; HTTP/2 multiplexes multiple streams over one TCP connection simultaneously",
+        "HTTP/1.1 cannot handle more than 2 connections; HTTP/2 allows unlimited connections",
+        "HTTP/1.1 sends headers in plain text; HTTP/2 compresses them with gzip"
+      ],
+      "answer": "HTTP/1.1 suffers from head-of-line blocking — each request on a connection must wait for the prior response; HTTP/2 multiplexes multiple streams over one TCP connection simultaneously",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "Scenario:\nA developer inspects this HTTP response. What does the ETag header enable, and what request header does the browser send on the NEXT visit to validate the cache?\n\nHTTP/1.1 200 OK\nETag: \"33a64df5\"\nCache-Control: no-cache\nContent-Type: application/json",
+      "options": [
+        "ETag is a version number for API versioning; the browser sends API-Version on the next visit",
+        "ETag is a fingerprint of the response content; on the next visit the browser sends If-None-Match: \"33a64df5\" — if content is unchanged the server responds 304 Not Modified, avoiding retransmission",
+        "ETag enables server push; the browser sends Push-Control on the next visit",
+        "ETag is only used with POST requests; GET requests use Last-Modified instead"
+      ],
+      "answer": "ETag is a fingerprint of the response content; on the next visit the browser sends If-None-Match: \"33a64df5\" — if content is unchanged the server responds 304 Not Modified, avoiding retransmission",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 3,
+      "question": "What is the difference between an HTTP cookie with the HttpOnly flag and one without it?",
+      "options": [
+        "HttpOnly cookies are sent only over HTTPS; non-HttpOnly cookies work on both HTTP and HTTPS",
+        "HttpOnly cookies cannot be accessed or modified by JavaScript (document.cookie); this mitigates XSS attacks that attempt to steal session tokens via script injection",
+        "HttpOnly cookies are automatically encrypted; regular cookies are stored in plain text",
+        "HttpOnly cookies expire when the browser closes; regular cookies persist indefinitely"
+      ],
+      "answer": "HttpOnly cookies cannot be accessed or modified by JavaScript (document.cookie); this mitigates XSS attacks that attempt to steal session tokens via script injection",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "Scenario:\nA developer traces this sequence when a user submits a login form on a stateless HTTP server. What mechanism maintains the user session across subsequent requests?",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "Stateless HTTP Session Management via Cookie",
+        "values": [
+          "Step 1: POST /login { username, password }",
+          "Step 2: Server authenticates → creates session record in DB → generates session ID",
+          "Step 3: Server responds: Set-Cookie: sessionId=abc123; HttpOnly; Secure",
+          "Step 4: Browser stores cookie automatically",
+          "Step 5: GET /dashboard → browser auto-sends Cookie: sessionId=abc123",
+          "Step 6: Server looks up session ID → retrieves user data → serves dashboard",
+          "Step 7: POST /logout → server invalidates session → Set-Cookie: sessionId=; Max-Age=0"
+        ]
+      },
+      "options": [
+        "HTTP itself tracks the user — stateless is a misnomer",
+        "The browser stores the session ID in a cookie and automatically sends it with every subsequent request; the server maps the session ID back to user data in its session store",
+        "The server embeds user data in every response body so the browser re-sends it",
+        "localStorage automatically syncs session data to the server on each request"
+      ],
+      "answer": "The browser stores the session ID in a cookie and automatically sends it with every subsequent request; the server maps the session ID back to user data in its session store",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 5,
+      "question": "A developer uses an HTML5 form with multiple validation constraints. What built-in browser validation will prevent submission?",
+      "snippetLines": [
+        "<form id='reg'>",
+        "  <input type='text'   name='username' required minlength='3' maxlength='20'>",
+        "  <input type='email'  name='email'    required>",
+        "  <input type='number' name='age'      min='18' max='99' step='1'>",
+        "  <input type='url'    name='website'>",
+        "  <input type='submit' value='Register'>",
+        "</form>"
+      ],
+      "options": [
+        "Browser validates only the first field with an error and stops there",
+        "Browser validates fields in DOM order — username (required + minlength), email (required + format), age (min/max/step), website (URL format); submission is blocked if any field is invalid",
+        "HTML5 validation only checks required fields; minlength and min/max are ignored without JavaScript",
+        "Browser skips validation entirely if JavaScript is present on the page"
+      ],
+      "answer": "Browser validates fields in DOM order — username (required + minlength), email (required + format), age (min/max/step), website (URL format); submission is blocked if any field is invalid",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "Study this DOM structure and event flow. When the user clicks the button, in what order do the listeners fire with the default bubbling phase?",
+      "diagramType": "dom",
+      "diagramData": {
+        "representation": "DOM Event Bubbling — click on button",
+        "values": [
+          "document",
+          "  └── body",
+          "       └── div#outer  ← addEventListener('click', fnOuter)",
+          "            └── div#inner  ← addEventListener('click', fnInner)",
+          "                 └── button#btn  ← addEventListener('click', fnBtn)",
+          "",
+          "Default addEventListener: useCapture = false → bubbling phase",
+          "Bubble phase order (bottom-up): button → div#inner → div#outer → body → document"
+        ]
+      },
+      "options": [
+        "fnOuter → fnInner → fnBtn (capture phase top-down)",
+        "fnBtn → fnInner → fnOuter (bubble phase — default addEventListener uses bubbling)",
+        "fnBtn only — bubbling stops at the target element",
+        "All three fire simultaneously in parallel"
+      ],
+      "answer": "fnBtn → fnInner → fnOuter (bubble phase — default addEventListener uses bubbling)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "A developer uses the HTML5 Canvas API. Which code correctly draws a filled blue circle?",
+      "snippetLines": [
+        "const ctx = document.getElementById('c').getContext('2d');",
+        "",
+        "// Option A:",
+        "ctx.fillStyle = 'blue';",
+        "ctx.beginPath();",
+        "ctx.arc(100, 100, 50, 0, Math.PI * 2);",
+        "ctx.fill();",
+        "",
+        "// Option B:",
+        "ctx.fillStyle = 'blue';",
+        "ctx.fillRect(100, 100, 50, 50);"
+      ],
+      "options": [
+        "Option B — fillRect draws a circle when width and height are equal",
+        "Option A — arc() traces a full circle path (0 to 2PI), fill() fills it with the current fillStyle",
+        "Both options draw the same shape — arc and rect are aliases",
+        "Neither — circles require ctx.drawCircle() which is not shown"
+      ],
+      "answer": "Option A — arc() traces a full circle path (0 to 2PI), fill() fills it with the current fillStyle",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "What does this HTML5 Web Storage code output in a NEW browser tab opened to the same origin?",
+      "snippetLines": [
+        "// Tab 1 runs:",
+        "localStorage.setItem('theme', 'dark');",
+        "sessionStorage.setItem('token', 'xyz999');",
+        "",
+        "// User opens Tab 2 to same origin and runs:",
+        "console.log(localStorage.getItem('theme'));",
+        "console.log(sessionStorage.getItem('token'));"
+      ],
+      "options": [
+        "'dark' / 'xyz999' — both storages are shared across all tabs of the same origin",
+        "'dark' / null — localStorage persists across tabs; sessionStorage is isolated per tab and not shared with new tabs",
+        "null / 'xyz999' — localStorage is cleared when a new tab opens",
+        "null / null — both storages are scoped to the originating tab only"
+      ],
+      "answer": "'dark' / null — localStorage persists across tabs; sessionStorage is isolated per tab and not shared with new tabs",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "A developer applies these CSS rules. What colour is the text of the <p> element and why?",
+      "snippetLines": [
+        "body { color: red; }",
+        "div  { color: blue; }",
+        "",
+        "<!-- HTML -->",
+        "<body>",
+        "  <div>",
+        "    <p>What colour am I?</p>",
+        "  </div>",
+        "</body>"
+      ],
+      "options": [
+        "Red — body colour overrides div colour for all descendants",
+        "Blue — the p inherits color from its nearest ancestor with an explicit color value, which is the div (blue)",
+        "Black — p has no explicit colour so it defaults to the browser default",
+        "Blue — only block elements inherit colour from their parent"
+      ],
+      "answer": "Blue — the p inherits color from its nearest ancestor with an explicit color value, which is the div (blue)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 10,
+      "question": "A developer writes a CSS Grid layout with 3 explicit columns and 7 child items. How many implicit rows are created and what is their height?",
+      "diagramType": "layout",
+      "diagramData": {
+        "representation": "CSS Grid — explicit columns, implicit rows",
+        "values": [
+          ".grid {",
+          "  display: grid;",
+          "  grid-template-columns: repeat(3, 1fr);",
+          "  grid-auto-rows: 100px;",
+          "}",
+          "/* 7 child divs placed into the grid */",
+          "",
+          "Row 1: items 1, 2, 3  (explicit row — no explicit height set)",
+          "Row 2: items 4, 5, 6  (implicit row → grid-auto-rows = 100px)",
+          "Row 3: item  7        (implicit row → grid-auto-rows = 100px)"
+        ]
+      },
+      "options": [
+        "2 implicit rows are created at 100px each to hold items 4 through 7",
+        "1 implicit row is created; remaining items overflow outside the grid",
+        "No implicit rows — CSS Grid only places items in explicitly defined rows",
+        "7 rows are created — one per item regardless of columns"
+      ],
+      "answer": "2 implicit rows are created at 100px each to hold items 4 through 7",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "What does this JavaScript code output? Focus on how 'this' behaves in arrow functions vs regular functions.",
+      "snippetLines": [
+        "const obj = {",
+        "  name: 'CDAC',",
+        "  regular: function() { return this.name; },",
+        "  arrow: () => this.name",
+        "};",
+        "console.log(obj.regular());",
+        "console.log(obj.arrow());"
+      ],
+      "options": [
+        "'CDAC' / 'CDAC'",
+        "'CDAC' / undefined",
+        "undefined / 'CDAC'",
+        "TypeError / 'CDAC'"
+      ],
+      "answer": "'CDAC' / undefined",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "What is the output of this code demonstrating JavaScript's call, apply, and bind methods?",
+      "snippetLines": [
+        "function greet(greeting, punct) {",
+        "  return `${greeting}, ${this.name}${punct}`;",
+        "}",
+        "const user = { name: 'Alice' };",
+        "console.log(greet.call(user, 'Hello', '!'));",
+        "console.log(greet.apply(user, ['Hi', '?']));",
+        "const bound = greet.bind(user, 'Hey');",
+        "console.log(bound('...'));"
+      ],
+      "options": [
+        "Hello, Alice! / Hi, Alice? / Hey, Alice...",
+        "Hello, undefined! / Hi, undefined? / Hey, undefined...",
+        "Hello, Alice! / Hi, Alice? / TypeError",
+        "TypeError on all three — greet is not a method of user"
+      ],
+      "answer": "Hello, Alice! / Hi, Alice? / Hey, Alice...",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 13,
+      "question": "What does this ES6 class code output?",
+      "snippetLines": [
+        "class Shape {",
+        "  constructor(color) { this.color = color; }",
+        "  static defaultColor() { return 'black'; }",
+        "  describe() { return `A ${this.color} shape`; }",
+        "}",
+        "class Circle extends Shape {",
+        "  constructor(color, r) { super(color); this.r = r; }",
+        "  area() { return Math.PI * this.r ** 2; }",
+        "}",
+        "const c = new Circle('red', 5);",
+        "console.log(c.describe());",
+        "console.log(Shape.defaultColor());",
+        "console.log(c instanceof Shape);"
+      ],
+      "options": [
+        "A red shape / black / false",
+        "A red shape / black / true",
+        "undefined / black / true",
+        "A red shape / undefined / true"
+      ],
+      "answer": "A red shape / black / true",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "What is the output of this code using JavaScript Map and Set?",
+      "snippetLines": [
+        "const map = new Map();",
+        "map.set('a', 1);",
+        "map.set('b', 2);",
+        "map.set('a', 3);",
+        "",
+        "const set = new Set([1, 2, 2, 3, 3, 4]);",
+        "",
+        "console.log(map.size);",
+        "console.log(map.get('a'));",
+        "console.log(set.size);",
+        "console.log([...set]);"
+      ],
+      "options": [
+        "3 / 1 / 6 / [1,2,2,3,3,4]",
+        "2 / 3 / 4 / [1,2,3,4]",
+        "3 / 3 / 4 / [1,2,3,4]",
+        "2 / 1 / 6 / [1,2,3,4]"
+      ],
+      "answer": "2 / 3 / 4 / [1,2,3,4]",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 15,
+      "question": "What does this JavaScript code output? Focus on the temporal dead zone (TDZ) behaviour of 'let'.",
+      "snippetLines": [
+        "console.log(typeof varX);",
+        "console.log(typeof letX);",
+        "var varX = 'hello';",
+        "let letX = 'world';"
+      ],
+      "options": [
+        "'undefined' / 'undefined'",
+        "'undefined' / ReferenceError — letX is in the TDZ before its declaration",
+        "'string' / 'string'",
+        "ReferenceError / ReferenceError"
+      ],
+      "answer": "'undefined' / ReferenceError — letX is in the TDZ before its declaration",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "What is the output of this JavaScript tagged template literal code?",
+      "snippetLines": [
+        "function highlight(strings, ...values) {",
+        "  return strings.reduce((result, str, i) => {",
+        "    return result + str + (values[i] !== undefined ? `[${values[i]}]` : '');",
+        "  }, '');",
+        "}",
+        "const name = 'CDAC';",
+        "const year = 2026;",
+        "console.log(highlight`Welcome to ${name} batch ${year}!`);"
+      ],
+      "options": [
+        "Welcome to CDAC batch 2026!",
+        "Welcome to [CDAC] batch [2026]!",
+        "Welcome to ${name} batch ${year}!",
+        "TypeError — tagged templates cannot use rest parameters"
+      ],
+      "answer": "Welcome to [CDAC] batch [2026]!",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 17,
+      "question": "What does this JavaScript async code output? Analyse sequential await behaviour.",
+      "snippetLines": [
+        "function delay(ms, val) {",
+        "  return new Promise(resolve => setTimeout(() => resolve(val), ms));",
+        "}",
+        "async function run() {",
+        "  const a = await delay(200, 'A');",
+        "  const b = await delay(100, 'B');",
+        "  console.log(a, b);",
+        "}",
+        "run();"
+      ],
+      "options": [
+        "B A — the shorter delay resolves first",
+        "A B — await is sequential; b starts only after a resolves regardless of timings",
+        "A B — both run in parallel and resolve in arrival order",
+        "undefined undefined — delay() does not return the value correctly"
+      ],
+      "answer": "A B — await is sequential; b starts only after a resolves regardless of timings",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "What does this jQuery code do when the DOM is ready?",
+      "snippetLines": [
+        "$(document).ready(function() {",
+        "  $('li').on('mouseenter', function() {",
+        "    $(this).css('background-color', 'yellow');",
+        "  }).on('mouseleave', function() {",
+        "    $(this).css('background-color', '');",
+        "  });",
+        "  $('li:odd').addClass('striped');",
+        "  console.log($('li').length);",
+        "});"
+      ],
+      "options": [
+        "Highlights all li on hover; adds 'striped' to 0-indexed even li; logs total li count",
+        "Highlights each li yellow on mouseenter, removes colour on mouseleave; adds 'striped' to 0-indexed odd li (index 1,3,5...); logs total number of li elements",
+        "Removes all li elements and replaces them with striped divs",
+        "Error — chaining .on() calls is not supported in jQuery"
+      ],
+      "answer": "Highlights each li yellow on mouseenter, removes colour on mouseleave; adds 'striped' to 0-indexed odd li (index 1,3,5...); logs total number of li elements",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "Scenario:\nA developer writes a jQuery AJAX GET call with query parameters. What URL is actually requested and what happens on failure?",
+      "snippetLines": [
+        "$.get('/api/search', { q: 'nodejs', page: 2 }, function(data) {",
+        "  console.log(data);",
+        "}).fail(function(xhr) {",
+        "  console.log('Error:', xhr.status);",
+        "});"
+      ],
+      "options": [
+        "Sends POST /api/search with body { q: 'nodejs', page: 2 }",
+        "Sends GET /api/search?q=nodejs&page=2; on success logs the response data; on failure logs the HTTP status code",
+        "Sends GET /api/search with the object as a JSON body",
+        "Error — $.get() does not support a data parameter for query strings"
+      ],
+      "answer": "Sends GET /api/search?q=nodejs&page=2; on success logs the response data; on failure logs the HTTP status code",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 20,
+      "question": "What is the output of this code using Axios request cancellation with AbortController?",
+      "snippetLines": [
+        "const controller = new AbortController();",
+        "axios.get('/api/data', { signal: controller.signal })",
+        "  .then(res => console.log('Data:', res.data))",
+        "  .catch(err => {",
+        "    if (axios.isCancel(err)) {",
+        "      console.log('Request cancelled');",
+        "    } else {",
+        "      console.log('Error:', err.message);",
+        "    }",
+        "  });",
+        "controller.abort();",
+        "console.log('abort called');"
+      ],
+      "options": [
+        "Data: ... / abort called",
+        "abort called / Request cancelled",
+        "abort called / Error: Network Error",
+        "Request cancelled / abort called"
+      ],
+      "answer": "abort called / Request cancelled",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "Scenario:\nA developer uses the XMLHttpRequest API to send a JSON payload via POST. Identify what is missing from this code.",
+      "snippetLines": [
+        "const xhr = new XMLHttpRequest();",
+        "xhr.open('POST', '/api/save');",
+        "xhr.send(JSON.stringify({ name: 'Alice', age: 30 }));"
+      ],
+      "options": [
+        "The code is correct — XHR automatically sets Content-Type for JSON payloads",
+        "Missing: xhr.setRequestHeader('Content-Type', 'application/json') before send(); without this the server cannot correctly identify and parse the JSON body",
+        "xhr.open() should be called after xhr.send()",
+        "JSON.stringify is not needed — XHR serialises objects automatically"
+      ],
+      "answer": "Missing: xhr.setRequestHeader('Content-Type', 'application/json') before send(); without this the server cannot correctly identify and parse the JSON body",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "What does this Node.js code output? Focus on the order of synchronous vs asynchronous file reading.",
+      "snippetLines": [
+        "const fs = require('fs');",
+        "try {",
+        "  const data = fs.readFileSync('./config.json', 'utf8');",
+        "  console.log('sync:', data.trim());",
+        "} catch(e) {",
+        "  console.log('sync error:', e.code);",
+        "}",
+        "fs.readFile('./config.json', 'utf8', (err, data) => {",
+        "  if (err) { console.log('async error:', err.code); return; }",
+        "  console.log('async:', data.trim());",
+        "});",
+        "console.log('after');"
+      ],
+      "options": [
+        "sync: content / async: content / after",
+        "after / sync: content / async: content",
+        "sync: content / after / async: content",
+        "async: content / sync: content / after"
+      ],
+      "answer": "sync: content / after / async: content",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "Scenario:\nA developer writes a Node.js HTTP server that assembles a POST body manually. What does this streaming pattern demonstrate?",
+      "snippetLines": [
+        "const http = require('http');",
+        "http.createServer((req, res) => {",
+        "  if (req.method === 'POST') {",
+        "    let body = '';",
+        "    req.on('data', chunk => { body += chunk.toString(); });",
+        "    req.on('end', () => {",
+        "      const parsed = JSON.parse(body);",
+        "      res.writeHead(200, {'Content-Type': 'application/json'});",
+        "      res.end(JSON.stringify({ received: parsed }));",
+        "    });",
+        "  }",
+        "}).listen(3000);"
+      ],
+      "options": [
+        "The body is available immediately on req.body without listening to events",
+        "Node.js HTTP streams the request body via 'data' events; the body is assembled chunk by chunk and only fully available in the 'end' event — this is why Express uses body-parser middleware to simplify this pattern",
+        "req.on('data') only works for GET requests; POST requires a different event name",
+        "JSON.parse is called inside the 'data' event handler — this correctly parses partial chunks"
+      ],
+      "answer": "Node.js HTTP streams the request body via 'data' events; the body is assembled chunk by chunk and only fully available in the 'end' event — this is why Express uses body-parser middleware to simplify this pattern",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 24,
+      "question": "What does this Node.js EventEmitter code output?",
+      "snippetLines": [
+        "const EventEmitter = require('events');",
+        "class Logger extends EventEmitter {",
+        "  log(msg) { this.emit('log', msg); }",
+        "}",
+        "const logger = new Logger();",
+        "logger.once('log', msg => console.log('once:', msg));",
+        "logger.on('log',   msg => console.log('on:', msg));",
+        "logger.log('first');",
+        "logger.log('second');"
+      ],
+      "options": [
+        "once: first / on: first / once: second / on: second",
+        "once: first / on: first / on: second",
+        "on: first / on: second",
+        "once: first / on: second"
+      ],
+      "answer": "once: first / on: first / on: second",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 25,
+      "question": "What does this Node.js code output? Focus on Promise.allSettled vs Promise.all behaviour.",
+      "snippetLines": [
+        "const p1 = Promise.resolve('ok');",
+        "const p2 = Promise.reject('fail');",
+        "const p3 = Promise.resolve('done');",
+        "",
+        "Promise.allSettled([p1, p2, p3])",
+        "  .then(results => {",
+        "    results.forEach(r => console.log(r.status, r.value ?? r.reason));",
+        "  });"
+      ],
+      "options": [
+        "Rejects immediately because p2 failed — only logs 'fail'",
+        "fulfilled ok / rejected fail / fulfilled done — allSettled waits for all promises regardless of rejection and reports each result individually",
+        "fulfilled ok / fulfilled done — rejected promises are silently skipped",
+        "TypeError — allSettled is not available in Node.js"
+      ],
+      "answer": "fulfilled ok / rejected fail / fulfilled done — allSettled waits for all promises regardless of rejection and reports each result individually",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 26,
+      "question": "Scenario:\nA developer implements a simple in-memory rate-limiting middleware in Express. What does it do and where must it be placed relative to routes?",
+      "snippetLines": [
+        "const requestCounts = {};",
+        "function rateLimiter(req, res, next) {",
+        "  const ip = req.ip;",
+        "  requestCounts[ip] = (requestCounts[ip] || 0) + 1;",
+        "  if (requestCounts[ip] > 100) {",
+        "    return res.status(429).json({ error: 'Too many requests' });",
+        "  }",
+        "  next();",
+        "}",
+        "app.use(rateLimiter);",
+        "app.get('/api/data', handler);"
+      ],
+      "options": [
+        "It must be placed after all routes — middleware runs from bottom to top in Express",
+        "It counts requests per IP; if over 100 it responds 429; placed before routes with app.use() so it intercepts every incoming request before any route handler runs",
+        "It only applies to GET requests — app.use() ignores POST and PUT",
+        "requestCounts persists across server restarts — it is stored in a database automatically"
+      ],
+      "answer": "It counts requests per IP; if over 100 it responds 429; placed before routes with app.use() so it intercepts every incoming request before any route handler runs",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 27,
+      "question": "What does Express respond with when GET /users/profile is requested, given this route ordering?",
+      "snippetLines": [
+        "app.get('/users/profile', (req, res) => {",
+        "  res.send('profile page');",
+        "});",
+        "app.get('/users/:id', (req, res) => {",
+        "  res.send('user id: ' + req.params.id);",
+        "});"
+      ],
+      "options": [
+        "user id: profile — :id matches 'profile' because it is defined second",
+        "profile page — the literal route /users/profile is defined first and takes priority over the parameterised route",
+        "Both handlers run — Express calls all matching routes",
+        "404 — parameterised routes always take precedence over literal routes in Express"
+      ],
+      "answer": "profile page — the literal route /users/profile is defined first and takes priority over the parameterised route",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Scenario:\nA developer sets up CORS headers manually in Express without a library. Is this implementation correct?",
+      "snippetLines": [
+        "app.use((req, res, next) => {",
+        "  res.setHeader('Access-Control-Allow-Origin', '*');",
+        "  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');",
+        "  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');",
+        "  if (req.method === 'OPTIONS') {",
+        "    return res.sendStatus(204);",
+        "  }",
+        "  next();",
+        "});"
+      ],
+      "options": [
+        "Incorrect — CORS headers can only be set using the cors npm package",
+        "Correct — it sets the required CORS headers on all responses; the OPTIONS preflight is handled by returning 204 No Content immediately without calling next()",
+        "OPTIONS requests should call next() to let route handlers respond to them",
+        "Access-Control-Allow-Origin: * causes the browser to block all CORS requests"
+      ],
+      "answer": "Correct — it sets the required CORS headers on all responses; the OPTIONS preflight is handled by returning 204 No Content immediately without calling next()",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true
+    },
+    {
+      "id": 29,
+      "question": "What happens in Express when a route handler calls next('route')?",
+      "snippetLines": [
+        "app.get('/special',",
+        "  (req, res, next) => {",
+        "    if (req.query.admin === 'true') return next('route');",
+        "    res.send('normal response');",
+        "  },",
+        "  (req, res) => {",
+        "    res.send('this never runs if next route was called');",
+        "  }",
+        ");",
+        "app.get('/special', (req, res) => {",
+        "  res.send('admin response');",
+        "});"
+      ],
+      "options": [
+        "next('route') calls the error handler immediately",
+        "next('route') skips the remaining handlers in the CURRENT route and passes control to the NEXT matching route definition — GET /special?admin=true responds with 'admin response'",
+        "next('route') causes an infinite loop between the two route definitions",
+        "next('route') is identical to next() — it simply calls the next middleware in the stack"
+      ],
+      "answer": "next('route') skips the remaining handlers in the CURRENT route and passes control to the NEXT matching route definition — GET /special?admin=true responds with 'admin response'",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 30,
+      "question": "What does this Node.js stream piping code do, and why is it preferred over reading the entire file into memory?",
+      "snippetLines": [
+        "const http = require('http');",
+        "const fs   = require('fs');",
+        "http.createServer((req, res) => {",
+        "  res.writeHead(200, { 'Content-Type': 'video/mp4' });",
+        "  fs.createReadStream('./movie.mp4').pipe(res);",
+        "}).listen(3000);"
+      ],
+      "options": [
+        "pipe() loads the entire file into memory first then sends it — identical to fs.readFile",
+        "pipe() streams movie.mp4 in chunks directly into the HTTP response; this avoids loading the entire file into memory, enabling efficient serving of large files with low memory usage",
+        "pipe() can only be used with text files — binary files like mp4 require a different API",
+        "The server crashes — HTTP responses cannot be used as pipe destinations"
+      ],
+      "answer": "pipe() streams movie.mp4 in chunks directly into the HTTP response; this avoids loading the entire file into memory, enabling efficient serving of large files with low memory usage",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "What does this React code demonstrate about the key prop when switching tabs?",
+      "snippetLines": [
+        "import { useState } from 'react';",
+        "function Input() {",
+        "  const [val, setVal] = useState('');",
+        "  return <input value={val} onChange={e => setVal(e.target.value)} />;",
+        "}",
+        "function App() {",
+        "  const [tab, setTab] = useState('A');",
+        "  return (",
+        "    <div>",
+        "      <button onClick={() => setTab(t => t === 'A' ? 'B' : 'A')}>{tab}</button>",
+        "      <Input key={tab} />",
+        "    </div>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "Switching tabs preserves the Input text because React re-uses the component instance",
+        "key={tab} tells React to treat each tab value as a distinct instance — when tab changes, React unmounts the old Input and mounts a fresh one, resetting its state to ''",
+        "key prop has no effect on function components — it is only meaningful for class components",
+        "Error — key cannot be a string; it must be a numeric index"
+      ],
+      "answer": "key={tab} tells React to treat each tab value as a distinct instance — when tab changes, React unmounts the old Input and mounts a fresh one, resetting its state to ''",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "What does this React custom hook encapsulate and what does it return?",
+      "snippetLines": [
+        "import { useState, useEffect } from 'react';",
+        "function useFetch(url) {",
+        "  const [data,    setData]    = useState(null);",
+        "  const [loading, setLoading] = useState(true);",
+        "  const [error,   setError]   = useState(null);",
+        "  useEffect(() => {",
+        "    fetch(url)",
+        "      .then(r => r.json())",
+        "      .then(d  => { setData(d);          setLoading(false); })",
+        "      .catch(e => { setError(e.message); setLoading(false); });",
+        "  }, [url]);",
+        "  return { data, loading, error };",
+        "}",
+        "// Usage: const { data, loading, error } = useFetch('/api/users');"
+      ],
+      "options": [
+        "useFetch is invalid — hooks cannot call other hooks internally",
+        "useFetch is a custom hook that encapsulates fetch logic; it returns data (response), loading (boolean), and error (message); it re-fetches when url changes; components get reactive state without duplicating fetch logic",
+        "Custom hooks must start with 'use' but cannot contain useEffect",
+        "useFetch returns a Promise — the component must await it inside an async function"
+      ],
+      "answer": "useFetch is a custom hook that encapsulates fetch logic; it returns data (response), loading (boolean), and error (message); it re-fetches when url changes; components get reactive state without duplicating fetch logic",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "Scenario:\nA developer implements React Router v6. What renders when the user navigates to /about?",
+      "snippetLines": [
+        "import { BrowserRouter, Routes, Route } from 'react-router-dom';",
+        "function App() {",
+        "  return (",
+        "    <BrowserRouter>",
+        "      <Routes>",
+        "        <Route path='/'          element={<Home />} />",
+        "        <Route path='/about'     element={<About />} />",
+        "        <Route path='/users'     element={<Users />} />",
+        "        <Route path='/users/:id' element={<UserDetail />} />",
+        "        <Route path='*'          element={<NotFound />} />",
+        "      </Routes>",
+        "    </BrowserRouter>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "NotFound — the wildcard * always matches first",
+        "Home — the root route / matches all paths including /about",
+        "About — React Router v6 matches the most specific path; /about matches exactly",
+        "About and NotFound both render simultaneously"
+      ],
+      "answer": "About — React Router v6 matches the most specific path; /about matches exactly",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 34,
+      "question": "What does this React code demonstrate about controlled vs uncontrolled inputs?",
+      "snippetLines": [
+        "import { useRef, useState } from 'react';",
+        "function FormDemo() {",
+        "  const [controlled, setControlled] = useState('');",
+        "  const uncontrolledRef = useRef(null);",
+        "  const handleSubmit = () => {",
+        "    console.log('controlled:', controlled);",
+        "    console.log('uncontrolled:', uncontrolledRef.current.value);",
+        "  };",
+        "  return (",
+        "    <>",
+        "      <input value={controlled} onChange={e => setControlled(e.target.value)} />",
+        "      <input ref={uncontrolledRef} defaultValue='initial' />",
+        "      <button onClick={handleSubmit}>Submit</button>",
+        "    </>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "Both inputs are controlled — useRef and useState are equivalent for form management",
+        "The first input is controlled (React state drives the value; every keystroke triggers re-render); the second is uncontrolled (DOM manages its own state; value is read imperatively via ref only when needed)",
+        "The uncontrolled input's defaultValue cannot be changed after initial render",
+        "Error — an input with value prop must not also have onChange"
+      ],
+      "answer": "The first input is controlled (React state drives the value; every keystroke triggers re-render); the second is uncontrolled (DOM manages its own state; value is read imperatively via ref only when needed)",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "What does this React code output on mount and after clicking the button twice? Focus on useCallback + React.memo interaction.",
+      "snippetLines": [
+        "const Child = React.memo(({ onClick }) => {",
+        "  console.log('Child rendered');",
+        "  return <button onClick={onClick}>Click</button>;",
+        "});",
+        "function Parent() {",
+        "  const [count, setCount] = React.useState(0);",
+        "  const handleClick = React.useCallback(() => {",
+        "    setCount(c => c + 1);",
+        "  }, []);",
+        "  console.log('Parent rendered');",
+        "  return <><Child onClick={handleClick} /><p>{count}</p></>;",
+        "}"
+      ],
+      "options": [
+        "Parent rendered + Child rendered on mount; Parent rendered + Child rendered on each click — memo has no effect here",
+        "Parent rendered + Child rendered on mount; Parent rendered only on each click — useCallback returns the same reference so React.memo skips Child re-render",
+        "Child rendered only — Parent never logs because it has no state change",
+        "Parent rendered + Child rendered on every render — useCallback does not stabilise function references"
+      ],
+      "answer": "Parent rendered + Child rendered on mount; Parent rendered only on each click — useCallback returns the same reference so React.memo skips Child re-render",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "Scenario:\nA developer adds Redux Toolkit (RTK) to a React app. What does createSlice automatically generate and what makes state.items.push() safe?",
+      "snippetLines": [
+        "import { createSlice } from '@reduxjs/toolkit';",
+        "const cartSlice = createSlice({",
+        "  name: 'cart',",
+        "  initialState: { items: [], total: 0 },",
+        "  reducers: {",
+        "    addItem(state, action) {",
+        "      state.items.push(action.payload);",
+        "      state.total += action.payload.price;",
+        "    },",
+        "    clearCart(state) {",
+        "      state.items = [];",
+        "      state.total = 0;",
+        "    }",
+        "  }",
+        "});",
+        "export const { addItem, clearCart } = cartSlice.actions;"
+      ],
+      "options": [
+        "createSlice only creates the reducer; action creators must be written manually",
+        "createSlice automatically generates action creators (addItem, clearCart) with types 'cart/addItem' and 'cart/clearCart'; it uses Immer internally so state.items.push() is safe despite appearing to mutate state directly",
+        "state.items.push() will throw because RTK enforces strict immutability",
+        "The slice name 'cart' is only used for debugging — it has no effect on generated action types"
+      ],
+      "answer": "createSlice automatically generates action creators (addItem, clearCart) with types 'cart/addItem' and 'cart/clearCart'; it uses Immer internally so state.items.push() is safe despite appearing to mutate state directly",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 37,
+      "question": "What does this React-Redux component render when the store has state { counter: { value: 5 } }?",
+      "snippetLines": [
+        "import { useSelector, useDispatch } from 'react-redux';",
+        "function Counter() {",
+        "  const value    = useSelector(state => state.counter.value);",
+        "  const dispatch = useDispatch();",
+        "  return (",
+        "    <div>",
+        "      <p>Count: {value}</p>",
+        "      <button onClick={() => dispatch({ type: 'counter/increment' })}>+</button>",
+        "      <button onClick={() => dispatch({ type: 'counter/decrement' })}>-</button>",
+        "    </div>",
+        "  );",
+        "}"
+      ],
+      "options": [
+        "Count: undefined — useSelector cannot access nested state properties",
+        "Count: 5 with two buttons; clicking + dispatches the increment action; clicking - dispatches decrement; the component re-renders when counter.value changes in the store",
+        "Count: { value: 5 } — useSelector returns the entire slice object",
+        "Error — useDispatch must receive the store as an argument"
+      ],
+      "answer": "Count: 5 with two buttons; clicking + dispatches the increment action; clicking - dispatches decrement; the component re-renders when counter.value changes in the store",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": false
+    },
+    {
+      "id": 38,
+      "question": "Scenario:\nA full MERN stack developer traces a data write flow from a React form to MongoDB. Identify the correct sequence from the diagram.",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "MERN Create (POST) Data Flow — React to MongoDB",
+        "values": [
+          "Step 1:  React form → local state via useState",
+          "Step 2:  Submit → dispatch(createProduct(formData)) — Redux Thunk",
+          "Step 3:  Thunk calls axios.post('/api/products', formData)",
+          "Step 4:  Express receives POST /api/products",
+          "Step 5:  express.json() parses req.body",
+          "Step 6:  Handler: new Product(req.body).save() → MongoDB",
+          "Step 7:  MongoDB persists document → returns saved doc with _id",
+          "Step 8:  Express: res.status(201).json(savedProduct)",
+          "Step 9:  Axios resolves → thunk dispatches FULFILLED action",
+          "Step 10: Redux reducer adds product to state.products",
+          "Step 11: useSelector triggers React re-render of product list"
+        ]
+      },
+      "options": [
+        "React → MongoDB → Express → Redux → Axios → React",
+        "React → Redux Thunk → Axios → Express → MongoDB → Express → Axios → Redux → React",
+        "Redux → React → Axios → MongoDB → Express",
+        "Express → React → Redux → MongoDB → Axios → React"
+      ],
+      "answer": "React → Redux Thunk → Axios → Express → MongoDB → Express → Axios → Redux → React",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 39,
+      "question": "Scenario:\nA developer builds a MERN app and wants to protect API routes so only authenticated users can access them. What is the correct JWT middleware pattern?",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "Express JWT Auth Middleware Architecture",
+        "values": [
+          "Public routes (no auth needed):",
+          "  POST /api/auth/register",
+          "  POST /api/auth/login → returns JWT",
+          "",
+          "Protected routes (require valid JWT):",
+          "  GET  /api/profile    → [authMiddleware] → handler",
+          "  POST /api/orders     → [authMiddleware] → handler",
+          "  DELETE /api/users/:id → [authMiddleware] → [adminMiddleware] → handler",
+          "",
+          "authMiddleware:",
+          "  1. Extract token from Authorization: Bearer <token>",
+          "  2. jwt.verify(token, SECRET)",
+          "     → valid:   req.user = decoded payload; next()",
+          "     → invalid: res.status(401).json({ error: 'Unauthorised' })"
+        ]
+      },
+      "options": [
+        "Authentication should be duplicated in every individual route handler for maximum control",
+        "A reusable authMiddleware extracts and verifies the JWT; on success it attaches decoded payload to req.user and calls next(); on failure it returns 401 immediately — applied selectively to protected routes only",
+        "app.use(authMiddleware) must be placed before ALL routes including login and register",
+        "MongoDB validates the JWT by querying a token collection on every protected request"
+      ],
+      "answer": "A reusable authMiddleware extracts and verifies the JWT; on success it attaches decoded payload to req.user and calls next(); on failure it returns 401 immediately — applied selectively to protected routes only",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 40,
+      "question": "Scenario:\nA developer builds a real-time chat feature in a MERN app. Study this flow and identify why WebSocket is used instead of repeated AJAX polling.",
+      "diagramType": "request-flow",
+      "diagramData": {
+        "representation": "WebSocket vs AJAX Polling for Real-Time Chat",
+        "values": [
+          "AJAX Polling approach:",
+          "  Client: GET /messages every 2 seconds → Server responds → repeat",
+          "  Problem: wasteful — most responses return no new data; high latency; server load",
+          "",
+          "WebSocket approach:",
+          "  Step 1: HTTP GET /chat with Upgrade: websocket header",
+          "  Step 2: Server 101 Switching Protocols → persistent bidirectional channel open",
+          "  Step 3: Server pushes new messages instantly when they arrive",
+          "  Step 4: Client sends messages directly over the open connection",
+          "  Benefit: low latency, no polling, full-duplex, single persistent connection"
+        ]
+      },
+      "options": [
+        "AJAX polling and WebSocket are equivalent — WebSocket is just newer syntax for the same thing",
+        "WebSocket establishes a persistent full-duplex connection after an HTTP upgrade handshake; the server can push data instantly to clients without repeated requests — eliminating the latency, server load, and wasted bandwidth of AJAX polling",
+        "WebSocket requires a completely different server — it cannot run alongside Express",
+        "AJAX polling is preferred for chat because WebSocket connections expire every 30 seconds"
+      ],
+      "answer": "WebSocket establishes a persistent full-duplex connection after an HTTP upgrade handshake; the server can push data instantly to clients without repeated requests — eliminating the latency, server load, and wasted bandwidth of AJAX polling",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    }
+  ]
+}

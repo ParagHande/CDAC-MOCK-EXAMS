@@ -1,0 +1,722 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A relation R(W, X, Y, Z) has functional dependencies: W\u2192X, WX\u2192Y, Y\u2192Z. What is the minimal (canonical) cover of these FDs?",
+      "options": [
+        "W\u2192X, W\u2192Y, Y\u2192Z",
+        "W\u2192X, WX\u2192Y, Y\u2192Z",
+        "W\u2192XYZ, Y\u2192Z",
+        "W\u2192X, W\u2192Y, W\u2192Z"
+      ],
+      "answer": "W\u2192X, W\u2192Y, Y\u2192Z",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "Evaluate the result of the following query on the given data:\n\nSELECT category, MAX(price) - MIN(price) AS spread FROM ITEMS GROUP BY category HAVING MAX(price) > 100;",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "ITEMS(iid, name, price, category)",
+        "values": [
+          {
+            "iid": 1,
+            "name": "Pen",
+            "price": 10,
+            "category": "Stationery"
+          },
+          {
+            "iid": 2,
+            "name": "Pencil",
+            "price": 5,
+            "category": "Stationery"
+          },
+          {
+            "iid": 3,
+            "name": "Ruler",
+            "price": 20,
+            "category": "Stationery"
+          },
+          {
+            "iid": 4,
+            "name": "Laptop",
+            "price": 50000,
+            "category": "Electronics"
+          },
+          {
+            "iid": 5,
+            "name": "Phone",
+            "price": 30000,
+            "category": "Electronics"
+          }
+        ]
+      },
+      "options": [
+        "Electronics, spread=20000",
+        "Stationery, spread=15; Electronics, spread=20000",
+        "Electronics, spread=20000 only (Stationery filtered by HAVING)",
+        "No rows \u2014 MAX(price) > 100 eliminates all groups"
+      ],
+      "answer": "Electronics, spread=20000 only (Stationery filtered by HAVING)",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "In MySQL, a FOREIGN KEY constraint references a parent table. What happens when you try to DELETE a parent row that has matching child rows, and the FK is defined with ON DELETE SET NULL?",
+      "options": [
+        "The parent row is deleted and the FK column in all matching child rows is set to NULL",
+        "The DELETE is rejected with a foreign key constraint violation",
+        "The child rows are also deleted (cascade)",
+        "The parent row is deleted and child rows retain the old FK value"
+      ],
+      "answer": "The parent row is deleted and the FK column in all matching child rows is set to NULL",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 4,
+      "question": "A MongoDB collection 'books' contains documents with nested field 'publisher.country'. Which query finds all books published in 'India' and projects only title and publisher fields (excluding _id)?",
+      "options": [
+        "db.books.find({'publisher.country':'India'},{title:1,'publisher':1,_id:0})",
+        "db.books.find({publisher:{country:'India'}},{title:1,_id:0})",
+        "db.books.find({'publisher.country':{$eq:'India'}},{title:1,publisher:1})",
+        "db.books.find({country:'India'},{title:1,publisher:1,_id:0})"
+      ],
+      "answer": "db.books.find({'publisher.country':'India'},{title:1,'publisher':1,_id:0})",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "Which of the following correctly describes the difference between a PRIMARY KEY and a UNIQUE KEY in MySQL?",
+      "options": [
+        "A table can have only one PRIMARY KEY and it cannot contain NULL; a table can have multiple UNIQUE keys and NULL values are allowed (each NULL is considered distinct)",
+        "PRIMARY KEY allows NULL; UNIQUE KEY does not allow NULL",
+        "Both PRIMARY KEY and UNIQUE KEY disallow NULL values, but only one UNIQUE KEY is allowed per table",
+        "PRIMARY KEY and UNIQUE KEY are functionally identical in MySQL"
+      ],
+      "answer": "A table can have only one PRIMARY KEY and it cannot contain NULL; a table can have multiple UNIQUE keys and NULL values are allowed (each NULL is considered distinct)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "Examine this ERD: COURSE(cid PK, cname, credits) is a prerequisite for itself \u2014 PREREQ(cid FK, prereq_id FK) where both reference COURSE. Which SQL finds all courses that have MORE than 2 prerequisites?",
+      "diagramType": "erd",
+      "diagramData": {
+        "representation": "COURSE(cid PK, cname, credits) <---[has prerequisite]---> PREREQ(cid FK->COURSE, prereq_id FK->COURSE) \u2014 recursive M:N self-referencing",
+        "values": []
+      },
+      "options": [
+        "SELECT c.cname FROM COURSE c JOIN PREREQ p ON c.cid = p.cid GROUP BY c.cid, c.cname HAVING COUNT(p.prereq_id) > 2",
+        "SELECT cname FROM COURSE WHERE cid IN (SELECT prereq_id FROM PREREQ GROUP BY prereq_id HAVING COUNT(*) > 2)",
+        "SELECT cname FROM COURSE WHERE (SELECT COUNT(*) FROM PREREQ WHERE cid = COURSE.cid) >= 2",
+        "SELECT cid FROM PREREQ GROUP BY cid HAVING COUNT(*) > 2"
+      ],
+      "answer": "SELECT c.cname FROM COURSE c JOIN PREREQ p ON c.cid = p.cid GROUP BY c.cid, c.cname HAVING COUNT(p.prereq_id) > 2",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "A MySQL stored procedure declares a CONTINUE HANDLER vs an EXIT HANDLER for the same SQLEXCEPTION. How do they differ in execution flow?",
+      "options": [
+        "CONTINUE HANDLER executes the handler block then resumes the next statement after the error; EXIT HANDLER executes the handler block then exits the BEGIN...END block where it is declared",
+        "EXIT HANDLER resumes after the error; CONTINUE HANDLER exits the procedure immediately",
+        "Both handlers terminate the procedure; EXIT terminates only the current block",
+        "CONTINUE HANDLER re-executes the failed statement; EXIT HANDLER skips it"
+      ],
+      "answer": "CONTINUE HANDLER executes the handler block then resumes the next statement after the error; EXIT HANDLER executes the handler block then exits the BEGIN...END block where it is declared",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "Given the table and query, what is returned?\n\nSELECT region, SUM(amount) FROM SALES WHERE month='Jan' GROUP BY region ORDER BY SUM(amount) DESC;",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "SALES(sid, region, amount, month)",
+        "values": [
+          {
+            "sid": 1,
+            "region": "North",
+            "amount": 1000,
+            "month": "Jan"
+          },
+          {
+            "sid": 2,
+            "region": "North",
+            "amount": 2000,
+            "month": "Jan"
+          },
+          {
+            "sid": 3,
+            "region": "South",
+            "amount": 1500,
+            "month": "Jan"
+          },
+          {
+            "sid": 4,
+            "region": "North",
+            "amount": 500,
+            "month": "Feb"
+          },
+          {
+            "sid": 5,
+            "region": "South",
+            "amount": 3000,
+            "month": "Feb"
+          }
+        ]
+      },
+      "options": [
+        "North 3000; South 1500",
+        "South 3000; North 3000",
+        "North 3500; South 4500",
+        "North 3000; South 4500"
+      ],
+      "answer": "North 3000; South 1500",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "A DBA runs: GRANT UPDATE(salary) ON company.EMP TO 'hr_user'@'localhost'; What does this column-level privilege allow?",
+      "options": [
+        "hr_user can UPDATE only the salary column in the EMP table; all other columns in EMP remain unmodifiable by hr_user via UPDATE",
+        "hr_user can UPDATE all columns in EMP but can only read the salary column",
+        "hr_user can UPDATE any column in any table in the company database",
+        "Column-level GRANT is invalid in MySQL; only table-level privileges are supported"
+      ],
+      "answer": "hr_user can UPDATE only the salary column in the EMP table; all other columns in EMP remain unmodifiable by hr_user via UPDATE",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 10,
+      "question": "Which statement correctly describes the CROSS JOIN (Cartesian product) behavior?",
+      "options": [
+        "CROSS JOIN returns every combination of rows from both tables; if table A has m rows and table B has n rows, the result has m\u00d7n rows with no join condition",
+        "CROSS JOIN returns only rows where columns match between the two tables",
+        "CROSS JOIN is equivalent to NATURAL JOIN when no common columns exist",
+        "CROSS JOIN requires an ON clause to specify the join condition"
+      ],
+      "answer": "CROSS JOIN returns every combination of rows from both tables; if table A has m rows and table B has n rows, the result has m\u00d7n rows with no join condition",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "A procedure uses a cursor with FETCH inside a LOOP. The table has exactly 3 rows. How many times does FETCH execute before the NOT FOUND handler fires?",
+      "options": [
+        "3 successful FETCHes then a 4th FETCH triggers NOT FOUND",
+        "3 FETCHes and the 3rd one triggers NOT FOUND simultaneously",
+        "2 FETCHes because the cursor pre-reads the last row",
+        "4 FETCHes because FETCH reads one row ahead"
+      ],
+      "answer": "3 successful FETCHes then a 4th FETCH triggers NOT FOUND",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "A university schema: STUDENT(sid PK, name, cgpa), COURSE(cid PK, cname, dept), REGISTERS(sid FK, cid FK, grade) PK(sid,cid). A report requires: for each department, the number of distinct students who registered for at least one course in that department.",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "STUDENT(sid PK, name, cgpa) | COURSE(cid PK, cname, dept) | REGISTERS(sid FK->STUDENT, cid FK->COURSE, grade) PK(sid,cid)",
+        "values": []
+      },
+      "options": [
+        "SELECT c.dept, COUNT(DISTINCT r.sid) AS student_count FROM COURSE c JOIN REGISTERS r ON c.cid = r.cid GROUP BY c.dept",
+        "SELECT dept, COUNT(sid) FROM REGISTERS JOIN COURSE USING(cid) GROUP BY dept",
+        "SELECT dept, COUNT(*) FROM COURSE c, REGISTERS r WHERE c.cid=r.cid GROUP BY dept",
+        "SELECT dept, COUNT(DISTINCT sid) FROM COURSE GROUP BY dept"
+      ],
+      "answer": "SELECT c.dept, COUNT(DISTINCT r.sid) AS student_count FROM COURSE c JOIN REGISTERS r ON c.cid = r.cid GROUP BY c.dept",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 13,
+      "question": "In MongoDB, what does the $lookup aggregation stage do?",
+      "options": [
+        "$lookup performs a left outer join to another collection in the same database, adding matched documents as an array field",
+        "$lookup performs an inner join and removes unmatched documents from the pipeline",
+        "$lookup searches an index for a specific field value and returns matching documents",
+        "$lookup is used to look up and replace field values using a reference collection"
+      ],
+      "answer": "$lookup performs a left outer join to another collection in the same database, adding matched documents as an array field",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "A company database: EMPLOYEE(eid PK, name, dept_id FK, hire_date), DEPARTMENT(dept_id PK, dname, budget). Find departments where the TOTAL salary expenditure (assume salary is in EMPLOYEE) \u2014 wait, salary not present. Instead, find departments that were created BEFORE any employee was hired (i.e., MIN(hire_date) of employees > department creation is not tracked). Revised: Find names of employees hired in the SAME year as the maximum hire_date in their department.",
+      "options": [
+        "SELECT e.name FROM EMPLOYEE e WHERE YEAR(e.hire_date) = (SELECT YEAR(MAX(e2.hire_date)) FROM EMPLOYEE e2 WHERE e2.dept_id = e.dept_id)",
+        "SELECT e.name FROM EMPLOYEE e JOIN (SELECT dept_id, MAX(hire_date) AS max_hd FROM EMPLOYEE GROUP BY dept_id) d ON e.dept_id = d.dept_id WHERE e.hire_date = d.max_hd",
+        "SELECT e.name FROM EMPLOYEE e WHERE e.hire_date = (SELECT MAX(hire_date) FROM EMPLOYEE WHERE dept_id = e.dept_id)",
+        "Both A and the correlated subquery in C are logically correct but A uses YEAR() making it broader (all employees hired in that year, not just on that exact date)"
+      ],
+      "answer": "Both A and the correlated subquery in C are logically correct but A uses YEAR() making it broader (all employees hired in that year, not just on that exact date)",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 15,
+      "question": "What is the output of the following MySQL date function expression?\nSELECT DATEDIFF('2024-03-01', '2024-02-01'), TIMESTAMPDIFF(MONTH, '2024-02-01', '2024-03-01');",
+      "snippetLines": [
+        "SELECT DATEDIFF('2024-03-01', '2024-02-01'),",
+        "       TIMESTAMPDIFF(MONTH, '2024-02-01', '2024-03-01');"
+      ],
+      "options": [
+        "29, 1",
+        "28, 1",
+        "30, 1",
+        "29, 0"
+      ],
+      "answer": "29, 1",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "A table: ORDERS(oid, cid, amount, status). An index exists on (status, amount). Which WHERE clause will use this composite index most efficiently?",
+      "options": [
+        "WHERE status = 'pending' AND amount > 500",
+        "WHERE amount > 500",
+        "WHERE amount > 500 AND status = 'pending'",
+        "Both A and C use the index equally; B uses it partially via a range scan on amount only"
+      ],
+      "answer": "Both A and C use the index equally; B uses it partially via a range scan on amount only",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 17,
+      "question": "Which MongoDB aggregation stage is used to deconstruct an array field so that each element of the array produces a separate output document?",
+      "options": [
+        "$unwind",
+        "$project",
+        "$split",
+        "$flatten"
+      ],
+      "answer": "$unwind",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "A table ACCOUNT(acc_id PK, holder, balance CHECK(balance >= 0)). A transaction does:\nAssuming InnoDB with MySQL 8.0, what happens?",
+      "snippetLines": [
+        "START TRANSACTION;",
+        "UPDATE ACCOUNT SET balance = balance - 5000 WHERE acc_id = 1; -- balance becomes -200",
+        "COMMIT;"
+      ],
+      "options": [
+        "The UPDATE fails with a CHECK constraint violation; the transaction is rolled back and COMMIT has no effect",
+        "The UPDATE succeeds and COMMIT persists balance = -200; CHECK constraints are advisory only",
+        "The UPDATE succeeds but COMMIT fails, leaving the transaction open",
+        "MySQL silently sets balance to 0 when the CHECK constraint would be violated"
+      ],
+      "answer": "The UPDATE fails with a CHECK constraint violation; the transaction is rolled back and COMMIT has no effect",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 19,
+      "question": "Which of the following correctly explains the Entity Integrity Rule in RDBMS?",
+      "options": [
+        "No attribute of a PRIMARY KEY can be NULL because the primary key uniquely identifies each tuple",
+        "Every foreign key value must match an existing primary key value in the referenced table",
+        "Every attribute in a relation must be atomic (in 1NF)",
+        "A relation must not have two tuples with identical values for all attributes"
+      ],
+      "answer": "No attribute of a PRIMARY KEY can be NULL because the primary key uniquely identifies each tuple",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 20,
+      "question": "A stored function in MySQL uses:\nWhat is returned?",
+      "snippetLines": [
+        "CREATE FUNCTION factorial(n INT) RETURNS BIGINT",
+        "DETERMINISTIC",
+        "BEGIN",
+        "  IF n <= 1 THEN RETURN 1;",
+        "  ELSE RETURN n * factorial(n - 1);",
+        "  END IF;",
+        "END;",
+        "SELECT factorial(5);"
+      ],
+      "options": [
+        "120",
+        "24",
+        "Error \u2014 MySQL stored functions do not support recursion by default without setting max_sp_recursion_depth",
+        "5"
+      ],
+      "answer": "Error \u2014 MySQL stored functions do not support recursion by default without setting max_sp_recursion_depth",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "Given the table below, what does this query return?\nSELECT name, salary, RANK() OVER (PARTITION BY dept ORDER BY salary DESC) AS rnk FROM EMP;",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "EMP(eid, name, dept, salary)",
+        "values": [
+          {
+            "eid": 1,
+            "name": "Anuj",
+            "dept": "IT",
+            "salary": 70000
+          },
+          {
+            "eid": 2,
+            "name": "Beena",
+            "dept": "IT",
+            "salary": 70000
+          },
+          {
+            "eid": 3,
+            "name": "Chitra",
+            "dept": "IT",
+            "salary": 55000
+          },
+          {
+            "eid": 4,
+            "name": "Dilip",
+            "dept": "HR",
+            "salary": 80000
+          },
+          {
+            "eid": 5,
+            "name": "Esha",
+            "dept": "HR",
+            "salary": 65000
+          }
+        ]
+      },
+      "options": [
+        "Anuj-rnk1, Beena-rnk1, Chitra-rnk3, Dilip-rnk1, Esha-rnk2",
+        "Anuj-rnk1, Beena-rnk2, Chitra-rnk3, Dilip-rnk1, Esha-rnk2",
+        "Anuj-rnk1, Beena-rnk1, Chitra-rnk2, Dilip-rnk1, Esha-rnk2",
+        "Anuj-rnk2, Beena-rnk2, Chitra-rnk3, Dilip-rnk1, Esha-rnk2"
+      ],
+      "answer": "Anuj-rnk1, Beena-rnk1, Chitra-rnk3, Dilip-rnk1, Esha-rnk2",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 22,
+      "question": "In MongoDB, the $push operator in an update is used to:",
+      "options": [
+        "Append a value to an array field in a document",
+        "Add a new top-level field to a document",
+        "Replace the value of an existing field",
+        "Remove the last element from an array field"
+      ],
+      "answer": "Append a value to an array field in a document",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "A payroll system scenario: EMP(eid PK, name, dept, salary). Management wants to give a 10% raise to all employees in 'Finance' earning less than 50000, but NOT to the top earner in Finance. Write the correct UPDATE:",
+      "options": [
+        "UPDATE EMP SET salary = salary * 1.10 WHERE dept='Finance' AND salary < 50000 AND salary != (SELECT MAX(salary) FROM EMP WHERE dept='Finance')",
+        "UPDATE EMP SET salary = salary * 1.10 WHERE dept='Finance' AND salary < 50000 AND eid != (SELECT eid FROM EMP WHERE dept='Finance' ORDER BY salary DESC LIMIT 1)",
+        "UPDATE EMP SET salary = salary * 1.10 WHERE dept='Finance' AND salary < 50000 AND eid NOT IN (SELECT eid FROM (SELECT eid FROM EMP WHERE dept='Finance' ORDER BY salary DESC LIMIT 1) t)",
+        "Options A and C are both valid; B is invalid because MySQL does not allow subqueries referencing the same table in UPDATE"
+      ],
+      "answer": "Options A and C are both valid; B is invalid because MySQL does not allow subqueries referencing the same table in UPDATE",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 24,
+      "question": "Which of the following is the correct characterization of a KEY-VALUE NoSQL database?",
+      "options": [
+        "Data is stored as pairs of unique keys mapped to opaque values; it supports O(1) lookups by key but provides no native querying on values",
+        "Data is stored as documents (JSON/BSON) with rich querying on any field",
+        "Data is stored in wide-column tables where columns can vary per row",
+        "Data is stored as nodes and edges allowing relationship traversal queries"
+      ],
+      "answer": "Data is stored as pairs of unique keys mapped to opaque values; it supports O(1) lookups by key but provides no native querying on values",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 25,
+      "question": "Consider this trigger scenario: A BEFORE DELETE trigger on ORDERS checks whether the order is in 'shipped' status and raises an error if so. A user runs DELETE FROM ORDERS WHERE oid=5 where order 5 has status='shipped'. What happens?",
+      "options": [
+        "The trigger fires, raises an error using SIGNAL SQLSTATE, the DELETE is prevented, and the row remains",
+        "The DELETE executes first; then the trigger fires and can undo it",
+        "BEFORE DELETE triggers cannot prevent deletion; they can only log the action",
+        "The trigger fires after the DELETE, so the row is already gone before the error is raised"
+      ],
+      "answer": "The trigger fires, raises an error using SIGNAL SQLSTATE, the DELETE is prevented, and the row remains",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 26,
+      "question": "A MongoDB collection 'events' has: {_id, title, date, attendees: [{name, email}]}. Which aggregation counts the total number of attendees across ALL events?",
+      "options": [
+        "db.events.aggregate([{$unwind:'$attendees'},{$count:'total_attendees'}])",
+        "db.events.aggregate([{$group:{_id:null,total:{$sum:{$size:'$attendees'}}}}])",
+        "db.events.aggregate([{$project:{count:{$size:'$attendees'}}},{$group:{_id:null,total:{$sum:'$count'}}}])",
+        "Both B and C are correct approaches"
+      ],
+      "answer": "Both B and C are correct approaches",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "What is the Referential Integrity Rule in relational databases?",
+      "options": [
+        "Every non-NULL foreign key value must match an existing primary key value in the referenced relation",
+        "Every primary key value must be referenced by at least one foreign key",
+        "No two rows in a table can have the same non-NULL value in a UNIQUE column",
+        "A foreign key column must have the same data type and name as the referenced primary key"
+      ],
+      "answer": "Every non-NULL foreign key value must match an existing primary key value in the referenced relation",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "In MySQL, which built-in string function removes leading and trailing spaces from a string, and what is the output of SELECT TRIM('  Hello World  ')?",
+      "options": [
+        "TRIM(); output is 'Hello World'",
+        "STRIP(); output is 'Hello World'",
+        "TRIM(); output is 'HelloWorld' (all spaces removed)",
+        "LTRIM(RTRIM()); output is 'Hello World'"
+      ],
+      "answer": "TRIM(); output is 'Hello World'",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "A schema for an online exam platform:\n\nEXAM(exam_id PK, exam_name, max_marks)\nSTUDENT(sid PK, sname, email)\nATTEMPT(sid FK, exam_id FK, score, attempt_date) PK(sid, exam_id)\n\nFind students who scored above 80% of max_marks in EVERY exam they attempted:",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "EXAM(exam_id PK, exam_name, max_marks) | STUDENT(sid PK, sname, email) | ATTEMPT(sid FK->STUDENT, exam_id FK->EXAM, score, attempt_date) PK(sid,exam_id)",
+        "values": []
+      },
+      "options": [
+        "SELECT s.sname FROM STUDENT s WHERE NOT EXISTS (SELECT 1 FROM ATTEMPT a JOIN EXAM e ON a.exam_id=e.exam_id WHERE a.sid=s.sid AND a.score <= 0.8 * e.max_marks)",
+        "SELECT s.sname FROM STUDENT s JOIN ATTEMPT a ON s.sid=a.sid JOIN EXAM e ON a.exam_id=e.exam_id WHERE a.score > 0.8 * e.max_marks GROUP BY s.sid HAVING COUNT(*)=(SELECT COUNT(*) FROM ATTEMPT WHERE sid=s.sid)",
+        "Both A and B are correct",
+        "SELECT s.sname FROM STUDENT s WHERE s.sid IN (SELECT sid FROM ATTEMPT WHERE score > 0.8 * (SELECT max_marks FROM EXAM WHERE exam_id = ATTEMPT.exam_id))"
+      ],
+      "answer": "Both A and B are correct",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 30,
+      "question": "Trace the output of this stored procedure snippet:",
+      "snippetLines": [
+        "DECLARE i INT DEFAULT 1;",
+        "DECLARE total INT DEFAULT 0;",
+        "WHILE i <= 5 DO",
+        "  IF i MOD 2 = 0 THEN",
+        "    SET total = total + i;",
+        "  END IF;",
+        "  SET i = i + 1;",
+        "END WHILE;",
+        "SELECT total;"
+      ],
+      "options": [
+        "6",
+        "9",
+        "15",
+        "12"
+      ],
+      "answer": "6",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "A MySQL table uses a COMPOSITE INDEX on (last_name, first_name, age). Which query CANNOT use this index efficiently (leftmost prefix rule)?",
+      "options": [
+        "WHERE first_name = 'Raj' AND age = 30 (skips last_name \u2014 leftmost prefix not used)",
+        "WHERE last_name = 'Sharma'",
+        "WHERE last_name = 'Sharma' AND first_name = 'Raj'",
+        "WHERE last_name = 'Sharma' AND age = 30"
+      ],
+      "answer": "WHERE first_name = 'Raj' AND age = 30 (skips last_name \u2014 leftmost prefix not used)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "What does the MongoDB $project stage do in an aggregation pipeline?",
+      "options": [
+        "It reshapes documents by including, excluding, or adding computed fields for each document passing through the pipeline",
+        "It filters documents based on a condition before passing them to the next stage",
+        "It sorts documents by one or more fields",
+        "It creates a new collection from the aggregated output"
+      ],
+      "answer": "It reshapes documents by including, excluding, or adding computed fields for each document passing through the pipeline",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "An inventory system: PRODUCT(pid PK, pname, stock, reorder_level). A trigger is needed to automatically insert a row into REORDER_ALERT(pid, alert_date) whenever stock drops BELOW reorder_level on UPDATE. Which trigger definition is correct?",
+      "options": [
+        "CREATE TRIGGER check_stock AFTER UPDATE ON PRODUCT FOR EACH ROW BEGIN IF NEW.stock < NEW.reorder_level THEN INSERT INTO REORDER_ALERT VALUES(NEW.pid, CURDATE()); END IF; END",
+        "CREATE TRIGGER check_stock BEFORE UPDATE ON PRODUCT FOR EACH ROW BEGIN IF OLD.stock < OLD.reorder_level THEN INSERT INTO REORDER_ALERT VALUES(OLD.pid, CURDATE()); END IF; END",
+        "CREATE TRIGGER check_stock AFTER INSERT ON PRODUCT FOR EACH ROW BEGIN IF NEW.stock < NEW.reorder_level THEN INSERT INTO REORDER_ALERT VALUES(NEW.pid, CURDATE()); END IF; END",
+        "CREATE TRIGGER check_stock BEFORE UPDATE ON PRODUCT FOR EACH ROW BEGIN IF NEW.stock < NEW.reorder_level THEN INSERT INTO REORDER_ALERT VALUES(NEW.pid, CURDATE()); END IF; END"
+      ],
+      "answer": "CREATE TRIGGER check_stock AFTER UPDATE ON PRODUCT FOR EACH ROW BEGIN IF NEW.stock < NEW.reorder_level THEN INSERT INTO REORDER_ALERT VALUES(NEW.pid, CURDATE()); END IF; END",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 34,
+      "question": "In relational algebra, which operation is used to combine two relations with the SAME schema and return only rows present in BOTH relations?",
+      "options": [
+        "INTERSECT (\u2229)",
+        "UNION (\u222a)",
+        "DIFFERENCE (\u2212)",
+        "JOIN (\u22c8)"
+      ],
+      "answer": "INTERSECT (\u2229)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "A developer runs the following in MySQL Workbench:\nAn INSERT is made: INSERT INTO EMP(eid, name, email, linkedin_url) VALUES(10,'Zara','z@a.com','http://linkedin.com/zara'). What happens?",
+      "snippetLines": [
+        "ALTER TABLE EMP ADD COLUMN linkedin_url VARCHAR(255) AFTER email,",
+        "              ADD CONSTRAINT chk_url CHECK(linkedin_url LIKE 'https://%' OR linkedin_url IS NULL);",
+        "INSERT INTO EMP(eid, name, email, linkedin_url) VALUES(10,'Zara','z@a.com','http://linkedin.com/zara');"
+      ],
+      "options": [
+        "INSERT fails \u2014 'http://' does not match 'https://%' and the value is not NULL, violating the CHECK constraint",
+        "INSERT succeeds \u2014 LIKE patterns are not enforced in CHECK constraints",
+        "INSERT succeeds with a warning but the linkedin_url is stored as NULL",
+        "INSERT fails only if STRICT_TRANS_TABLES mode is enabled"
+      ],
+      "answer": "INSERT fails \u2014 'http://' does not match 'https://%' and the value is not NULL, violating the CHECK constraint",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 36,
+      "question": "Which MongoDB command switches to (or creates) a database named 'college' and creates a collection named 'students' by inserting a document?",
+      "options": [
+        "use college; db.students.insertOne({name:'Anil', roll:101})",
+        "create database college; create collection students; db.students.insert({name:'Anil'})",
+        "db.createCollection('college'); db.college.students.insertOne({name:'Anil'})",
+        "use college; db.createDatabase(); db.students.insert({name:'Anil', roll:101})"
+      ],
+      "answer": "use college; db.students.insertOne({name:'Anil', roll:101})",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "A relation TEACH(teacher_id, subject, student_id) with no functional dependencies has the multi-valued dependency teacher_id \u2192\u2192 subject and teacher_id \u2192\u2192 student_id. This violates which normal form?",
+      "options": [
+        "4NF \u2014 because the non-trivial multi-valued dependencies are not implied by a superkey",
+        "BCNF \u2014 because teacher_id is not a superkey",
+        "3NF \u2014 because there are transitive dependencies",
+        "2NF \u2014 because there are partial dependencies on the composite key"
+      ],
+      "answer": "4NF \u2014 because the non-trivial multi-valued dependencies are not implied by a superkey",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 38,
+      "question": "An e-commerce platform logs every page visit: VISITS(vid PK, user_id, page, visit_ts). The table has 500 million rows. Which strategy MOST improves query performance for: SELECT * FROM VISITS WHERE visit_ts >= '2024-01-01' AND visit_ts < '2024-02-01'?",
+      "options": [
+        "RANGE PARTITIONING on visit_ts combined with an index on visit_ts within each partition, so only the January partition is scanned",
+        "Adding a B-tree index on visit_ts alone, with no partitioning",
+        "Using a FULLTEXT index on visit_ts for fast range lookup",
+        "Denormalizing by duplicating the user_id in a separate summary table"
+      ],
+      "answer": "RANGE PARTITIONING on visit_ts combined with an index on visit_ts within each partition, so only the January partition is scanned",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 39,
+      "question": "Which of the following correctly describes the difference between INSENSITIVE and ASENSITIVE cursors in MySQL stored procedures?",
+      "options": [
+        "INSENSITIVE cursors work on a static copy (snapshot) of the data; ASENSITIVE cursors may reflect changes made to the base table during iteration",
+        "ASENSITIVE cursors work on a static copy; INSENSITIVE cursors reflect live changes",
+        "Both cursor types always reflect live changes to the underlying table",
+        "INSENSITIVE cursors allow UPDATE through the cursor; ASENSITIVE cursors are read-only"
+      ],
+      "answer": "INSENSITIVE cursors work on a static copy (snapshot) of the data; ASENSITIVE cursors may reflect changes made to the base table during iteration",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 40,
+      "question": "A student mistakenly runs DROP TABLE grades; in MySQL without a backup. Which scenario allows recovery WITHOUT a full database restore?",
+      "options": [
+        "Binary logging (binlog) was enabled; the DBA can use mysqlbinlog to replay events up to the point before the DROP",
+        "The InnoDB buffer pool retains the data in memory until the server is restarted",
+        "Running UNDROP TABLE grades; reverses the operation in MySQL 8.0",
+        "The table can be recovered using ROLLBACK since DROP is implicitly wrapped in a transaction"
+      ],
+      "answer": "Binary logging (binlog) was enabled; the DBA can use mysqlbinlog to replay events up to the point before the DROP",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    }
+  ]
+}

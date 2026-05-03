@@ -1,0 +1,844 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A retailer purchases 80 items for ₹3,200. He sells 60 items at ₹55 each and the remaining at ₹30 each. What is his overall profit or loss percentage?",
+      "options": [
+        "23.125% profit",
+        "18.75% profit",
+        "20.5% profit",
+        "15.625% profit"
+      ],
+      "answer": "23.125% profit",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "A manufacturer offers a trade discount of 20% on the list price and a cash discount of 5% on the discounted price. If the net price paid by a buyer is ₹3,420, what is the list price?",
+      "options": [
+        "₹4,500",
+        "₹4,200",
+        "₹4,800",
+        "₹4,000"
+      ],
+      "answer": "₹4,500",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "Scenario:\nA supermarket buys apples at ₹80/kg. It marks them at 50% above cost and then gives a 20% discount. Due to spoilage, 10% of stock is unsold and discarded. What is the net profit or loss percentage on the total purchase?",
+      "options": [
+        "8% profit",
+        "8% loss",
+        "12% profit",
+        "2% loss"
+      ],
+      "answer": "8% profit",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 4,
+      "question": "A and B together can do a work in 8 days. A alone can do it in 12 days. If C can destroy the work in 24 days, in how many days can A, B, and C together complete the work?",
+      "options": [
+        "12 days",
+        "16 days",
+        "10 days",
+        "14 days"
+      ],
+      "answer": "12 days",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "Scenario:\nA factory produces 1,200 units/day with 15 machines. 3 machines break down on Day 3. The factory must produce 18,000 units in 12 days total. How many extra machines must be rented from Day 3 onward to meet the target?",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": "4",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 6,
+      "question": "Three pipes X, Y, Z fill a tank in 10, 15, and 20 hours. X and Y fill while Z drains. The tank is empty. All are opened together. What fraction of the tank is filled after 6 hours?",
+      "options": [
+        "7/10",
+        "3/4",
+        "5/8",
+        "2/3"
+      ],
+      "answer": "7/10",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "A train 500 m long crosses a man running at 9 km/h in the same direction in 30 seconds. How long does the train take to cross a platform 300 m long while travelling at the same speed?",
+      "options": [
+        "48 seconds",
+        "42 seconds",
+        "50 seconds",
+        "45 seconds"
+      ],
+      "answer": "48 seconds",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "Scenario:\nA sales executive drives from city A to city B (180 km) for a meeting. He drives the first 90 km at 60 km/h. His meeting starts in exactly 2 hours from when he left. At what minimum speed must he drive the remaining 90 km to reach exactly on time?",
+      "options": [
+        "90 km/h",
+        "120 km/h",
+        "180 km/h",
+        "60 km/h"
+      ],
+      "answer": "180 km/h",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 9,
+      "question": "A boat goes 36 km downstream in 2 hours and 24 km upstream in 3 hours. What is the speed of the stream?",
+      "options": [
+        "2 km/h",
+        "3 km/h",
+        "1 km/h",
+        "4 km/h"
+      ],
+      "answer": "3 km/h",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 10,
+      "question": "Ravi invests ₹20,000 at 8% per annum SI. Priya invests the same amount at 8% CI compounded annually. What is the difference in their interest amounts after 3 years?",
+      "options": [
+        "₹313.60",
+        "₹394.24",
+        "₹281.92",
+        "₹345.60"
+      ],
+      "answer": "₹394.24",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "Scenario:\nA small business takes a loan of ₹5,00,000 at 10% per annum CI. It repays ₹1,00,000 at the end of Year 1 and another ₹1,00,000 at the end of Year 2. What is the outstanding balance at the end of Year 2 (before the Year 2 payment is adjusted)?",
+      "options": [
+        "₹4,05,000",
+        "₹4,10,000",
+        "₹4,15,000",
+        "₹4,00,000"
+      ],
+      "answer": "₹4,05,000",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 12,
+      "question": "A vessel contains a mixture of wine and water in the ratio 7:3. 20 litres of the mixture is removed and replaced with water. If the new ratio of wine to water is 5:3, find the original volume of the mixture.",
+      "options": [
+        "70 litres",
+        "80 litres",
+        "60 litres",
+        "90 litres"
+      ],
+      "answer": "70 litres",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 13,
+      "question": "In an exam, the average score of boys is 64 and of girls is 76. The overall class average is 70. Find the ratio of boys to girls in the class.",
+      "options": [
+        "1:1",
+        "3:2",
+        "2:3",
+        "1:2"
+      ],
+      "answer": "1:1",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "Find the least number which when divided by 12, 16, 18, and 21 leaves a remainder of 7 in each case.",
+      "options": [
+        "1015",
+        "1015",
+        "1009",
+        "1007"
+      ],
+      "answer": "1015",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 15,
+      "question": "A number is increased by 20% and then decreased by 20%. The result is then increased by 25% and decreased by 25%. What is the net percentage change from the original number?",
+      "options": [
+        "6.25% decrease",
+        "4% decrease",
+        "10.9375% decrease",
+        "No change"
+      ],
+      "answer": "10.9375% decrease",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "Scenario:\nA company's revenue was ₹80 Lakhs in Year 1. It grew 15% in Year 2 and 20% in Year 3. In Year 4, the revenue dipped 10%. If the target for Year 5 is to recover to the Year 3 level, what percentage growth is needed from Year 4?",
+      "options": [
+        "10%",
+        "11.11%",
+        "12.5%",
+        "9.09%"
+      ],
+      "answer": "11.11%",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 17,
+      "question": "The table shows the number of students who cleared competitive exams from 5 coaching institutes over 3 years.\nWhich institute had the highest average clearance per year?",
+      "diagramType": "table",
+      "diagramData": {
+        "representation": "Students Clearing Competitive Exams — by Institute and Year",
+        "headers": [
+          "Institute",
+          "Year 1",
+          "Year 2",
+          "Year 3"
+        ],
+        "values": [
+          [
+            "Alpha",
+            45,
+            52,
+            61
+          ],
+          [
+            "Beta",
+            38,
+            47,
+            55
+          ],
+          [
+            "Gamma",
+            60,
+            58,
+            62
+          ],
+          [
+            "Delta",
+            30,
+            44,
+            56
+          ],
+          [
+            "Epsilon",
+            55,
+            63,
+            70
+          ]
+        ]
+      },
+      "options": [
+        "Alpha (52.67)",
+        "Gamma (60.00)",
+        "Epsilon (62.67)",
+        "Beta (46.67)"
+      ],
+      "answer": "Epsilon (62.67)",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "Using the same coaching institute table:\nWhat is the percentage increase in total clearances across all institutes from Year 1 to Year 3?",
+      "diagramType": "table",
+      "diagramData": {
+        "representation": "Students Clearing Competitive Exams — by Institute and Year",
+        "headers": [
+          "Institute",
+          "Year 1",
+          "Year 2",
+          "Year 3"
+        ],
+        "values": [
+          [
+            "Alpha",
+            45,
+            52,
+            61
+          ],
+          [
+            "Beta",
+            38,
+            47,
+            55
+          ],
+          [
+            "Gamma",
+            60,
+            58,
+            62
+          ],
+          [
+            "Delta",
+            30,
+            44,
+            56
+          ],
+          [
+            "Epsilon",
+            55,
+            63,
+            70
+          ]
+        ]
+      },
+      "options": [
+        "40.87%",
+        "38.26%",
+        "35.00%",
+        "42.61%"
+      ],
+      "answer": "40.87%",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "The bar chart shows revenue (₹ Lakhs) from 4 product categories across two half-years.\nIn which category is the H2 revenue more than 60% higher than H1?",
+      "diagramType": "chart",
+      "diagramData": {
+        "representation": "Bar Chart — Revenue by Product Category (₹ Lakhs)",
+        "chartType": "bar",
+        "xAxis": "Category — Half Year",
+        "yAxis": "Revenue (₹ Lakhs)",
+        "values": [
+          {
+            "label": "Electronics H1",
+            "value": 200
+          },
+          {
+            "label": "Electronics H2",
+            "value": 280
+          },
+          {
+            "label": "Clothing H1",
+            "value": 150
+          },
+          {
+            "label": "Clothing H2",
+            "value": 246
+          },
+          {
+            "label": "Grocery H1",
+            "value": 300
+          },
+          {
+            "label": "Grocery H2",
+            "value": 360
+          },
+          {
+            "label": "Sports H1",
+            "value": 80
+          },
+          {
+            "label": "Sports H2",
+            "value": 140
+          }
+        ]
+      },
+      "options": [
+        "Electronics (40%)",
+        "Clothing (64%)",
+        "Grocery (20%)",
+        "Sports (75%)"
+      ],
+      "answer": "Sports (75%)",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 20,
+      "question": "The pie chart shows the distribution of 5,400 employees by department in a company.\nIf 15% of IT staff are promoted to Management, what is the new Management headcount?",
+      "diagramType": "chart",
+      "diagramData": {
+        "representation": "Pie Chart — Employee Distribution by Department (Total: 5,400)",
+        "chartType": "pie",
+        "values": [
+          {
+            "label": "IT",
+            "percentage": 30
+          },
+          {
+            "label": "Sales",
+            "percentage": 25
+          },
+          {
+            "label": "Operations",
+            "percentage": 20
+          },
+          {
+            "label": "Management",
+            "percentage": 15
+          },
+          {
+            "label": "HR",
+            "percentage": 10
+          }
+        ]
+      },
+      "options": [
+        "1,053",
+        "1,053",
+        "1,062",
+        "1,035"
+      ],
+      "answer": "1,053",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "Scenario:\nA restaurant has fixed costs of ₹90,000/month. Average revenue per customer is ₹450 and variable cost per customer is ₹180. In January the restaurant serves 400 customers and in February it serves 500 customers. What is the combined profit for both months?",
+      "options": [
+        "₹66,000",
+        "₹78,000",
+        "₹54,000",
+        "₹60,000"
+      ],
+      "answer": "₹66,000",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "Scenario:\nAn investor buys 200 shares at ₹150 each and another 300 shares of the same company at ₹120 each. He later sells all 500 shares at ₹135 each. What is his overall profit or loss?",
+      "options": [
+        "₹1,500 loss",
+        "₹1,500 profit",
+        "₹3,000 loss",
+        "No profit no loss"
+      ],
+      "answer": "₹1,500 loss",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "Scenario:\nA train journey of 600 km is scheduled to take 8 hours. Due to a signal failure, it travels the first 200 km at only 40 km/h. At what average speed must it cover the remaining 400 km to be on time?",
+      "options": [
+        "80 km/h",
+        "100 km/h",
+        "90 km/h",
+        "75 km/h"
+      ],
+      "answer": "100 km/h",
+      "difficulty": "medium",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 24,
+      "question": "Scenario:\nA company grants a salary hike: employees earning below ₹30,000/month get a 20% raise, those earning ₹30,000–₹60,000 get 15%, and those above ₹60,000 get 10%. If there are 50, 30, and 20 employees in each bracket with current average salaries of ₹25,000, ₹45,000, and ₹80,000 respectively, what is the total additional monthly salary outgo?",
+      "options": [
+        "₹6,20,000",
+        "₹6,45,000",
+        "₹5,95,000",
+        "₹6,70,000"
+      ],
+      "answer": "₹6,20,000",
+      "difficulty": "hard",
+      "type": "numerical",
+      "scenario": true
+    },
+    {
+      "id": 25,
+      "question": "In a certain code, each vowel (A, E, I, O, U) is replaced by the next vowel in the sequence (U wraps to A), and each consonant is replaced by the next consonant alphabetically (Z wraps to B).\nHow is MANGO coded?",
+      "options": [
+        "NEOHU",
+        "OBPHI",
+        "NBPHO",
+        "NBOHU"
+      ],
+      "answer": "NEOHU",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 26,
+      "question": "In a code language:\n  'na pa ra' = 'she is tall'\n  'pa ja da' = 'he is smart'\n  'ra da ka' = 'tall and smart'\nWhat does 'ka' mean?",
+      "options": [
+        "tall",
+        "smart",
+        "and",
+        "she"
+      ],
+      "answer": "and",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "Find the missing term:\n3, 6, 11, 18, 27, 38, ?",
+      "options": [
+        "49",
+        "51",
+        "53",
+        "55"
+      ],
+      "answer": "51",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Find the missing value in the grid where each row follows: Col3 = Col2² − Col1",
+      "diagramType": "number-grid",
+      "diagramData": {
+        "representation": "3×3 Number Grid — Rule: Col3 = Col2² − Col1",
+        "grid": [
+          [
+            3,
+            4,
+            13
+          ],
+          [
+            5,
+            6,
+            31
+          ],
+          [
+            7,
+            "?",
+            57
+          ]
+        ],
+        "rule": "Col3 = Col2² − Col1"
+      },
+      "options": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": "8",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "Asha's father has three children: Asha, Bina, and Chetan. Bina is married to Dev. Dev's mother is Esha. How is Esha related to Asha?",
+      "options": [
+        "No direct relation",
+        "Mother-in-law",
+        "Aunt",
+        "Grandmother"
+      ],
+      "answer": "No direct relation",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 30,
+      "question": "Scenario:\nAt a family reunion, Kiran points to a photograph and says: 'This man's mother is the only daughter of my wife's grandmother.'\nKiran's wife is an only child and has no siblings. How is the person in the photo related to Kiran?",
+      "options": [
+        "Son",
+        "Nephew",
+        "Brother-in-law",
+        "Son-in-law"
+      ],
+      "answer": "Son",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    },
+    {
+      "id": 31,
+      "question": "A man walks 6 km East, then 8 km North, then 6 km West, then 4 km South, then 3 km East.\nWhat is the shortest distance and direction from his starting point?",
+      "options": [
+        "5 km North",
+        "4 km North-East",
+        "5 km South",
+        "4 km North"
+      ],
+      "answer": "4 km North",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Six people A, B, C, D, E, F sit in a straight line all facing South.\n\nClues:\n1. A is at the rightmost position\n2. D sits third from the left\n3. B is immediately to the left of F\n4. E is not adjacent to D\n5. C is at the leftmost position\n6. F is between C and D\n\nWho sits immediately to the right of D?",
+      "diagramType": "arrangement",
+      "diagramData": {
+        "representation": "Linear Seating — 6 persons facing South (left to right): C, B, F, D, E, A",
+        "persons": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "constraints": [
+          "A is at the rightmost position",
+          "D sits third from the left",
+          "B is immediately to the left of F",
+          "E is not adjacent to D",
+          "C is at the leftmost position",
+          "F is between C and D"
+        ],
+        "arrangement_clockwise": [
+          "C",
+          "B",
+          "F",
+          "D",
+          "E",
+          "A"
+        ]
+      },
+      "options": [
+        "E",
+        "A",
+        "B",
+        "F"
+      ],
+      "answer": "E",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "Using the same linear arrangement (left to right: C, B, F, D, E, A):\nHow many people sit between C and E?",
+      "diagramType": "arrangement",
+      "diagramData": {
+        "representation": "Linear Seating — 6 persons (left to right): C, B, F, D, E, A",
+        "persons": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "arrangement_clockwise": [
+          "C",
+          "B",
+          "F",
+          "D",
+          "E",
+          "A"
+        ]
+      },
+      "options": [
+        "2",
+        "3",
+        "4",
+        "1"
+      ],
+      "answer": "3",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "Statements:\n1. Some mountains are rivers.\n2. All rivers are forests.\n3. No forest is a desert.\n\nConclusions:\nI.  Some mountains are forests.\nII. No river is a desert.\nIII. All deserts are mountains.\n\nWhich conclusions definitely follow?",
+      "options": [
+        "Only I and II follow",
+        "Only II follows",
+        "Only I follows",
+        "All three follow"
+      ],
+      "answer": "Only I and II follow",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "Statements:\n1. All cars are vehicles.\n2. Some vehicles are buses.\n3. All buses are heavy.\n\nConclusions:\nI.  Some cars are heavy.\nII. Some vehicles are heavy.\nIII. Some heavy things are vehicles.\n\nWhich conclusions definitely follow?",
+      "options": [
+        "Only II and III follow",
+        "Only I follows",
+        "Only III follows",
+        "All three follow"
+      ],
+      "answer": "Only II and III follow",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "Seven students P, Q, R, S, T, U, V score different marks in a test.\n\nClues:\n1. P scores more than Q but less than R\n2. T scores the highest\n3. V scores less than U but more than S\n4. Q scores more than V\n5. S scores the lowest\n\nWho scores third highest?",
+      "options": [
+        "P",
+        "Q",
+        "U",
+        "R"
+      ],
+      "answer": "P",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "Find the missing value in the grid where each row: Col1 + Col2 + Col3 = constant, and the constant increases by 6 each row.",
+      "diagramType": "number-grid",
+      "diagramData": {
+        "representation": "3×3 Number Grid — Row sums increase by 6 each row",
+        "grid": [
+          [
+            4,
+            7,
+            7
+          ],
+          [
+            6,
+            9,
+            "?"
+          ],
+          [
+            8,
+            11,
+            11
+          ]
+        ],
+        "rule": "Row sum: Row1=18, Row2=24, Row3=30"
+      },
+      "options": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": "9",
+      "difficulty": "medium",
+      "type": "logical",
+      "scenario": false
+    },
+    {
+      "id": 38,
+      "question": "Scenario:\nSix employees — L, M, N, O, P, Q — are assigned to 3 projects (X, Y, Z), with exactly 2 employees per project.\n\nClues:\n1. L and Q cannot be on the same project\n2. M is on Project X\n3. O and P are on the same project\n4. N is not on Project Z\n5. Q is on Project Y\n6. L is not on Project X\n\nWhich two employees are on Project Z?",
+      "options": [
+        "O and P",
+        "L and N",
+        "N and O",
+        "L and O"
+      ],
+      "answer": "O and P",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    },
+    {
+      "id": 39,
+      "question": "Scenario:\nThe table shows sales performance data for 4 sales executives in Q3. A bonus of ₹5,000 is given only to executives who meet BOTH conditions: sales ≥ ₹5 Lakhs AND customer satisfaction ≥ 85%. How many executives receive the bonus?",
+      "diagramType": "case",
+      "diagramData": {
+        "representation": "Caselet — Q3 Sales Performance",
+        "headers": [
+          "Executive",
+          "Sales (₹ Lakhs)",
+          "Customer Satisfaction (%)",
+          "New Clients"
+        ],
+        "values": [
+          [
+            "Anand",
+            6.2,
+            88,
+            12
+          ],
+          [
+            "Bhavna",
+            4.8,
+            91,
+            9
+          ],
+          [
+            "Chirag",
+            5.5,
+            82,
+            15
+          ],
+          [
+            "Divya",
+            5.1,
+            87,
+            11
+          ]
+        ]
+      },
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    },
+    {
+      "id": 40,
+      "question": "Scenario:\nFour friends Rohit, Simran, Tarun, Uma each study in a different year (1st, 2nd, 3rd, 4th) and belong to different departments (CS, IT, EC, ME).\n\nClues:\n1. Rohit is in 3rd year\n2. The CS student is in 1st year\n3. Simran is in EC department\n4. Tarun is not in 1st year\n5. Uma is in IT department and is not in 2nd year\n6. The ME student is in 2nd year\n\nWhat year is Simran in and what department is Tarun in?",
+      "options": [
+        "Simran: 4th year, Tarun: ME",
+        "Simran: 2nd year, Tarun: CS",
+        "Simran: 4th year, Tarun: CS",
+        "Simran: 2nd year, Tarun: ME"
+      ],
+      "answer": "Simran: 4th year, Tarun: ME",
+      "difficulty": "hard",
+      "type": "logical",
+      "scenario": true
+    }
+  ]
+}
