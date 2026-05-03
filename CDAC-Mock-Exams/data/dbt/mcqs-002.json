@@ -1,0 +1,781 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A relation ENROLLMENT(student_id, course_id, semester, grade, instructor_id) has FDs: (student_id, course_id, semester)\u2192grade, (student_id, course_id, semester)\u2192instructor_id, instructor_id\u2192course_id. Identify the highest normal form this relation satisfies and the violation present.",
+      "options": [
+        "2NF; transitive dependency instructor_id\u2192course_id through a non-key attribute violates 3NF",
+        "3NF; the relation is already in BCNF because all determinants are superkeys",
+        "1NF; partial dependency on (student_id, course_id) violates 2NF",
+        "BCNF; no violations exist since the composite key determines all attributes"
+      ],
+      "answer": "2NF; transitive dependency instructor_id\u2192course_id through a non-key attribute violates 3NF",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "Given the dataset below, what is the result of:\nSELECT dept, COUNT(*) AS cnt FROM EMP WHERE salary > 40000 GROUP BY dept HAVING COUNT(*) >= 2 ORDER BY cnt DESC;",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "EMP(eid, name, dept, salary)",
+        "values": [
+          {
+            "eid": 1,
+            "name": "Arjun",
+            "dept": "IT",
+            "salary": 55000
+          },
+          {
+            "eid": 2,
+            "name": "Meera",
+            "dept": "IT",
+            "salary": 38000
+          },
+          {
+            "eid": 3,
+            "name": "Ravi",
+            "dept": "HR",
+            "salary": 62000
+          },
+          {
+            "eid": 4,
+            "name": "Sona",
+            "dept": "HR",
+            "salary": 47000
+          },
+          {
+            "eid": 5,
+            "name": "Kiran",
+            "dept": "IT",
+            "salary": 71000
+          },
+          {
+            "eid": 6,
+            "name": "Dev",
+            "dept": "HR",
+            "salary": 35000
+          }
+        ]
+      },
+      "options": [
+        "IT cnt=2; HR cnt=2 (IT listed first due to cnt DESC tie-breaking by insertion order)",
+        "IT cnt=3; HR cnt=3",
+        "IT cnt=2; HR cnt=2 \u2014 order between them is undefined when cnt is equal",
+        "HR cnt=2 only, because Dev's salary disqualifies HR from HAVING"
+      ],
+      "answer": "IT cnt=2; HR cnt=2 \u2014 order between them is undefined when cnt is equal",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "A MySQL procedure uses INOUT parameter. Trace the execution:\nWhat does SELECT @v return?",
+      "snippetLines": [
+        "CREATE PROCEDURE doubleVal(INOUT x INT)",
+        "BEGIN",
+        "  SET x = x * 2;",
+        "END;",
+        "SET @v = 7;",
+        "CALL doubleVal(@v);",
+        "CALL doubleVal(@v);",
+        "SELECT @v;"
+      ],
+      "options": [
+        "28",
+        "14",
+        "49",
+        "7"
+      ],
+      "answer": "28",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "In a MongoDB collection 'inventory', documents have fields: {item, warehouse, qty}. Which aggregation correctly returns the total quantity per warehouse, only for warehouses where total qty exceeds 500?",
+      "options": [
+        "db.inventory.aggregate([{$group:{_id:'$warehouse',total:{$sum:'$qty'}}},{$match:{total:{$gt:500}}}])",
+        "db.inventory.aggregate([{$match:{qty:{$gt:500}}},{$group:{_id:'$warehouse',total:{$sum:'$qty'}}}])",
+        "db.inventory.find({qty:{$gt:500}}).group({_id:'$warehouse',total:{$sum:'$qty'}})",
+        "db.inventory.aggregate([{$group:{_id:'$warehouse',total:{$sum:'$qty'}}},{$having:{total:{$gt:500}}}])"
+      ],
+      "answer": "db.inventory.aggregate([{$group:{_id:'$warehouse',total:{$sum:'$qty'}}},{$match:{total:{$gt:500}}}])",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "Codd's Rule 9 (Logical Data Independence) states that:",
+      "options": [
+        "Changes to the logical schema (table structure) should not require changes to applications that use views or external schemas",
+        "Physical storage changes should not affect logical data representation",
+        "All data must be accessible using the relational language without navigational access",
+        "NULL values must be treated consistently regardless of data type"
+      ],
+      "answer": "Changes to the logical schema (table structure) should not require changes to applications that use views or external schemas",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "Examine the ERD: DOCTOR(doc_id PK, name) treats PATIENT(pat_id PK, name) \u2014 M:N relationship stored in TREATMENT(doc_id FK, pat_id FK, date, diagnosis) with PK(doc_id, pat_id, date). Which query finds doctors who treated patients on BOTH '2024-01-10' AND '2024-01-11'?",
+      "diagramType": "erd",
+      "diagramData": {
+        "representation": "DOCTOR(doc_id PK, name) ---[M]---<TREATMENT(doc_id FK, pat_id FK, date, diagnosis) PK(doc_id,pat_id,date)>---[N]--- PATIENT(pat_id PK, name)",
+        "values": []
+      },
+      "options": [
+        "SELECT doc_id FROM TREATMENT WHERE date IN ('2024-01-10','2024-01-11') GROUP BY doc_id HAVING COUNT(DISTINCT date) = 2",
+        "SELECT doc_id FROM TREATMENT WHERE date = '2024-01-10' AND date = '2024-01-11'",
+        "SELECT doc_id FROM TREATMENT WHERE date = '2024-01-10' UNION SELECT doc_id FROM TREATMENT WHERE date = '2024-01-11'",
+        "SELECT doc_id FROM TREATMENT WHERE date BETWEEN '2024-01-10' AND '2024-01-11' GROUP BY doc_id"
+      ],
+      "answer": "SELECT doc_id FROM TREATMENT WHERE date IN ('2024-01-10','2024-01-11') GROUP BY doc_id HAVING COUNT(DISTINCT date) = 2",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 7,
+      "question": "A table has a composite PRIMARY KEY(col_a, col_b). An additional UNIQUE constraint is placed on col_a alone. Which statement is TRUE?",
+      "options": [
+        "This is allowed; the UNIQUE constraint on col_a means col_a values must be unique, making the composite PK redundant as a uniqueness enforcer",
+        "MySQL rejects this because a primary key column cannot have a separate unique constraint",
+        "The UNIQUE constraint on col_a makes it automatically the primary key, removing the composite PK",
+        "The composite PK and UNIQUE on col_a coexist without conflict because they enforce different constraints"
+      ],
+      "answer": "This is allowed; the UNIQUE constraint on col_a means col_a values must be unique, making the composite PK redundant as a uniqueness enforcer",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "In MySQL, which statement about TRUNCATE vs DELETE is FALSE?",
+      "options": [
+        "TRUNCATE can be rolled back within a transaction just like DELETE",
+        "TRUNCATE resets AUTO_INCREMENT counter; DELETE does not",
+        "TRUNCATE is a DDL statement; DELETE is a DML statement",
+        "TRUNCATE does not fire row-level triggers; DELETE fires them for each row"
+      ],
+      "answer": "TRUNCATE can be rolled back within a transaction just like DELETE",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "Consider the following schema and data:\n\nWhat does this query return?\nSELECT d.dname FROM DEPT d WHERE d.did NOT IN (SELECT did FROM EMP WHERE did IS NOT NULL);",
+      "diagramType": "table",
+      "diagramData": {
+        "representation": "DEPT(did, dname) | EMP(eid, ename, did FK nullable)",
+        "values": [
+          {
+            "table": "DEPT",
+            "rows": [
+              {
+                "did": 10,
+                "dname": "IT"
+              },
+              {
+                "did": 20,
+                "dname": "HR"
+              },
+              {
+                "did": 30,
+                "dname": "Fin"
+              }
+            ]
+          },
+          {
+            "table": "EMP",
+            "rows": [
+              {
+                "eid": 1,
+                "ename": "Anil",
+                "did": 10
+              },
+              {
+                "eid": 2,
+                "ename": "Bina",
+                "did": 10
+              },
+              {
+                "eid": 3,
+                "ename": "Charu",
+                "did": null
+              }
+            ]
+          }
+        ]
+      },
+      "options": [
+        "HR, Fin",
+        "HR, Fin, IT",
+        "No rows \u2014 because NOT IN with a NULL in the sublist makes the entire NOT IN evaluate to UNKNOWN",
+        "HR only"
+      ],
+      "answer": "HR, Fin",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 10,
+      "question": "Which relational algebra expression is equivalent to: SELECT name FROM EMP WHERE dept='IT' AND salary > 60000?",
+      "options": [
+        "\u03c0_name(\u03c3_(dept='IT' \u2227 salary>60000)(EMP))",
+        "\u03c3_name(\u03c0_(dept='IT' \u2227 salary>60000)(EMP))",
+        "\u03c0_name(\u03c3_dept='IT'(EMP)) \u222a \u03c0_name(\u03c3_salary>60000(EMP))",
+        "\u03c0_(name,dept,salary)(\u03c3_dept='IT'(EMP) \u2227 salary>60000)"
+      ],
+      "answer": "\u03c0_name(\u03c3_(dept='IT' \u2227 salary>60000)(EMP))",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "A REPEAT loop in MySQL is used inside a stored procedure. What is the key behavioral difference between REPEAT...UNTIL and WHILE...DO?",
+      "options": [
+        "REPEAT executes the body at least once before checking the condition; WHILE checks the condition before the first execution",
+        "WHILE executes the body at least once; REPEAT may never execute the body if the condition is initially true",
+        "REPEAT and WHILE are identical in MySQL; the syntax is just an alias",
+        "REPEAT checks the condition at the start of each iteration; WHILE checks at the end"
+      ],
+      "answer": "REPEAT executes the body at least once before checking the condition; WHILE checks the condition before the first execution",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "A retail schema: SALE(sale_id PK, prod_id FK, store_id FK, sale_date, revenue). A manager wants the store with the highest total revenue in January 2024. Which query correctly handles ties (returns all tied stores)?",
+      "options": [
+        "SELECT store_id FROM SALE WHERE sale_date BETWEEN '2024-01-01' AND '2024-01-31' GROUP BY store_id HAVING SUM(revenue) = (SELECT MAX(tot) FROM (SELECT SUM(revenue) tot FROM SALE WHERE sale_date BETWEEN '2024-01-01' AND '2024-01-31' GROUP BY store_id) t)",
+        "SELECT store_id FROM SALE WHERE MONTH(sale_date)=1 AND YEAR(sale_date)=2024 GROUP BY store_id ORDER BY SUM(revenue) DESC LIMIT 1",
+        "SELECT store_id, MAX(SUM(revenue)) FROM SALE WHERE MONTH(sale_date)=1 GROUP BY store_id",
+        "SELECT store_id FROM SALE GROUP BY store_id HAVING SUM(revenue) = MAX(revenue) AND MONTH(sale_date)=1"
+      ],
+      "answer": "SELECT store_id FROM SALE WHERE sale_date BETWEEN '2024-01-01' AND '2024-01-31' GROUP BY store_id HAVING SUM(revenue) = (SELECT MAX(tot) FROM (SELECT SUM(revenue) tot FROM SALE WHERE sale_date BETWEEN '2024-01-01' AND '2024-01-31' GROUP BY store_id) t)",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 13,
+      "question": "What does the ITERATE statement do inside a MySQL LOOP construct?",
+      "options": [
+        "Skips the remaining statements in the current iteration and restarts the loop from the beginning (like 'continue' in other languages)",
+        "Terminates the loop entirely (like 'break' in other languages)",
+        "Jumps to a named label outside the loop",
+        "Restarts the stored procedure from the first statement"
+      ],
+      "answer": "Skips the remaining statements in the current iteration and restarts the loop from the beginning (like 'continue' in other languages)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "A schema: SUPPLIER(sup_id PK, name, city) SUPPLY(sup_id FK, part_id FK, qty) PART(part_id PK, pname, color). Which query finds suppliers who supply ALL red parts?",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "SUPPLIER(sup_id PK, name, city) | SUPPLY(sup_id FK->SUPPLIER, part_id FK->PART, qty) PK(sup_id,part_id) | PART(part_id PK, pname, color)",
+        "values": []
+      },
+      "options": [
+        "SELECT s.name FROM SUPPLIER s WHERE NOT EXISTS (SELECT p.part_id FROM PART p WHERE p.color='red' AND NOT EXISTS (SELECT 1 FROM SUPPLY sp WHERE sp.sup_id=s.sup_id AND sp.part_id=p.part_id))",
+        "SELECT s.name FROM SUPPLIER s JOIN SUPPLY sp ON s.sup_id=sp.sup_id JOIN PART p ON sp.part_id=p.part_id WHERE p.color='red'",
+        "SELECT s.name FROM SUPPLIER s WHERE s.sup_id IN (SELECT sup_id FROM SUPPLY WHERE part_id IN (SELECT part_id FROM PART WHERE color='red'))",
+        "SELECT s.name FROM SUPPLIER s JOIN SUPPLY sp ON s.sup_id=sp.sup_id GROUP BY s.name HAVING COUNT(sp.part_id)=(SELECT COUNT(*) FROM PART WHERE color='red')"
+      ],
+      "answer": "SELECT s.name FROM SUPPLIER s WHERE NOT EXISTS (SELECT p.part_id FROM PART p WHERE p.color='red' AND NOT EXISTS (SELECT 1 FROM SUPPLY sp WHERE sp.sup_id=s.sup_id AND sp.part_id=p.part_id))",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 15,
+      "question": "A MongoDB collection 'orders' has documents: {_id, customer, items: [{sku, qty, price}], status}. Which query finds all orders where at least one item has qty > 5 AND price < 100 in the SAME array element?",
+      "options": [
+        "db.orders.find({items:{$elemMatch:{qty:{$gt:5},price:{$lt:100}}}})",
+        "db.orders.find({'items.qty':{$gt:5},'items.price':{$lt:100}})",
+        "db.orders.find({items:{$all:[{qty:{$gt:5}},{price:{$lt:100}}]}})",
+        "db.orders.find({$and:[{'items.qty':{$gt:5}},{'items.price':{$lt:100}}]})"
+      ],
+      "answer": "db.orders.find({items:{$elemMatch:{qty:{$gt:5},price:{$lt:100}}}})",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 16,
+      "question": "Evaluate this SQL on the given data:\nSELECT name FROM EMP WHERE salary > ALL (SELECT salary FROM EMP WHERE dept = 'HR');",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "EMP(eid, name, dept, salary)",
+        "values": [
+          {
+            "eid": 1,
+            "name": "Nisha",
+            "dept": "IT",
+            "salary": 90000
+          },
+          {
+            "eid": 2,
+            "name": "Om",
+            "dept": "IT",
+            "salary": 55000
+          },
+          {
+            "eid": 3,
+            "name": "Priya",
+            "dept": "HR",
+            "salary": 72000
+          },
+          {
+            "eid": 4,
+            "name": "Qumar",
+            "dept": "HR",
+            "salary": 85000
+          },
+          {
+            "eid": 5,
+            "name": "Rani",
+            "dept": "IT",
+            "salary": 86000
+          }
+        ]
+      },
+      "options": [
+        "Nisha",
+        "Nisha, Rani",
+        "Nisha, Rani, Om",
+        "No rows returned"
+      ],
+      "answer": "Nisha",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 17,
+      "question": "A MySQL function is declared WITHOUT the DETERMINISTIC keyword. What is the practical consequence when binary logging is enabled?",
+      "options": [
+        "MySQL may refuse to create the function or require setting log_bin_trust_function_creators=1, because non-deterministic functions can cause replication inconsistency",
+        "The function runs slower because MySQL disables query caching for it",
+        "The function cannot use SELECT statements inside it",
+        "Binary logging is automatically disabled for that session"
+      ],
+      "answer": "MySQL may refuse to create the function or require setting log_bin_trust_function_creators=1, because non-deterministic functions can cause replication inconsistency",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 18,
+      "question": "Which of the following correctly explains the difference between UNION and UNION ALL in MySQL?",
+      "options": [
+        "UNION removes duplicate rows across result sets; UNION ALL retains all rows including duplicates",
+        "UNION ALL removes duplicates; UNION retains them",
+        "UNION sorts the result automatically; UNION ALL does not",
+        "UNION requires both queries to have the same number of rows; UNION ALL does not"
+      ],
+      "answer": "UNION removes duplicate rows across result sets; UNION ALL retains all rows including duplicates",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "An e-commerce database: CUSTOMER(cid PK, name, city), ORDER_TBL(oid PK, cid FK, total, order_date). Find customers from 'Mumbai' whose average order total exceeds the overall average order total of ALL customers.",
+      "options": [
+        "SELECT c.name FROM CUSTOMER c JOIN ORDER_TBL o ON c.cid=o.cid WHERE c.city='Mumbai' GROUP BY c.cid, c.name HAVING AVG(o.total) > (SELECT AVG(total) FROM ORDER_TBL)",
+        "SELECT c.name FROM CUSTOMER c, ORDER_TBL o WHERE c.cid=o.cid AND c.city='Mumbai' AND AVG(o.total) > (SELECT AVG(total) FROM ORDER_TBL)",
+        "SELECT c.name FROM CUSTOMER c WHERE city='Mumbai' AND (SELECT AVG(total) FROM ORDER_TBL WHERE cid=c.cid) > AVG(SELECT total FROM ORDER_TBL)",
+        "SELECT c.name FROM CUSTOMER c JOIN ORDER_TBL o ON c.cid=o.cid WHERE c.city='Mumbai' AND AVG(o.total) > (SELECT AVG(total) FROM ORDER_TBL) GROUP BY c.name"
+      ],
+      "answer": "SELECT c.name FROM CUSTOMER c JOIN ORDER_TBL o ON c.cid=o.cid WHERE c.city='Mumbai' GROUP BY c.cid, c.name HAVING AVG(o.total) > (SELECT AVG(total) FROM ORDER_TBL)",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 20,
+      "question": "What is the purpose of the 4th Normal Form (4NF) and what type of dependency does it eliminate?",
+      "options": [
+        "4NF eliminates non-trivial multi-valued dependencies that are not implied by a superkey",
+        "4NF eliminates transitive functional dependencies from 3NF relations",
+        "4NF eliminates join dependencies that cause lossless decomposition failures",
+        "4NF eliminates all partial dependencies on candidate keys beyond BCNF"
+      ],
+      "answer": "4NF eliminates non-trivial multi-valued dependencies that are not implied by a superkey",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "A stored procedure handles an exception using:\nWhat happens when a SQL error occurs inside the procedure?",
+      "snippetLines": [
+        "DECLARE EXIT HANDLER FOR SQLEXCEPTION",
+        "BEGIN",
+        "  ROLLBACK;",
+        "  SELECT 'Error occurred' AS msg;",
+        "END;"
+      ],
+      "options": [
+        "The handler executes ROLLBACK and returns the error message, then the procedure exits without continuing further statements",
+        "The handler executes ROLLBACK, returns the message, then resumes from the next statement after the error",
+        "ROLLBACK cannot be called inside a handler; this causes a nested transaction error",
+        "The EXIT handler only triggers for duplicate key errors, not all SQL exceptions"
+      ],
+      "answer": "The handler executes ROLLBACK and returns the error message, then the procedure exits without continuing further statements",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "In MongoDB, what is BSON and why does MongoDB use it instead of plain JSON?",
+      "options": [
+        "BSON is Binary JSON; it extends JSON with additional data types (e.g., Date, Binary, ObjectId) and is designed for efficient encoding, decoding, and traversal",
+        "BSON is a text-based superset of JSON that adds schema validation",
+        "BSON is MongoDB's query language, replacing JSON for filter expressions",
+        "BSON is a compression format that reduces JSON document size by 50%"
+      ],
+      "answer": "BSON is Binary JSON; it extends JSON with additional data types (e.g., Date, Binary, ObjectId) and is designed for efficient encoding, decoding, and traversal",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "Consider a table TRANS(tid PK, amount, type CHECK(type IN ('credit','debit')), acc_id FK). A user runs:\nWhat happens in MySQL InnoDB?",
+      "snippetLines": [
+        "INSERT INTO TRANS VALUES (1, 500, 'transfer', 101);"
+      ],
+      "options": [
+        "The INSERT fails with a constraint violation error because 'transfer' is not in the CHECK constraint list",
+        "The INSERT succeeds; MySQL versions before 8.0.16 silently ignore CHECK constraints",
+        "The INSERT succeeds and MySQL coerces 'transfer' to the nearest allowed value",
+        "The INSERT fails only if STRICT mode is enabled; otherwise it inserts with a warning"
+      ],
+      "answer": "The INSERT fails with a constraint violation error because 'transfer' is not in the CHECK constraint list",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 24,
+      "question": "Which statement about a FULLTEXT index in MySQL is TRUE?",
+      "options": [
+        "FULLTEXT indexes support MATCH()...AGAINST() queries for natural language and boolean full-text searches on CHAR, VARCHAR, or TEXT columns",
+        "FULLTEXT indexes work on any data type and replace B-tree indexes for text columns",
+        "FULLTEXT indexes are supported by both InnoDB and MyISAM but only on primary key columns",
+        "FULLTEXT indexes can be used with the LIKE operator for pattern matching acceleration"
+      ],
+      "answer": "FULLTEXT indexes support MATCH()...AGAINST() queries for natural language and boolean full-text searches on CHAR, VARCHAR, or TEXT columns",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 25,
+      "question": "Examine the schema:\n\nSTUDENT(sid PK, sname, batch)\nSUBJECT(sub_id PK, sub_name, credits)\nMARKS(sid FK, sub_id FK, marks_obtained) PK(sid, sub_id)\n\nFind students who scored above 75 in EVERY subject they are enrolled in:",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "STUDENT(sid PK, sname, batch) | SUBJECT(sub_id PK, sub_name, credits) | MARKS(sid FK->STUDENT, sub_id FK->SUBJECT, marks_obtained) PK(sid,sub_id)",
+        "values": []
+      },
+      "options": [
+        "SELECT s.sname FROM STUDENT s WHERE NOT EXISTS (SELECT 1 FROM MARKS m WHERE m.sid=s.sid AND m.marks_obtained <= 75)",
+        "SELECT s.sname FROM STUDENT s JOIN MARKS m ON s.sid=m.sid WHERE m.marks_obtained > 75",
+        "SELECT s.sname FROM STUDENT s JOIN MARKS m ON s.sid=m.sid GROUP BY s.sid HAVING MIN(m.marks_obtained) > 75",
+        "Both A and C are correct"
+      ],
+      "answer": "Both A and C are correct",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 26,
+      "question": "In MySQL, the EXPLAIN output for a query shows 'type: ALL' for a large table. What does this indicate and what is the recommended fix?",
+      "options": [
+        "A full table scan is occurring; adding an appropriate index on the WHERE/JOIN column will change it to 'type: ref' or 'type: range'",
+        "All columns are being selected; using SELECT specific_columns instead of SELECT * will fix it",
+        "ALL means the query uses all available indexes; this is optimal",
+        "ALL indicates a syntax error; the query must be rewritten"
+      ],
+      "answer": "A full table scan is occurring; adding an appropriate index on the WHERE/JOIN column will change it to 'type: ref' or 'type: range'",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 27,
+      "question": "A MongoDB collection 'employees' must be updated: for all documents where department is 'Sales', add a new field 'target' with value 100000 and increment 'bonus' by 5000. Which operation is correct?",
+      "options": [
+        "db.employees.updateMany({department:'Sales'},{$set:{target:100000},$inc:{bonus:5000}})",
+        "db.employees.updateMany({department:'Sales'},{$set:{target:100000,bonus:{$inc:5000}}})",
+        "db.employees.update({department:'Sales'},{target:100000,bonus:5000})",
+        "db.employees.updateOne({department:'Sales'},{$set:{target:100000},$inc:{bonus:5000}})"
+      ],
+      "answer": "db.employees.updateMany({department:'Sales'},{$set:{target:100000},$inc:{bonus:5000}})",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "What is a 'phantom read' in database concurrency, and which isolation level prevents it?",
+      "options": [
+        "A phantom read occurs when a transaction re-executes a query and finds new rows inserted by another committed transaction; SERIALIZABLE prevents it",
+        "A phantom read occurs when a transaction reads uncommitted data from another transaction; READ COMMITTED prevents it",
+        "A phantom read occurs when the same row is read twice and returns different values; REPEATABLE READ prevents it",
+        "A phantom read occurs when a committed write is not visible to other transactions; READ UNCOMMITTED prevents it"
+      ],
+      "answer": "A phantom read occurs when a transaction re-executes a query and finds new rows inserted by another committed transaction; SERIALIZABLE prevents it",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "A database schema for an airline:\n\nFLIGHT(fid PK, origin, destination, dep_time)\nPASSENGER(pid PK, pname, email UNIQUE)\nBOOKING(bid PK, pid FK, fid FK, seat, booking_date)\n\nFind all passengers who have booked flights departing from 'Mumbai' but have NEVER booked a flight departing from 'Delhi':",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "FLIGHT(fid PK, origin, destination, dep_time) | PASSENGER(pid PK, pname, email UNIQUE) | BOOKING(bid PK, pid FK->PASSENGER, fid FK->FLIGHT, seat, booking_date)",
+        "values": []
+      },
+      "options": [
+        "SELECT DISTINCT p.pname FROM PASSENGER p JOIN BOOKING b ON p.pid=b.pid JOIN FLIGHT f ON b.fid=f.fid WHERE f.origin='Mumbai' AND p.pid NOT IN (SELECT b2.pid FROM BOOKING b2 JOIN FLIGHT f2 ON b2.fid=f2.fid WHERE f2.origin='Delhi')",
+        "SELECT p.pname FROM PASSENGER p WHERE p.pid IN (SELECT pid FROM BOOKING JOIN FLIGHT ON BOOKING.fid=FLIGHT.fid WHERE origin='Mumbai') AND origin != 'Delhi'",
+        "SELECT p.pname FROM PASSENGER p WHERE EXISTS (SELECT 1 FROM BOOKING b JOIN FLIGHT f ON b.fid=f.fid WHERE b.pid=p.pid AND f.origin='Mumbai') AND NOT (f.origin='Delhi')",
+        "SELECT p.pname FROM PASSENGER p JOIN BOOKING b ON p.pid=b.pid JOIN FLIGHT f ON b.fid=f.fid WHERE f.origin IN ('Mumbai') AND f.origin NOT IN ('Delhi')"
+      ],
+      "answer": "SELECT DISTINCT p.pname FROM PASSENGER p JOIN BOOKING b ON p.pid=b.pid JOIN FLIGHT f ON b.fid=f.fid WHERE f.origin='Mumbai' AND p.pid NOT IN (SELECT b2.pid FROM BOOKING b2 JOIN FLIGHT f2 ON b2.fid=f2.fid WHERE f2.origin='Delhi')",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 30,
+      "question": "Trace the output of this MySQL snippet:",
+      "snippetLines": [
+        "SET @x = 1;",
+        "my_loop: LOOP",
+        "  SET @x = @x + 1;",
+        "  IF @x = 4 THEN ITERATE my_loop; END IF;",
+        "  IF @x >= 6 THEN LEAVE my_loop; END IF;",
+        "  SET @x = @x + 10;",
+        "END LOOP;",
+        "SELECT @x;"
+      ],
+      "options": [
+        "6",
+        "14",
+        "16",
+        "4"
+      ],
+      "answer": "6",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "Which category of NoSQL database is BEST suited for storing hierarchical social network data where traversing relationships (friend-of-a-friend) is a primary operation?",
+      "options": [
+        "Graph database (e.g., Neo4j), because it stores nodes and edges natively enabling O(1) relationship traversal",
+        "Document store (e.g., MongoDB), because each user document can embed friends as an array",
+        "Column-oriented database (e.g., Cassandra), because it partitions data by user for fast access",
+        "Key-value store (e.g., Redis), because it provides O(1) lookup by user ID"
+      ],
+      "answer": "Graph database (e.g., Neo4j), because it stores nodes and edges natively enabling O(1) relationship traversal",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "A view is created as:\nA user runs: INSERT INTO dept_summary VALUES (10, 5, 60000). What happens?",
+      "snippetLines": [
+        "CREATE VIEW dept_summary AS",
+        "SELECT dept_id, COUNT(*) AS emp_count, AVG(salary) AS avg_sal",
+        "FROM EMP GROUP BY dept_id;"
+      ],
+      "options": [
+        "The INSERT fails because a view containing GROUP BY and aggregate functions is not updatable",
+        "The INSERT succeeds and adds a row to the EMP table with dept_id=10",
+        "The INSERT updates the EMP table to ensure dept 10 has 5 employees averaging 60000",
+        "The INSERT succeeds into the view's internal storage, not the base table"
+      ],
+      "answer": "The INSERT fails because a view containing GROUP BY and aggregate functions is not updatable",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 33,
+      "question": "Which MySQL built-in function returns the position of the FIRST occurrence of a substring within a string?",
+      "options": [
+        "LOCATE('sub', str) or INSTR(str, 'sub')",
+        "POSITION(str IN 'sub')",
+        "FIND_IN_SET('sub', str)",
+        "SUBSTR(str, 'sub')"
+      ],
+      "answer": "LOCATE('sub', str) or INSTR(str, 'sub')",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "A MongoDB collection 'sensors' stores documents: {device_id, timestamp, readings: {temp, humidity, pressure}}. Which query returns the average temperature per device for readings where humidity > 60, using the aggregation framework?",
+      "options": [
+        "db.sensors.aggregate([{$match:{'readings.humidity':{$gt:60}}},{$group:{_id:'$device_id',avgTemp:{$avg:'$readings.temp'}}}])",
+        "db.sensors.aggregate([{$group:{_id:'$device_id',avgTemp:{$avg:'$readings.temp'}}},{$match:{'readings.humidity':{$gt:60}}}])",
+        "db.sensors.find({'readings.humidity':{$gt:60}}).aggregate({$avg:'$readings.temp'})",
+        "db.sensors.aggregate([{$match:{humidity:{$gt:60}}},{$avg:{temp:'$readings.temp'}}])"
+      ],
+      "answer": "db.sensors.aggregate([{$match:{'readings.humidity':{$gt:60}}},{$group:{_id:'$device_id',avgTemp:{$avg:'$readings.temp'}}}])",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "Examine this data. What is returned by the query?\nSELECT a.name FROM EMP a INNER JOIN EMP b ON a.mgr_id = b.eid WHERE b.dept = 'IT';",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "EMP(eid, name, dept, mgr_id) \u2014 self-referential",
+        "values": [
+          {
+            "eid": 1,
+            "name": "Suhas",
+            "dept": "IT",
+            "mgr_id": null
+          },
+          {
+            "eid": 2,
+            "name": "Tina",
+            "dept": "HR",
+            "mgr_id": 1
+          },
+          {
+            "eid": 3,
+            "name": "Uday",
+            "dept": "IT",
+            "mgr_id": 1
+          },
+          {
+            "eid": 4,
+            "name": "Vidya",
+            "dept": "Fin",
+            "mgr_id": 2
+          },
+          {
+            "eid": 5,
+            "name": "Wren",
+            "dept": "HR",
+            "mgr_id": 3
+          }
+        ]
+      },
+      "options": [
+        "Tina, Uday, Wren",
+        "Tina, Uday",
+        "Wren",
+        "Tina, Uday, Vidya, Wren"
+      ],
+      "answer": "Tina, Uday, Wren",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "In the context of database schema vs instance, which statement is CORRECT?",
+      "options": [
+        "Schema is the structure/definition of the database (tables, columns, constraints) which rarely changes; instance is the actual data stored at a particular moment",
+        "Instance is the permanent structure and schema is the temporary snapshot of data",
+        "Schema and instance are synonymous in relational databases",
+        "Schema refers to physical storage layout; instance refers to the logical table definitions"
+      ],
+      "answer": "Schema is the structure/definition of the database (tables, columns, constraints) which rarely changes; instance is the actual data stored at a particular moment",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "A developer creates a TEMPORARY TABLE inside a stored procedure. Which of the following is TRUE about temporary tables in MySQL?",
+      "options": [
+        "A temporary table is visible only to the session that created it and is automatically dropped when the session ends",
+        "A temporary table is visible to all sessions and persists until explicitly dropped",
+        "Temporary tables cannot have indexes or foreign keys",
+        "Temporary tables are stored in the same tablespace as permanent tables"
+      ],
+      "answer": "A temporary table is visible only to the session that created it and is automatically dropped when the session ends",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 38,
+      "question": "A new requirement asks: 'List each product and its category; if the product has no category, show NULL for category name.' The tables are PRODUCT(pid PK, pname, cat_id FK NULLABLE) and CATEGORY(cat_id PK, cname). Which join is correct?",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "PRODUCT(pid PK, pname, cat_id FK->CATEGORY.cat_id NULLABLE) | CATEGORY(cat_id PK, cname)",
+        "values": []
+      },
+      "options": [
+        "SELECT p.pname, c.cname FROM PRODUCT p LEFT JOIN CATEGORY c ON p.cat_id = c.cat_id",
+        "SELECT p.pname, c.cname FROM PRODUCT p RIGHT JOIN CATEGORY c ON p.cat_id = c.cat_id",
+        "SELECT p.pname, c.cname FROM PRODUCT p INNER JOIN CATEGORY c ON p.cat_id = c.cat_id",
+        "SELECT p.pname, c.cname FROM PRODUCT p CROSS JOIN CATEGORY c"
+      ],
+      "answer": "SELECT p.pname, c.cname FROM PRODUCT p LEFT JOIN CATEGORY c ON p.cat_id = c.cat_id",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 39,
+      "question": "A MongoDB collection 'users' has documents with a field 'tags' (an array). Which command creates a multikey index on 'tags' and what is its effect?",
+      "options": [
+        "db.users.createIndex({tags:1}) \u2014 MongoDB automatically creates a multikey index when the field contains an array, creating index entries for each array element",
+        "db.users.createIndex({tags:'multikey'}) \u2014 explicitly specifying 'multikey' type is required for array fields",
+        "db.users.createIndex({tags:1},{multikey:true}) \u2014 the multikey option must be passed to enable array indexing",
+        "Multikey indexes are automatically created on all array fields; no explicit index creation is needed"
+      ],
+      "answer": "db.users.createIndex({tags:1}) \u2014 MongoDB automatically creates a multikey index when the field contains an array, creating index entries for each array element",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 40,
+      "question": "A banking application starts the following transaction sequence. Identify the ACID property being violated if the system crashes after step 3 but the changes in steps 1-2 persist:\n1. BEGIN TRANSACTION\n2. UPDATE acc SET balance=balance-1000 WHERE id=1\n3. --- SYSTEM CRASH ---\n4. UPDATE acc SET balance=balance+1000 WHERE id=2\n5. COMMIT",
+      "options": [
+        "Atomicity \u2014 the transaction must be all-or-nothing; partial updates violating this must be rolled back on recovery",
+        "Consistency \u2014 the sum of balances changed, violating a business rule",
+        "Isolation \u2014 another transaction read the intermediate state",
+        "Durability \u2014 the committed data was lost due to the crash"
+      ],
+      "answer": "Atomicity \u2014 the transaction must be all-or-nothing; partial updates violating this must be rolled back on recovery",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": true
+    }
+  ]
+}

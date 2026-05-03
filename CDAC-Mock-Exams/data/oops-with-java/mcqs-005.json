@@ -1,0 +1,884 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Study this heap layout after the code executes. How many objects are eligible for garbage collection?",
+      "options": [
+        "3",
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": "3",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "memory",
+      "diagramData": {
+        "representation": "Circular reference island + unreachable objects",
+        "values": [
+          "GC Roots (Stack):",
+          "  main → [0xA1]",
+          "",
+          "Heap before nulling:",
+          "  [0xA1] Node { next → [0xB1] }",
+          "  [0xB1] Node { next → [0xA1] }  ← forms cycle but A1 is GC root",
+          "  [0xC1] Node { next → [0xC2] }  ← no stack ref",
+          "  [0xC2] Node { next → [0xC3] }  ← no stack ref",
+          "  [0xC3] Node { next → [0xC1] }  ← no stack ref (island of 3)",
+          "",
+          "Code: main = null;",
+          "",
+          "After nulling main:",
+          "  [0xA1] ← no root ref ← GC eligible",
+          "  [0xB1] ← only ref from [0xA1] ← GC eligible",
+          "  [0xC1][0xC2][0xC3] ← island ← all GC eligible",
+          "",
+          "Question: How many objects are GC eligible in total?"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "question": "What is the correct behavior of 'String.format(\"%05d\", 42)' in Java?",
+      "options": [
+        "\"00042\" — zero-padded to width 5",
+        "\"42000\" — zero-appended to width 5",
+        "\"  42\" — space-padded to width 5",
+        "\"42\" — width specifier is ignored for integers"
+      ],
+      "answer": "\"00042\" — zero-padded to width 5",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "In Java, what happens when a thread calls 'wait()' on an object without holding its monitor lock?",
+      "options": [
+        "IllegalMonitorStateException is thrown at runtime",
+        "The thread waits silently without acquiring the lock",
+        "A compile-time error occurs",
+        "The JVM automatically acquires the lock before waiting"
+      ],
+      "answer": "IllegalMonitorStateException is thrown at runtime",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "What is 'livelock' in multithreading, and how does it differ from deadlock?",
+      "options": [
+        "In livelock, threads keep changing state in response to each other without making progress; in deadlock, threads are blocked and do nothing",
+        "Livelock occurs only in daemon threads; deadlock occurs only in user threads",
+        "Livelock and deadlock are identical — both require circular wait",
+        "In livelock, one thread starves; in deadlock, all threads terminate abnormally"
+      ],
+      "answer": "In livelock, threads keep changing state in response to each other without making progress; in deadlock, threads are blocked and do nothing",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "Based on this class diagram, which statement about interface default method resolution is correct?",
+      "options": [
+        "Class C must explicitly override greet() or call X.super.greet() or Y.super.greet() to resolve ambiguity",
+        "The JVM automatically picks X.greet() because X is listed first in implements",
+        "Compilation succeeds — Java resolves ambiguity by calling both defaults",
+        "Only Y.greet() is called because Y's default is more specific"
+      ],
+      "answer": "Class C must explicitly override greet() or call X.super.greet() or Y.super.greet() to resolve ambiguity",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "class",
+      "diagramData": {
+        "representation": "Diamond default method conflict",
+        "values": [
+          "interface X {",
+          "  default String greet() { return \"Hello from X\"; }",
+          "}",
+          "interface Y {",
+          "  default String greet() { return \"Hello from Y\"; }",
+          "}",
+          "class C implements X, Y {",
+          "  // neither X nor Y extends the other",
+          "  // no override provided",
+          "}",
+          "",
+          "Question: Does C compile? Which greet() is called?"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "question": "Which correctly describes the difference between 'Executor', 'ExecutorService', and 'ScheduledExecutorService'?",
+      "options": [
+        "Executor executes tasks; ExecutorService adds lifecycle management and Future; ScheduledExecutorService adds time-based scheduling",
+        "ExecutorService replaces Executor entirely; ScheduledExecutorService adds multi-threading",
+        "All three are identical — they differ only in naming convention",
+        "Executor is for single-thread use; ExecutorService is for thread pools; ScheduledExecutorService is for daemon threads"
+      ],
+      "answer": "Executor executes tasks; ExecutorService adds lifecycle management and Future; ScheduledExecutorService adds time-based scheduling",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "What is the correct output of 'Integer.MAX_VALUE + 1' in Java?",
+      "options": [
+        "Integer.MIN_VALUE (integer overflow wraps around)",
+        "Integer.MAX_VALUE + 1 as a long",
+        "ArithmeticException",
+        "0"
+      ],
+      "answer": "Integer.MIN_VALUE (integer overflow wraps around)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "In Java reflection, what is the purpose of 'setAccessible(true)' on a Field or Method?",
+      "options": [
+        "It bypasses Java's access control checks, allowing access to private and protected members",
+        "It makes the field or method public permanently in the class definition",
+        "It enables the field to be modified even if it is declared final (always and unconditionally)",
+        "It caches the field reference for faster repeated access"
+      ],
+      "answer": "It bypasses Java's access control checks, allowing access to private and protected members",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "This reference diagram shows a LinkedList structure. After executing the given code, what does 'head.next.next.data' equal?",
+      "options": [
+        "30",
+        "20",
+        "10",
+        "NullPointerException"
+      ],
+      "answer": "30",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "reference",
+      "diagramData": {
+        "representation": "LinkedList node structure",
+        "values": [
+          "class Node { int data; Node next; }",
+          "",
+          "Resulting structure:",
+          "  head → [10] → [20] → [30] → null",
+          "",
+          "Question: head.next.next.data = ?"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "question": "What is the correct contract for 'Comparator.compare(a, b)' return values?",
+      "options": [
+        "Negative if a < b, zero if a == b, positive if a > b",
+        "True if a < b, false otherwise",
+        "0 always for equal objects, 1 for all other cases",
+        "Positive if a < b, zero if a == b, negative if a > b"
+      ],
+      "answer": "Negative if a < b, zero if a == b, positive if a > b",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "Which statement about Java's 'Iterable<T>' interface is TRUE?",
+      "options": [
+        "Any class implementing Iterable<T> can be used in a for-each loop by providing an Iterator<T>",
+        "Iterable<T> extends Collection<T> and provides default sorting",
+        "Implementing Iterable<T> requires implementing both iterator() and size() methods",
+        "Iterable<T> is only implemented by classes in java.util package"
+      ],
+      "answer": "Any class implementing Iterable<T> can be used in a for-each loop by providing an Iterator<T>",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "What is the output of this code involving multiple interface default methods and explicit super call?",
+      "options": [
+        "Alpha\nBeta\nGamma",
+        "Gamma\nAlpha\nBeta",
+        "Alpha\nGamma\nBeta",
+        "Compilation error — cannot call two super defaults"
+      ],
+      "answer": "Alpha\nBeta\nGamma",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "interface Alpha { default void show() { System.out.println(\"Alpha\"); } }",
+        "interface Beta  { default void show() { System.out.println(\"Beta\");  } }",
+        "class Gamma implements Alpha, Beta {",
+        "    public void show() {",
+        "        Alpha.super.show();",
+        "        Beta.super.show();",
+        "        System.out.println(\"Gamma\");",
+        "    }",
+        "}",
+        "public class MultiDefault {",
+        "    public static void main(String[] args) {",
+        "        new Gamma().show();",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 13,
+      "question": "What is the output of this code using 'Stream.distinct()' and 'sorted()'?",
+      "options": [
+        "1 2 3 4 5",
+        "5 4 3 2 1",
+        "3 1 4 1 5 2 3",
+        "1 1 2 3 3 4 5"
+      ],
+      "answer": "1 2 3 4 5",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.stream.*;",
+        "public class DistinctSort {",
+        "    public static void main(String[] args) {",
+        "        Arrays.asList(3, 1, 4, 1, 5, 2, 3).stream()",
+        "            .distinct()",
+        "            .sorted()",
+        "            .forEach(n -> System.out.print(n + \" \"));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 14,
+      "question": "What is the output of this code using 'String.chars()' stream?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "2"
+      ],
+      "answer": "3",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class CharsStream {",
+        "    public static void main(String[] args) {",
+        "        long count = \"CDAC2026\"",
+        "            .chars()",
+        "            .filter(Character::isLetter)",
+        "            .filter(Character::isUpperCase)",
+        "            .distinct()",
+        "            .count();",
+        "        System.out.println(count);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 15,
+      "question": "What is the output of this code demonstrating 'Comparable' natural order with TreeSet?",
+      "options": [
+        "[10, 20, 30, 40]",
+        "[40, 30, 20, 10]",
+        "[30, 10, 40, 20]",
+        "[10, 30, 20, 40]"
+      ],
+      "answer": "[10, 20, 30, 40]",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class TreeSetDemo {",
+        "    public static void main(String[] args) {",
+        "        TreeSet<Integer> ts = new TreeSet<>();",
+        "        ts.add(30);",
+        "        ts.add(10);",
+        "        ts.add(40);",
+        "        ts.add(20);",
+        "        ts.add(10);",
+        "        System.out.println(ts);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 16,
+      "question": "What is the output of this code using 'ExecutorService.invokeAll()'?",
+      "options": [
+        "Results: [A, B, C]",
+        "Results: [C, B, A]",
+        "Results: [A, C, B]",
+        "InterruptedException thrown"
+      ],
+      "answer": "Results: [A, B, C]",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.concurrent.*;",
+        "public class InvokeAll {",
+        "    public static void main(String[] args) throws Exception {",
+        "        ExecutorService es = Executors.newFixedThreadPool(3);",
+        "        List<Callable<String>> tasks = Arrays.asList(",
+        "            () -> \"A\", () -> \"B\", () -> \"C\"",
+        "        );",
+        "        List<Future<String>> futures = es.invokeAll(tasks);",
+        "        List<String> results = new ArrayList<>();",
+        "        for (Future<String> f : futures) results.add(f.get());",
+        "        System.out.println(\"Results: \" + results);",
+        "        es.shutdown();",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 17,
+      "question": "What is the output of this code using 'Map.computeIfAbsent()'?",
+      "options": [
+        "{a=[1, 2], b=[3]}",
+        "{a=[1], b=[3]}",
+        "{a=[2], b=[3]}",
+        "NullPointerException"
+      ],
+      "answer": "{a=[1, 2], b=[3]}",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class ComputeTest {",
+        "    public static void main(String[] args) {",
+        "        Map<String, List<Integer>> map = new HashMap<>();",
+        "        map.computeIfAbsent(\"a\", k -> new ArrayList<>()).add(1);",
+        "        map.computeIfAbsent(\"a\", k -> new ArrayList<>()).add(2);",
+        "        map.computeIfAbsent(\"b\", k -> new ArrayList<>()).add(3);",
+        "        System.out.println(map);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 18,
+      "question": "What is the output of this code that throws and re-throws an exception with a cause?",
+      "options": [
+        "Wrapped: original error\nCause: original error",
+        "original error\nWrapped: original error",
+        "Wrapped: null\nCause: original error",
+        "Only the RuntimeException message is printed"
+      ],
+      "answer": "Wrapped: original error\nCause: original error",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "public class ChainedEx {",
+        "    static void inner() throws Exception {",
+        "        throw new Exception(\"original error\");",
+        "    }",
+        "    static void outer() {",
+        "        try { inner(); }",
+        "        catch (Exception e) {",
+        "            throw new RuntimeException(\"Wrapped: \" + e.getMessage(), e);",
+        "        }",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        try { outer(); }",
+        "        catch (RuntimeException e) {",
+        "            System.out.println(e.getMessage());",
+        "            System.out.println(\"Cause: \" + e.getCause().getMessage());",
+        "        }",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 19,
+      "question": "What is the output of this code that uses an anonymous Comparator to sort objects in reverse by a field?",
+      "options": [
+        "Carol:90 Alice:85 Bob:72",
+        "Bob:72 Alice:85 Carol:90",
+        "Alice:85 Bob:72 Carol:90",
+        "Carol:90 Bob:72 Alice:85"
+      ],
+      "answer": "Carol:90 Alice:85 Bob:72",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "class Pupil {",
+        "    String name; int marks;",
+        "    Pupil(String n, int m) { name = n; marks = m; }",
+        "    public String toString() { return name + \":\" + marks; }",
+        "}",
+        "public class ReverseSort {",
+        "    public static void main(String[] args) {",
+        "        List<Pupil> list = new ArrayList<>(Arrays.asList(",
+        "            new Pupil(\"Alice\", 85),",
+        "            new Pupil(\"Bob\",   72),",
+        "            new Pupil(\"Carol\", 90)",
+        "        ));",
+        "        list.sort(Comparator.comparingInt((Pupil p) -> p.marks).reversed());",
+        "        list.forEach(p -> System.out.print(p + \" \"));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 20,
+      "question": "What is the output of this code using 'Stream.collect(Collectors.joining())'?",
+      "options": [
+        "Java:Python:C++",
+        "Java Python C++",
+        "[Java, Python, C++]",
+        "JavaPythonC++"
+      ],
+      "answer": "Java:Python:C++",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.stream.*;",
+        "public class JoiningTest {",
+        "    public static void main(String[] args) {",
+        "        List<String> langs = Arrays.asList(\"Java\", \"Python\", \"C++\");",
+        "        String result = langs.stream()",
+        "            .collect(Collectors.joining(\":\"));",
+        "        System.out.println(result);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 21,
+      "question": "What is the output of this code that uses a lambda capturing an effectively final variable?",
+      "options": [
+        "Multiplied: 50",
+        "Multiplied: 10",
+        "Compilation error — factor is not final",
+        "Multiplied: 500"
+      ],
+      "answer": "Multiplied: 50",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.function.Function;",
+        "public class CaptureLambda {",
+        "    public static void main(String[] args) {",
+        "        int factor = 5;",
+        "        Function<Integer, Integer> multiply = x -> x * factor;",
+        "        System.out.println(\"Multiplied: \" + multiply.apply(10));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 22,
+      "question": "What is the output of this code involving recursive generic type bounds?",
+      "options": [
+        "banana",
+        "cherry",
+        "apple",
+        "Compilation error"
+      ],
+      "answer": "banana",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class MinFinder {",
+        "    static <T extends Comparable<T>> T min(T a, T b) {",
+        "        return a.compareTo(b) <= 0 ? a : b;",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        System.out.println(min(\"banana\", \"cherry\"));",
+        "        System.out.println(min(\"apple\",  \"banana\"));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 23,
+      "question": "What is the output of this code using 'Collectors.partitioningBy()'?",
+      "options": [
+        "Even: [2, 4, 6]\nOdd: [1, 3, 5]",
+        "Even: [1, 3, 5]\nOdd: [2, 4, 6]",
+        "Even: [2, 4]\nOdd: [1, 3, 5, 6]",
+        "Even: [6, 4, 2]\nOdd: [5, 3, 1]"
+      ],
+      "answer": "Even: [2, 4, 6]\nOdd: [1, 3, 5]",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.stream.*;",
+        "public class PartitionTest {",
+        "    public static void main(String[] args) {",
+        "        List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 6);",
+        "        Map<Boolean, List<Integer>> parts = nums.stream()",
+        "            .collect(Collectors.partitioningBy(n -> n % 2 == 0));",
+        "        System.out.println(\"Even: \" + parts.get(true));",
+        "        System.out.println(\"Odd: \"  + parts.get(false));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 24,
+      "question": "What is the output of this code involving a user-defined checked exception?",
+      "options": [
+        "Caught: Age cannot be negative\nValid age: 25",
+        "Valid age: 25\nCaught: Age cannot be negative",
+        "Uncaught exception terminates program",
+        "Compilation error — checked exception not declared"
+      ],
+      "answer": "Caught: Age cannot be negative\nValid age: 25",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "class InvalidAgeException extends Exception {",
+        "    InvalidAgeException(String msg) { super(msg); }",
+        "}",
+        "public class CustomEx {",
+        "    static void validate(int age) throws InvalidAgeException {",
+        "        if (age < 0) throw new InvalidAgeException(\"Age cannot be negative\");",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        try { validate(-5); }",
+        "        catch (InvalidAgeException e) {",
+        "            System.out.println(\"Caught: \" + e.getMessage());",
+        "        }",
+        "        try { validate(25); System.out.println(\"Valid age: 25\"); }",
+        "        catch (InvalidAgeException e) { System.out.println(e.getMessage()); }",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 25,
+      "question": "This execution flow shows how 'System.exit(0)' interacts with a finally block. What is the output?",
+      "options": [
+        "try block\n(program exits — finally does NOT run)",
+        "try block\nfinally block",
+        "finally block\ntry block",
+        "Only finally block runs"
+      ],
+      "answer": "try block\n(program exits — finally does NOT run)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "execution",
+      "diagramData": {
+        "representation": "System.exit() inside try and finally interaction",
+        "values": [
+          "try {",
+          "  System.out.println('try block');",
+          "  System.exit(0);          ← JVM terminates here",
+          "} finally {",
+          "  System.out.println('finally block');  ← never reached",
+          "}",
+          "",
+          "Rule: System.exit() terminates the JVM;",
+          "      finally blocks do NOT execute after System.exit()"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "question": "What is the return type of 'HashMap.put(key, value)' when the key does NOT already exist?",
+      "options": [
+        "null",
+        "false",
+        "0",
+        "The value just inserted"
+      ],
+      "answer": "null",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "What is the output of 'Collections.min(Arrays.asList(5, 3, 8, 1, 9))' in Java?",
+      "options": [
+        "1",
+        "3",
+        "5",
+        "9"
+      ],
+      "answer": "1",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Which statement about Java's 'ArrayDeque' class is TRUE?",
+      "options": [
+        "ArrayDeque is faster than Stack for stack operations and faster than LinkedList for queue operations",
+        "ArrayDeque allows null elements unlike LinkedList",
+        "ArrayDeque is thread-safe by default",
+        "ArrayDeque is backed by a LinkedList internally"
+      ],
+      "answer": "ArrayDeque is faster than Stack for stack operations and faster than LinkedList for queue operations",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "This array shows the state before and after a single pass of bubble sort. How many swaps occurred?",
+      "options": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": "3",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "array",
+      "diagramData": {
+        "representation": "Single bubble sort pass — count swaps",
+        "values": [
+          "--- Before pass ---",
+          "Index: [0]  [1]  [2]  [3]  [4]",
+          "Value:  5    1    4    2    8",
+          "",
+          "--- After pass ---",
+          "Index: [0]  [1]  [2]  [3]  [4]",
+          "Value:  1    4    2    5    8",
+          "",
+          "Question: How many swaps in this pass?"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "question": "What is the correct behavior of 'List.of()' (Java 9+) regarding mutation?",
+      "options": [
+        "UnsupportedOperationException is thrown on any structural modification (add/remove/set)",
+        "Elements can be modified with set() but add/remove are not allowed",
+        "The list is mutable — List.of() only sets an initial capacity",
+        "Only null elements trigger UnsupportedOperationException"
+      ],
+      "answer": "UnsupportedOperationException is thrown on any structural modification (add/remove/set)",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "What is the result of '5 >> 1' (signed right shift) in Java?",
+      "options": [
+        "2",
+        "10",
+        "3",
+        "1"
+      ],
+      "answer": "2",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Which statement about Java's 'package-private' (default) access modifier is TRUE?",
+      "options": [
+        "Members are accessible only within the same package, including subclasses in the same package",
+        "Members are accessible everywhere like public",
+        "Members are accessible in subclasses regardless of package",
+        "Members are accessible only within the declaring class like private"
+      ],
+      "answer": "Members are accessible only within the same package, including subclasses in the same package",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "What does 'Arrays.fill(arr, 7)' do in Java?",
+      "options": [
+        "Assigns the value 7 to every element of the array",
+        "Inserts 7 at position 0 of the array",
+        "Returns a new array with all elements set to 7",
+        "Sets the length of the array to 7"
+      ],
+      "answer": "Assigns the value 7 to every element of the array",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "Which class in Java provides the 'parseInt()', 'valueOf()', and 'MAX_VALUE' members?",
+      "options": [
+        "Integer",
+        "Math",
+        "Number",
+        "Long"
+      ],
+      "answer": "Integer",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "What is the output of 'String.format(\"%.2f\", 3.14159)' in Java?",
+      "options": [
+        "3.14",
+        "3.1",
+        "3.142",
+        "3.14159"
+      ],
+      "answer": "3.14",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "What does 'Thread.currentThread().getName()' return for the main thread by default?",
+      "options": [
+        "main",
+        "Thread-0",
+        "MainThread",
+        "primary"
+      ],
+      "answer": "main",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "What is the output of this code using 'Map.forEach()'?",
+      "options": [
+        "A=1\nB=2\nC=3",
+        "1=A\n2=B\n3=C",
+        "A B C\n1 2 3",
+        "Output order is not guaranteed (HashMap)"
+      ],
+      "answer": "Output order is not guaranteed (HashMap)",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class ForEachMap {",
+        "    public static void main(String[] args) {",
+        "        Map<String, Integer> map = new HashMap<>();",
+        "        map.put(\"A\", 1);",
+        "        map.put(\"B\", 2);",
+        "        map.put(\"C\", 3);",
+        "        map.forEach((k, v) -> System.out.println(k + \"=\" + v));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 38,
+      "question": "What is the output of this code using 'String.chars()' to count vowels?",
+      "options": [
+        "4",
+        "3",
+        "5",
+        "2"
+      ],
+      "answer": "4",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class VowelCount {",
+        "    public static void main(String[] args) {",
+        "        String s = \"programming\";",
+        "        long count = s.chars()",
+        "            .filter(c -> \"aeiou\".indexOf(c) >= 0)",
+        "            .count();",
+        "        System.out.println(count);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 39,
+      "question": "What is the output of this code using 'Collections.swap()'?",
+      "options": [
+        "[30, 20, 10]",
+        "[10, 20, 30]",
+        "[20, 10, 30]",
+        "[30, 10, 20]"
+      ],
+      "answer": "[30, 20, 10]",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class SwapDemo {",
+        "    public static void main(String[] args) {",
+        "        List<Integer> list = new ArrayList<>(Arrays.asList(10, 20, 30));",
+        "        Collections.swap(list, 0, 2);",
+        "        System.out.println(list);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 40,
+      "question": "What is the output of this code involving a functional interface with generics?",
+      "options": [
+        "Hello CDAC",
+        "CDAC Hello",
+        "helloCDAC",
+        "Compilation error"
+      ],
+      "answer": "Hello CDAC",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.function.*;",
+        "public class FuncGeneric {",
+        "    static <T> T applyTwice(UnaryOperator<T> op, T value) {",
+        "        return op.apply(op.apply(value));",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        String result = applyTwice(",
+        "            s -> s.isEmpty() ? \"Hello\" : s + \" CDAC\",",
+        "            \"\"",
+        "        );",
+        "        System.out.println(result);",
+        "    }",
+        "}"
+      ]
+    }
+  ]
+}

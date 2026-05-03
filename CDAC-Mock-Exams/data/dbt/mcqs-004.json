@@ -1,0 +1,706 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A relation R(A, B, C, D, E) has FDs: AB\u2192C, C\u2192D, D\u2192E, AB\u2192E. What is the closure of {A, B} (i.e., {AB}+)?",
+      "options": [
+        "{A, B, C, D, E} \u2014 AB determines everything",
+        "{A, B, C, D} \u2014 E is not reachable from AB directly",
+        "{A, B, C} \u2014 only C is directly determined by AB",
+        "{A, B, C, E} \u2014 D is not derivable from AB"
+      ],
+      "answer": "{A, B, C, D, E} \u2014 AB determines everything",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 2,
+      "question": "Evaluate the following query on the given data:\n\nSELECT pname FROM PRODUCT WHERE stock = 0 OR price = (SELECT MAX(price) FROM PRODUCT WHERE stock > 0);",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "PRODUCT(pid, pname, price, stock)",
+        "values": [
+          {
+            "pid": 1,
+            "pname": "Widget",
+            "price": 250,
+            "stock": 0
+          },
+          {
+            "pid": 2,
+            "pname": "Gadget",
+            "price": 450,
+            "stock": 10
+          },
+          {
+            "pid": 3,
+            "pname": "Doohickey",
+            "price": 100,
+            "stock": 5
+          },
+          {
+            "pid": 4,
+            "pname": "Thingamajig",
+            "price": 450,
+            "stock": 0
+          },
+          {
+            "pid": 5,
+            "pname": "Gizmo",
+            "price": 200,
+            "stock": 8
+          }
+        ]
+      },
+      "options": [
+        "Widget, Gadget, Thingamajig",
+        "Widget, Thingamajig",
+        "Gadget, Widget, Thingamajig",
+        "Widget, Gadget, Doohickey, Thingamajig"
+      ],
+      "answer": "Widget, Gadget, Thingamajig",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "In MySQL, what is the effect of the WITH CHECK OPTION clause when creating a view?",
+      "options": [
+        "Any INSERT or UPDATE through the view must satisfy the view's WHERE condition; otherwise the DML is rejected",
+        "It makes the view read-only so no DML is allowed through it",
+        "It verifies that the underlying base table data matches the view definition on every SELECT",
+        "It creates an automatic index on the columns in the view's WHERE clause"
+      ],
+      "answer": "Any INSERT or UPDATE through the view must satisfy the view's WHERE condition; otherwise the DML is rejected",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "A MongoDB collection 'employees' needs to find documents where 'age' is between 25 and 35 (inclusive) AND 'city' is NOT 'Delhi'. Which query is correct?",
+      "options": [
+        "db.employees.find({age:{$gte:25,$lte:35},city:{$ne:'Delhi'}})",
+        "db.employees.find({age:{$gt:25,$lt:35},city:{$not:'Delhi'}})",
+        "db.employees.find({$and:[{age:{$gte:25}},{age:{$lte:35}},{city:{$nin:['Delhi']}}]})",
+        "Both A and C are correct"
+      ],
+      "answer": "Both A and C are correct",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "What is the difference between a SCHEMA-LEVEL privilege and an OBJECT-LEVEL privilege in MySQL's DCL?",
+      "options": [
+        "Schema-level privileges apply to all objects within a database (e.g., GRANT SELECT ON mydb.* TO user); object-level apply to a specific table or view (e.g., GRANT SELECT ON mydb.emp TO user)",
+        "Schema-level privileges only apply to stored procedures; object-level apply to tables",
+        "Object-level privileges override schema-level privileges when both are granted",
+        "There is no distinction; MySQL treats all privileges at the global level"
+      ],
+      "answer": "Schema-level privileges apply to all objects within a database (e.g., GRANT SELECT ON mydb.* TO user); object-level apply to a specific table or view (e.g., GRANT SELECT ON mydb.emp TO user)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 6,
+      "question": "Given the ERD: EMPLOYEE(eid PK, name) belongs to DEPARTMENT(did PK, dname) \u2014 M:1. DEPARTMENT manages PROJECT(proj_id PK, pname, did FK). Which query lists department names managing MORE projects than the average number of projects per department?",
+      "diagramType": "erd",
+      "diagramData": {
+        "representation": "DEPARTMENT(did PK, dname) ---[1]--- EMPLOYEE(eid PK, name, did FK) | DEPARTMENT(did PK, dname) ---[1]---[M]--- PROJECT(proj_id PK, pname, did FK->DEPARTMENT)",
+        "values": []
+      },
+      "options": [
+        "SELECT d.dname FROM DEPARTMENT d JOIN PROJECT p ON d.did=p.did GROUP BY d.did, d.dname HAVING COUNT(p.proj_id) > (SELECT AVG(cnt) FROM (SELECT COUNT(*) cnt FROM PROJECT GROUP BY did) t)",
+        "SELECT dname FROM DEPARTMENT WHERE did IN (SELECT did FROM PROJECT GROUP BY did HAVING COUNT(*) > AVG(COUNT(*)))",
+        "SELECT dname FROM DEPARTMENT d WHERE (SELECT COUNT(*) FROM PROJECT WHERE did=d.did) > (SELECT COUNT(*) FROM PROJECT) / (SELECT COUNT(*) FROM DEPARTMENT)",
+        "Both A and C are correct"
+      ],
+      "answer": "Both A and C are correct",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "In MySQL, the SIGNAL statement in stored procedures is used to:",
+      "options": [
+        "Raise a custom error or warning condition with a specified SQLSTATE and message, which can then be caught by a handler",
+        "Send a notification to connected clients when a long-running query completes",
+        "Emit a log entry to the MySQL error log from within a stored procedure",
+        "Return multiple result sets from a single stored procedure call"
+      ],
+      "answer": "Raise a custom error or warning condition with a specified SQLSTATE and message, which can then be caught by a handler",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "A table: SCORES(student_id, subject, score). Find the student_id(s) with the SECOND highest score overall (handle ties correctly \u2014 all students with that score):",
+      "options": [
+        "SELECT DISTINCT student_id FROM SCORES WHERE score = (SELECT MAX(score) FROM SCORES WHERE score < (SELECT MAX(score) FROM SCORES))",
+        "SELECT student_id FROM SCORES ORDER BY score DESC LIMIT 1 OFFSET 1",
+        "SELECT student_id FROM SCORES GROUP BY student_id HAVING MAX(score) = (SELECT score FROM SCORES ORDER BY score DESC LIMIT 1,1)",
+        "SELECT DISTINCT student_id FROM SCORES s1 WHERE 1 = (SELECT COUNT(DISTINCT score) FROM SCORES s2 WHERE s2.score > s1.score)"
+      ],
+      "answer": "SELECT DISTINCT student_id FROM SCORES WHERE score = (SELECT MAX(score) FROM SCORES WHERE score < (SELECT MAX(score) FROM SCORES))",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 9,
+      "question": "Which of the following best describes the ACID property of DURABILITY?",
+      "options": [
+        "Once a transaction is committed, its changes are permanently saved even if the system crashes immediately afterward",
+        "A committed transaction cannot be rolled back by any subsequent operation",
+        "All nodes in a distributed database receive the committed data simultaneously",
+        "The database remains consistent before and after every committed transaction"
+      ],
+      "answer": "Once a transaction is committed, its changes are permanently saved even if the system crashes immediately afterward",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 10,
+      "question": "Examine this data and query:\n\nSELECT e.name FROM EMP e JOIN EMP m ON e.mgr_id = m.eid WHERE e.salary > m.salary;",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "EMP(eid, name, mgr_id self-ref FK, salary)",
+        "values": [
+          {
+            "eid": 1,
+            "name": "Aryan",
+            "mgr_id": null,
+            "salary": 90000
+          },
+          {
+            "eid": 2,
+            "name": "Bala",
+            "mgr_id": 1,
+            "salary": 60000
+          },
+          {
+            "eid": 3,
+            "name": "Chetan",
+            "mgr_id": 1,
+            "salary": 75000
+          },
+          {
+            "eid": 4,
+            "name": "Deepa",
+            "mgr_id": 2,
+            "salary": 50000
+          },
+          {
+            "eid": 5,
+            "name": "Elan",
+            "mgr_id": 3,
+            "salary": 80000
+          }
+        ]
+      },
+      "options": [
+        "Elan",
+        "Elan, Chetan",
+        "No rows",
+        "Elan, Bala"
+      ],
+      "answer": "Elan",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "In MySQL, what happens if you execute ROLLBACK after a DDL statement like ALTER TABLE within a transaction?",
+      "options": [
+        "The ALTER TABLE causes an implicit COMMIT; the subsequent ROLLBACK only affects DML statements after the ALTER",
+        "ROLLBACK undoes both the DDL and any preceding DML statements",
+        "ROLLBACK undoes only the DML statements; DDL is unaffected",
+        "MySQL throws an error when DDL is mixed with DML inside a transaction"
+      ],
+      "answer": "The ALTER TABLE causes an implicit COMMIT; the subsequent ROLLBACK only affects DML statements after the ALTER",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 12,
+      "question": "A retail database schema:\n\nSTORE(store_id PK, city, region)\nSALE(sale_id PK, store_id FK, product_id FK, qty, sale_date)\nPRODUCT(product_id PK, pname, category, unit_price)\n\nFind the top-selling category (by total revenue = qty \u00d7 unit_price) per region:",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "STORE(store_id PK, city, region) | SALE(sale_id PK, store_id FK->STORE, product_id FK->PRODUCT, qty, sale_date) | PRODUCT(product_id PK, pname, category, unit_price)",
+        "values": []
+      },
+      "options": [
+        "SELECT region, category FROM (SELECT s.region, p.category, SUM(sa.qty*p.unit_price) AS rev, RANK() OVER(PARTITION BY s.region ORDER BY SUM(sa.qty*p.unit_price) DESC) AS rnk FROM STORE s JOIN SALE sa ON s.store_id=sa.store_id JOIN PRODUCT p ON sa.product_id=p.product_id GROUP BY s.region, p.category) t WHERE rnk=1",
+        "SELECT region, category, MAX(SUM(qty*unit_price)) FROM STORE JOIN SALE USING(store_id) JOIN PRODUCT USING(product_id) GROUP BY region, category",
+        "SELECT region, category FROM STORE JOIN SALE USING(store_id) JOIN PRODUCT USING(product_id) GROUP BY region ORDER BY SUM(qty*unit_price) DESC LIMIT 1",
+        "SELECT region, category FROM STORE s, SALE sa, PRODUCT p WHERE s.store_id=sa.store_id AND sa.product_id=p.product_id GROUP BY region, category HAVING SUM(qty*unit_price) = MAX(SUM(qty*unit_price))"
+      ],
+      "answer": "SELECT region, category FROM (SELECT s.region, p.category, SUM(sa.qty*p.unit_price) AS rev, RANK() OVER(PARTITION BY s.region ORDER BY SUM(sa.qty*p.unit_price) DESC) AS rnk FROM STORE s JOIN SALE sa ON s.store_id=sa.store_id JOIN PRODUCT p ON sa.product_id=p.product_id GROUP BY s.region, p.category) t WHERE rnk=1",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 13,
+      "question": "In MongoDB, what is the purpose of the ObjectId type used as the default _id?",
+      "options": [
+        "ObjectId is a 12-byte BSON type that encodes timestamp, machine ID, process ID, and a random counter, guaranteeing uniqueness across distributed nodes without coordination",
+        "ObjectId is a UUID v4 auto-generated by MongoDB for each document",
+        "ObjectId is a sequential integer that MongoDB auto-increments like MySQL's AUTO_INCREMENT",
+        "ObjectId is a hash of the document content to ensure duplicate documents are rejected"
+      ],
+      "answer": "ObjectId is a 12-byte BSON type that encodes timestamp, machine ID, process ID, and a random counter, guaranteeing uniqueness across distributed nodes without coordination",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 14,
+      "question": "A procedure uses CASE statement. Trace the output:",
+      "snippetLines": [
+        "CASE",
+        "  WHEN score >= 90 THEN SET label = 'A';",
+        "  WHEN score >= 75 THEN SET label = 'B';",
+        "  WHEN score >= 60 THEN SET label = 'C';",
+        "  ELSE SET label = 'F';",
+        "END CASE;",
+        "CALL gradeLabel(75, @g); SELECT @g;"
+      ],
+      "options": [
+        "B",
+        "C",
+        "A",
+        "F"
+      ],
+      "answer": "B",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 15,
+      "question": "What is an UPSERT operation in MongoDB and which method implements it?",
+      "options": [
+        "UPSERT inserts a new document if no matching document is found, or updates the existing one if found; implemented via updateOne/updateMany with {upsert:true}",
+        "UPSERT always inserts a new document regardless of whether a match exists",
+        "UPSERT deletes the matching document and inserts a fresh one",
+        "UPSERT is implemented using the replaceOne method with the replace:true option"
+      ],
+      "answer": "UPSERT inserts a new document if no matching document is found, or updates the existing one if found; implemented via updateOne/updateMany with {upsert:true}",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 16,
+      "question": "A hospital schema: DOCTOR(doc_id PK, name, specialization), PATIENT(pat_id PK, name, dob), APPOINTMENT(appt_id PK, doc_id FK, pat_id FK, appt_date, status). Find doctors who have NO appointments with status 'completed' in the year 2024:",
+      "options": [
+        "SELECT d.name FROM DOCTOR d WHERE d.doc_id NOT IN (SELECT doc_id FROM APPOINTMENT WHERE status='completed' AND YEAR(appt_date)=2024)",
+        "SELECT d.name FROM DOCTOR d WHERE NOT EXISTS (SELECT 1 FROM APPOINTMENT a WHERE a.doc_id=d.doc_id AND a.status='completed' AND YEAR(a.appt_date)=2024)",
+        "SELECT d.name FROM DOCTOR d LEFT JOIN APPOINTMENT a ON d.doc_id=a.doc_id AND a.status='completed' AND YEAR(a.appt_date)=2024 WHERE a.appt_id IS NULL",
+        "All three options are equivalent and correct"
+      ],
+      "answer": "All three options are equivalent and correct",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 17,
+      "question": "Which MySQL numeric function returns the largest integer NOT greater than a given decimal number, and what does SELECT FLOOR(-3.2) return?",
+      "options": [
+        "FLOOR(); returns -4",
+        "FLOOR(); returns -3",
+        "ROUND(); returns -3",
+        "TRUNCATE(); returns -3.0"
+      ],
+      "answer": "FLOOR(); returns -4",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 18,
+      "question": "A MongoDB aggregation uses $facet. What does $facet allow?",
+      "options": [
+        "$facet allows multiple aggregation pipelines to be executed simultaneously on the same input documents, each producing its own output in a single stage",
+        "$facet splits a collection into multiple sub-collections based on a field value",
+        "$facet performs a multi-key index lookup across several fields at once",
+        "$facet is an alias for $group when grouping on multiple fields"
+      ],
+      "answer": "$facet allows multiple aggregation pipelines to be executed simultaneously on the same input documents, each producing its own output in a single stage",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 19,
+      "question": "Evaluate this query on the given data:\n\nSELECT cid, COUNT(*) AS total, SUM(CASE WHEN status='pending' THEN 1 ELSE 0 END) AS pending_cnt FROM ORDERS GROUP BY cid HAVING pending_cnt > 0;",
+      "diagramType": "data-set",
+      "diagramData": {
+        "representation": "ORDERS(oid, cid, amount, status)",
+        "values": [
+          {
+            "oid": 1,
+            "cid": 10,
+            "amount": 300,
+            "status": "pending"
+          },
+          {
+            "oid": 2,
+            "cid": 10,
+            "amount": 500,
+            "status": "shipped"
+          },
+          {
+            "oid": 3,
+            "cid": 20,
+            "amount": 200,
+            "status": "pending"
+          },
+          {
+            "oid": 4,
+            "cid": 20,
+            "amount": 700,
+            "status": "delivered"
+          },
+          {
+            "oid": 5,
+            "cid": 30,
+            "amount": 400,
+            "status": "shipped"
+          }
+        ]
+      },
+      "options": [
+        "cid=10 total=2 pending=1; cid=20 total=2 pending=1",
+        "cid=10 total=2 pending=1 only",
+        "cid=10 total=2 pending=1; cid=20 total=2 pending=1; cid=30 total=1 pending=0",
+        "cid=20 total=2 pending=1 only"
+      ],
+      "answer": "cid=10 total=2 pending=1; cid=20 total=2 pending=1",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 20,
+      "question": "Which of the following is a correct description of a COLUMN-ORIENTED (wide-column) NoSQL database like Apache Cassandra?",
+      "options": [
+        "Data is stored by column families; each row can have a different set of columns, enabling efficient storage and retrieval of sparse data at massive scale",
+        "Data is stored as JSON documents; each document has a fixed schema enforced by the database",
+        "Data is stored as key-value pairs where the value is always a binary blob",
+        "Data is stored in relational tables with fixed column schemas and supports ACID transactions natively"
+      ],
+      "answer": "Data is stored by column families; each row can have a different set of columns, enabling efficient storage and retrieval of sparse data at massive scale",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 21,
+      "question": "A developer writes a stored procedure with two nested BEGIN...END blocks, each with their own EXIT HANDLER for SQLEXCEPTION. An error occurs in the inner block. Which handler fires?",
+      "options": [
+        "The inner block's EXIT HANDLER fires first; if it re-raises the error (RESIGNAL), the outer handler then fires",
+        "The outer block's EXIT HANDLER always takes priority regardless of where the error occurs",
+        "Both handlers fire simultaneously",
+        "MySQL uses the most recently declared handler, which is the outer one"
+      ],
+      "answer": "The inner block's EXIT HANDLER fires first; if it re-raises the error (RESIGNAL), the outer handler then fires",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 22,
+      "question": "In MySQL, what is the purpose of the EXPLAIN FORMAT=JSON statement when analyzing a query?",
+      "options": [
+        "It provides a detailed JSON-formatted execution plan including cost estimates, loop counts, and index usage for each operation",
+        "It executes the query and returns the result set in JSON format instead of tabular format",
+        "It converts the SQL query into a JSON representation for use with MongoDB",
+        "It exports the table schema as a JSON document"
+      ],
+      "answer": "It provides a detailed JSON-formatted execution plan including cost estimates, loop counts, and index usage for each operation",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 23,
+      "question": "A logistics schema: VEHICLE(vid PK, type, capacity), ROUTE(rid PK, origin, destination, distance), TRIP(tid PK, vid FK, rid FK, trip_date, load). Find routes where the AVERAGE load across all trips exceeds 80% of the vehicle's capacity (note: different vehicles may serve the same route):",
+      "diagramType": "schema",
+      "diagramData": {
+        "representation": "VEHICLE(vid PK, type, capacity) | ROUTE(rid PK, origin, destination, distance) | TRIP(tid PK, vid FK->VEHICLE, rid FK->ROUTE, trip_date, load)",
+        "values": []
+      },
+      "options": [
+        "SELECT r.origin, r.destination FROM ROUTE r JOIN TRIP t ON r.rid=t.rid JOIN VEHICLE v ON t.vid=v.vid GROUP BY r.rid, r.origin, r.destination HAVING AVG(t.load / v.capacity) > 0.8",
+        "SELECT r.rid FROM ROUTE r WHERE AVG(SELECT load FROM TRIP WHERE rid=r.rid) > 0.8 * (SELECT capacity FROM VEHICLE)",
+        "SELECT rid FROM TRIP t JOIN VEHICLE v ON t.vid=v.vid WHERE t.load > 0.8 * v.capacity GROUP BY rid",
+        "SELECT rid FROM TRIP GROUP BY rid HAVING AVG(load) > 0.8"
+      ],
+      "answer": "SELECT r.origin, r.destination FROM ROUTE r JOIN TRIP t ON r.rid=t.rid JOIN VEHICLE v ON t.vid=v.vid GROUP BY r.rid, r.origin, r.destination HAVING AVG(t.load / v.capacity) > 0.8",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 24,
+      "question": "The MySQL function GROUP_CONCAT() is used to:",
+      "options": [
+        "Concatenate non-NULL values from a group into a single string, optionally with a separator, ORDER BY, and DISTINCT",
+        "Concatenate two string columns in a GROUP BY result using the || operator",
+        "Create a concatenated primary key from multiple grouped columns",
+        "Combine two GROUP BY result sets into one using string concatenation"
+      ],
+      "answer": "Concatenate non-NULL values from a group into a single string, optionally with a separator, ORDER BY, and DISTINCT",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 25,
+      "question": "Which MongoDB query uses the $regex operator to find all documents in 'customers' where the 'email' field ends with '@gmail.com' (case-insensitive)?",
+      "options": [
+        "db.customers.find({email:{$regex:'@gmail\\.com$',$options:'i'}})",
+        "db.customers.find({email:{$like:'%@gmail.com'}})",
+        "db.customers.find({email:/gmail.com/})",
+        "db.customers.find({email:{$endsWith:'@gmail.com'}})"
+      ],
+      "answer": "db.customers.find({email:{$regex:'@gmail\\.com$',$options:'i'}})",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 26,
+      "question": "What does it mean for a decomposition of a relation to be LOSSLESS-JOIN?",
+      "options": [
+        "Joining the decomposed relations back together produces exactly the original relation with no spurious tuples added or original tuples lost",
+        "No data is physically lost when the original table is dropped after decomposition",
+        "Each decomposed relation can be reconstructed independently without the others",
+        "The decomposition preserves all functional dependencies from the original relation"
+      ],
+      "answer": "Joining the decomposed relations back together produces exactly the original relation with no spurious tuples added or original tuples lost",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "A table EMPLOYEE has millions of rows. A query frequently runs: SELECT * FROM EMPLOYEE WHERE dept='HR' AND status='active' ORDER BY hire_date DESC. Which index design is OPTIMAL?",
+      "options": [
+        "Composite index on (dept, status, hire_date) \u2014 covers the WHERE columns and allows index-based ORDER BY",
+        "Separate indexes on dept, status, and hire_date \u2014 MySQL will merge them",
+        "Index on hire_date only \u2014 ORDER BY uses it directly",
+        "FULLTEXT index on dept and status \u2014 faster for text equality checks"
+      ],
+      "answer": "Composite index on (dept, status, hire_date) \u2014 covers the WHERE columns and allows index-based ORDER BY",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 28,
+      "question": "In MySQL, what is a COVERING INDEX and how does it improve query performance?",
+      "options": [
+        "A covering index contains all columns needed by a query (SELECT, WHERE, ORDER BY), allowing MySQL to satisfy the query entirely from the index without reading the base table rows",
+        "A covering index is one that spans all columns of a table, replacing the primary key",
+        "A covering index uses compression to cover more rows per index page",
+        "A covering index automatically covers all future columns added to a table"
+      ],
+      "answer": "A covering index contains all columns needed by a query (SELECT, WHERE, ORDER BY), allowing MySQL to satisfy the query entirely from the index without reading the base table rows",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "Trace the output of this REPEAT loop:",
+      "snippetLines": [
+        "DECLARE n INT DEFAULT 10;",
+        "DECLARE result INT DEFAULT 0;",
+        "REPEAT",
+        "  SET result = result + n;",
+        "  SET n = n - 3;",
+        "UNTIL n <= 0",
+        "END REPEAT;",
+        "SELECT result;"
+      ],
+      "options": [
+        "22",
+        "10",
+        "19",
+        "25"
+      ],
+      "answer": "22",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 30,
+      "question": "Which of the following correctly describes the DIFFERENCE between INNER JOIN and EQUI JOIN?",
+      "options": [
+        "An EQUI JOIN is a specific type of INNER JOIN that uses only the equality (=) operator in the join condition; INNER JOIN can use any comparison operator",
+        "INNER JOIN returns NULL for non-matching rows; EQUI JOIN never returns NULL",
+        "EQUI JOIN always uses NATURAL JOIN semantics; INNER JOIN requires an explicit ON clause",
+        "They are identical in all RDBMS implementations"
+      ],
+      "answer": "An EQUI JOIN is a specific type of INNER JOIN that uses only the equality (=) operator in the join condition; INNER JOIN can use any comparison operator",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "A MongoDB collection 'transactions' has: {_id, user_id, type, amount, date}. Write an aggregation that computes per user: total credits, total debits, and net balance (credits - debits):",
+      "options": [
+        "db.transactions.aggregate([{$group:{_id:'$user_id',credits:{$sum:{$cond:[{$eq:['$type','credit']},'$amount',0]}},debits:{$sum:{$cond:[{$eq:['$type','debit']},'$amount',0]}}}},{$addFields:{net:{$subtract:['$credits','$debits']}}}])",
+        "db.transactions.aggregate([{$match:{type:'credit'}},{$group:{_id:'$user_id',credits:{$sum:'$amount'}}},{$match:{type:'debit'}},{$group:{_id:'$user_id',debits:{$sum:'$amount'}}}])",
+        "db.transactions.find().group({credits:1,debits:1,net:1})",
+        "db.transactions.aggregate([{$group:{_id:{user:'$user_id',type:'$type'},total:{$sum:'$amount'}}}])"
+      ],
+      "answer": "db.transactions.aggregate([{$group:{_id:'$user_id',credits:{$sum:{$cond:[{$eq:['$type','credit']},'$amount',0]}},debits:{$sum:{$cond:[{$eq:['$type','debit']},'$amount',0]}}}},{$addFields:{net:{$subtract:['$credits','$debits']}}}])",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": true
+    },
+    {
+      "id": 32,
+      "question": "In MySQL, what is the result of SELECT NULL = NULL, NULL IS NULL, NULL <> NULL?",
+      "options": [
+        "NULL, 1 (TRUE), NULL",
+        "1, 1, 0",
+        "NULL, 1, 1",
+        "0, 1, 1"
+      ],
+      "answer": "NULL, 1 (TRUE), NULL",
+      "difficulty": "hard",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "A view V is created on table T with WITH CHECK OPTION. A user does UPDATE V SET status='inactive' WHERE id=5, but after the update, the row no longer satisfies V's WHERE clause (e.g., V only shows active rows). What happens?",
+      "options": [
+        "The UPDATE is rejected because WITH CHECK OPTION prevents modifications that would make the row invisible through the view",
+        "The UPDATE succeeds; the row is updated but disappears from the view",
+        "The UPDATE succeeds; WITH CHECK OPTION only applies to INSERT, not UPDATE",
+        "The UPDATE triggers an automatic re-insertion of the row with original values"
+      ],
+      "answer": "The UPDATE is rejected because WITH CHECK OPTION prevents modifications that would make the row invisible through the view",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    },
+    {
+      "id": 34,
+      "question": "What does Codd's Rule 6 (View Updating Rule) specify?",
+      "options": [
+        "All views that are theoretically updatable must be updatable by the system",
+        "Every view must display data from at most one base table",
+        "Views must always reflect the current state of the base tables",
+        "Updates to views must be logged separately from updates to base tables"
+      ],
+      "answer": "All views that are theoretically updatable must be updatable by the system",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "In MySQL, what is the difference between CHAR(n) and VARCHAR(n) storage?",
+      "options": [
+        "CHAR(n) always stores exactly n bytes (right-padded with spaces); VARCHAR(n) stores only the actual characters plus 1-2 bytes for the length prefix",
+        "VARCHAR(n) always stores exactly n bytes; CHAR(n) stores variable-length data",
+        "CHAR and VARCHAR are identical in MySQL InnoDB; the distinction is only in MyISAM",
+        "CHAR(n) stores n characters with a 2-byte prefix; VARCHAR(n) uses fixed n bytes"
+      ],
+      "answer": "CHAR(n) always stores exactly n bytes (right-padded with spaces); VARCHAR(n) stores only the actual characters plus 1-2 bytes for the length prefix",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "A MongoDB collection 'products' needs sparse index on field 'discount' (not all documents have this field). Which command creates a sparse index and what is its benefit?",
+      "options": [
+        "db.products.createIndex({discount:1},{sparse:true}) \u2014 only indexes documents that have the discount field, saving space and avoiding null entries",
+        "db.products.createIndex({discount:1},{partial:true}) \u2014 partial is the MongoDB term for sparse index",
+        "db.products.createIndex({discount:1},{unique:true}) \u2014 unique indexes are automatically sparse",
+        "db.products.createIndex({discount:1}) \u2014 all indexes in MongoDB are sparse by default"
+      ],
+      "answer": "db.products.createIndex({discount:1},{sparse:true}) \u2014 only indexes documents that have the discount field, saving space and avoiding null entries",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "What is the DIFFERENCE between a STORED PROCEDURE and a STORED FUNCTION in MySQL?",
+      "options": [
+        "A function MUST return a single scalar value and can be used in SQL expressions; a procedure does not return a value directly but can return data via OUT parameters and cannot be used inside SELECT expressions",
+        "A procedure can return multiple values; a function can only return one",
+        "Functions support transaction control (COMMIT/ROLLBACK); procedures do not",
+        "Procedures are precompiled; functions are interpreted at runtime"
+      ],
+      "answer": "A function MUST return a single scalar value and can be used in SQL expressions; a procedure does not return a value directly but can return data via OUT parameters and cannot be used inside SELECT expressions",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 38,
+      "question": "Evaluate: what rows appear in the result of EXCEPT (or MINUS in some databases) between these two queries?\nQuery A: SELECT city FROM BRANCH WHERE assets > 500000\nQuery B: SELECT city FROM CUSTOMER\n\nTable BRANCH cities with assets>500k: Delhi, Mumbai, Chennai\nTable CUSTOMER cities: Mumbai, Delhi, Kolkata",
+      "options": [
+        "Chennai \u2014 cities in BRANCH (assets>500k) not in CUSTOMER",
+        "Kolkata \u2014 cities in CUSTOMER not in BRANCH",
+        "Delhi, Mumbai \u2014 cities in both",
+        "Delhi, Mumbai, Chennai \u2014 all BRANCH cities"
+      ],
+      "answer": "Chennai \u2014 cities in BRANCH (assets>500k) not in CUSTOMER",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 39,
+      "question": "In MySQL, which of these is a valid way to copy BOTH the structure AND data of table EMP into a new table EMP_BACKUP in a single statement?",
+      "options": [
+        "CREATE TABLE EMP_BACKUP AS SELECT * FROM EMP",
+        "CREATE TABLE EMP_BACKUP LIKE EMP; INSERT INTO EMP_BACKUP SELECT * FROM EMP",
+        "COPY TABLE EMP TO EMP_BACKUP",
+        "INSERT INTO EMP_BACKUP SELECT * FROM EMP"
+      ],
+      "answer": "CREATE TABLE EMP_BACKUP AS SELECT * FROM EMP",
+      "difficulty": "medium",
+      "type": "query",
+      "scenario": false
+    },
+    {
+      "id": 40,
+      "question": "A financial application requires that a series of fund transfers either ALL complete or NONE do (true atomicity across multiple tables). The developer considers using MySQL Stored Procedure with explicit COMMIT/ROLLBACK. Which additional MySQL feature is ESSENTIAL to make this work reliably under concurrent access?",
+      "options": [
+        "Using InnoDB storage engine with appropriate transaction isolation level (at least READ COMMITTED) so that locks prevent dirty reads during the multi-step transfer",
+        "Creating a separate audit table to log each step",
+        "Using MyISAM for performance since it handles concurrent writes better",
+        "Setting autocommit=1 to ensure each statement is independently committed"
+      ],
+      "answer": "Using InnoDB storage engine with appropriate transaction isolation level (at least READ COMMITTED) so that locks prevent dirty reads during the multi-step transfer",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": true
+    }
+  ]
+}

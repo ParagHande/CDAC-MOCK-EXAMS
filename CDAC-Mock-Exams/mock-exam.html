@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock Exam | C-DAC Mumbai MCQ Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Shared site styles (variables, typography, cards) -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Exam-specific styles (layout, overlays, timer, diagrams) -->
+    <link rel="stylesheet" href="assets/css/exam.css" />
+  </head>
+  <body>
+
+    <!-- ── Fullscreen exit warning banner ─────────────────────────── -->
+    <div id="fullscreen-warning">
+      ⚠ You exited full-screen! Please go back to full-screen to continue the exam.
+      <button
+        onclick="enterFullscreen()"
+        style="
+          margin-left: 14px;
+          padding: 4px 12px;
+          border-radius: 4px;
+          border: none;
+          cursor: pointer;
+          font-weight: 700;
+        "
+      >
+        Re-enter Full-screen
+      </button>
+    </div>
+
+    <!-- ── Pre-exam instructions overlay ──────────────────────────── -->
+    <div id="instructions-overlay">
+      <div class="instructions-box">
+        <h2 id="instr-title">Mock Exam</h2>
+        <ul>
+          <li><strong>40 Questions</strong> — attempt all questions</li>
+          <li>
+            <strong>60 Minutes</strong> — timer starts when you click Start
+          </li>
+          <li>
+            <strong>Full-screen mode</strong> — the exam will enter full-screen
+            automatically
+          </li>
+          <li>
+            Exiting full-screen will show a <strong>warning banner</strong>
+          </li>
+          <li>Timer runs out → exam <strong>auto-submits</strong></li>
+          <li>You can navigate freely between questions</li>
+        </ul>
+        <button class="start-exam-btn" id="start-btn">Start Exam →</button>
+      </div>
+    </div>
+
+    <!-- ── Main exam shell ────────────────────────────────────────── -->
+    <div id="exam-shell">
+
+      <!-- Top bar: title | timer | review button -->
+      <div id="exam-topbar">
+        <h1 id="exam-title">Loading exam...</h1>
+        <div id="timer">60:00</div>
+        <div style="display: flex; gap: 8px; align-items: center">
+          <button id="review-btn-top" onclick="openReview()">
+            Review &amp; Submit
+          </button>
+        </div>
+      </div>
+
+      <!-- Question navigation dots -->
+      <div id="q-nav-bar"></div>
+
+      <!-- Two-column body: question panel | options panel -->
+      <div id="exam-body">
+
+        <!-- Left: question text + diagram + snippet -->
+        <div id="q-panel">
+          <div id="q-meta">Question 1 of 40</div>
+          <div id="q-text">Loading...</div>
+          <!-- Diagram area — rendered as HTML by renderDiagram() -->
+          <div id="q-diagram" style="display: none; margin-top: 20px"></div>
+          <!-- Code snippet block — shown only when snippetLines exist -->
+          <pre id="q-snippet"></pre>
+        </div>
+
+        <!-- Right: option buttons -->
+        <div id="opt-panel">
+          <div id="opt-header">Choose the best option</div>
+          <div
+            id="opt-list"
+            style="display: flex; flex-direction: column; gap: 9px; flex: 1"
+          ></div>
+          <button id="clear-resp-btn" onclick="clearCurrentAnswer()">
+            ↺ Clear response
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom navigation: prev | progress | revisit | next -->
+      <div id="exam-footer">
+        <button class="foot-btn" onclick="navigate(-1)">← Previous</button>
+        <div id="progress-info">0 / 40 answered</div>
+        <div style="display: flex; align-items: center; gap: 10px">
+          <!-- Revisit toggle — turns orange when active -->
+          <button
+            id="revisit-btn"
+            class="foot-btn"
+            onclick="toggleRevisit()"
+            style="
+              gap: 5px;
+              display: flex;
+              align-items: center;
+              padding: 6px 12px;
+              border-radius: 20px;
+              font-size: 12px;
+              border: 1.5px solid #cbd5e1;
+              background: #f8fafc;
+              font-weight: 600;
+              color: #64748b;
+              cursor: pointer;
+              font-family: inherit;
+              transition: all 0.15s;
+            "
+          >
+            <!-- Circular arrow icon -->
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M1.5 8A6.5 6.5 0 1 0 8 1.5" />
+              <path d="M1.5 4.5v3.5h3.5" />
+            </svg>
+            Revisit
+          </button>
+          <button class="foot-btn primary" onclick="navigate(1)">
+            Save &amp; Next →
+          </button>
+        </div>
+      </div>
+
+      <!-- Result screen — shown after submit, hidden during exam -->
+      <div id="result-screen">
+        <button
+          class="go-home-btn"
+          onclick="window.location.href = 'index.html'"
+        >
+          ← Back to Home
+        </button>
+
+        <!-- Score summary card -->
+        <div class="result-summary">
+          <div class="result-score-circle">
+            <div class="result-score-val" id="res-score">0/40</div>
+            <div class="result-score-pct" id="res-pct">0%</div>
+          </div>
+          <div class="result-grid">
+            <div class="result-stat">
+              <div class="result-stat-val" id="res-correct" style="color: #059669">0</div>
+              <div class="result-stat-lbl">✓ Correct</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-val" id="res-wrong" style="color: #dc2626">0</div>
+              <div class="result-stat-lbl">✗ Wrong</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-val" id="res-skip" style="color: #d97706">0</div>
+              <div class="result-stat-lbl">— Skipped</div>
+            </div>
+          </div>
+          <!-- Filter buttons -->
+          <div class="result-actions">
+            <button class="result-filter-btn active" id="filter-all"     onclick="filterResult('all')">All</button>
+            <button class="result-filter-btn"         id="filter-wrong"   onclick="filterResult('wrong')">Wrong</button>
+            <button class="result-filter-btn"         id="filter-skip"    onclick="filterResult('skipped')">Skipped</button>
+            <button class="result-filter-btn"         id="filter-correct" onclick="filterResult('correct')">Correct</button>
+          </div>
+        </div>
+
+        <!-- Per-question review list — populated by buildResultReview() -->
+        <div class="result-review-list" id="result-review-list"></div>
+
+        <button
+          class="go-home-btn"
+          onclick="window.location.href = 'index.html'"
+        >
+          ← Back to Home
+        </button>
+      </div>
+    </div><!-- /#exam-shell -->
+
+    <!-- ── Review & Revisit overlay ───────────────────────────────── -->
+    <div id="review-overlay">
+      <div class="review-panel">
+        <div class="review-header">
+          <h2>Review your answers</h2>
+          <button class="review-close-btn" onclick="closeReview()">✕</button>
+        </div>
+
+        <!-- Live count chips -->
+        <div class="review-summary">
+          <div class="rev-chip total"    id="rv-total">40 Total</div>
+          <div class="rev-chip answered" id="rv-answered">0 Answered</div>
+          <div class="rev-chip skipped"  id="rv-skipped">40 Skipped</div>
+        </div>
+
+        <!-- Full question list — click any row to jump back -->
+        <div class="review-list" id="review-list"></div>
+
+        <div class="review-footer">
+          <button class="review-cancel-btn" onclick="closeReview()">
+            Continue exam
+          </button>
+          <button class="review-submit-btn" onclick="confirmAndSubmit()">
+            Submit exam →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Custom confirm modal ────────────────────────────────────── -->
+    <div id="confirm-overlay" style="display: none">
+      <div class="confirm-box">
+        <div class="confirm-icon">
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#f59e0b"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0
+                         1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            />
+            <line x1="12" y1="9"  x2="12"   y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+        <h3 class="confirm-title" id="confirm-title">Submit Exam?</h3>
+        <p class="confirm-msg"   id="confirm-msg">Are you sure you want to submit?</p>
+        <div class="confirm-stats" id="confirm-stats"></div>
+        <div class="confirm-actions">
+          <button class="confirm-btn-cancel" id="confirm-cancel">Continue Exam</button>
+          <button class="confirm-btn-ok"     id="confirm-ok">Submit Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Keyboard shortcut warning popup ────────────────────────── -->
+    <div id="key-warning-overlay" style="display: none">
+      <div class="key-warning-box">
+        <div class="key-warn-icon">
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#dc2626"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8"  x2="12"   y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+        </div>
+        <h3 class="key-warn-title">Action Not Allowed</h3>
+        <p class="key-warn-msg" id="key-warn-msg">
+          Keyboard shortcuts are disabled during the exam.
+        </p>
+        <button class="key-warn-btn" onclick="closeKeyWarning()">
+          I Understand
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Keyboard warning toast (F11 / Ctrl+Tab attempts) ───────── -->
+    <div id="keyboard-warning">
+      ⚠ This action is not allowed during the exam!
+    </div>
+
+    <!-- ── Scripts (order matters) ────────────────────────────────── -->
+    <!--
+      Load order:
+        1. app.js       — exposes window.MCQApp (subject registry, constants)
+        2. exam-engine.js — exam state, core logic, timer, render, load
+        3. exam-ui.js   — review panel, revisit, confirm modal, diagrams
+        4. exam-guards.js — keyboard blocking, result screen builder
+    -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/exam-engine.js"></script>
+    <script src="assets/js/exam-ui.js"></script>
+    <script src="assets/js/exam-guards.js"></script>
+  </body>
+</html>

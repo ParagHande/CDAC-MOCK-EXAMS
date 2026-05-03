@@ -1,0 +1,872 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Given this memory layout, which reference variable still points to Object-A after the reassignment?",
+      "options": [
+        "ref2",
+        "ref1",
+        "Both ref1 and ref2",
+        "Neither; Object-A is garbage collected"
+      ],
+      "answer": "ref2",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "memory",
+      "diagramData": {
+        "representation": "Stack | Heap",
+        "values": [
+          "Stack: ref1 → [0x100]   Heap: [0x100] Object-A {x=10}",
+          "Stack: ref2 → [0x100]",
+          "--- after: ref1 = new MyObj(); ---",
+          "Stack: ref1 → [0x200]   Heap: [0x200] Object-A {x=0}",
+          "Stack: ref2 → [0x100]   Heap: [0x100] Object-A {x=10}  ← still reachable"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "question": "Which statement is TRUE about the JVM's method area (Metaspace in Java 8+)?",
+      "options": [
+        "It stores class metadata, static variables, and the constant pool",
+        "It stores local variables and method call frames",
+        "It is garbage collected using the same GC cycle as the heap",
+        "Each thread has its own private method area"
+      ],
+      "answer": "It stores class metadata, static variables, and the constant pool",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "A class declares: 'private final int x;' without initialization. What is the result?",
+      "options": [
+        "Compile-time error: blank final field x may not have been initialized",
+        "x defaults to 0 at runtime",
+        "x defaults to 0 only if initialized in a static block",
+        "Runtime NullPointerException when x is accessed"
+      ],
+      "answer": "Compile-time error: blank final field x may not have been initialized",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "Which combination of access modifiers makes a member accessible only within its own class and its subclasses in a different package?",
+      "options": [
+        "protected",
+        "default (package-private)",
+        "public",
+        "private"
+      ],
+      "answer": "protected",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "Based on this class hierarchy diagram, which method call demonstrates runtime polymorphism?",
+      "options": [
+        "Dog.sound() is called at runtime via dynamic dispatch",
+        "Animal.sound() is called because the reference type is Animal",
+        "Compile-time error: cannot call abstract method via Animal reference",
+        "Cat.sound() is called because Cat is last in the hierarchy"
+      ],
+      "answer": "Dog.sound() is called at runtime via dynamic dispatch",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "class",
+      "diagramData": {
+        "representation": "UML-style class relationships",
+        "values": [
+          "Animal (abstract)",
+          "  +sound() : void  [abstract]",
+          "  +breathe() : void  [concrete]",
+          "Dog extends Animal",
+          "  +sound() : void  [override: prints 'Woof']",
+          "Cat extends Animal",
+          "  +sound() : void  [override: prints 'Meow']",
+          "--- Usage ---",
+          "Animal a = new Dog();",
+          "a.sound();   // ← which method runs?"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "question": "In Java, why can an interface have 'default' methods since Java 8?",
+      "options": [
+        "To allow adding new methods to interfaces without breaking existing implementing classes",
+        "To allow interfaces to have constructors for default initialization",
+        "To replace abstract classes entirely in the Java type system",
+        "To allow default methods to be called without an object reference"
+      ],
+      "answer": "To allow adding new methods to interfaces without breaking existing implementing classes",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "Which statement correctly explains 'island of isolation' in Java garbage collection?",
+      "options": [
+        "A group of objects that reference each other but are not reachable from any GC root",
+        "A single object with no references at all",
+        "An object whose only reference is from a static field",
+        "An object that holds a reference to itself"
+      ],
+      "answer": "A group of objects that reference each other but are not reachable from any GC root",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "What is the difference between 'throws' and 'throw' in Java exception handling?",
+      "options": [
+        "'throw' raises an exception instance; 'throws' declares exceptions a method may propagate",
+        "'throws' raises an exception instance; 'throw' declares exceptions a method may propagate",
+        "'throw' is for checked exceptions only; 'throws' is for unchecked exceptions only",
+        "Both keywords are interchangeable in Java 8+"
+      ],
+      "answer": "'throw' raises an exception instance; 'throws' declares exceptions a method may propagate",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "This reference diagram shows String interning. Which assertion holds TRUE?",
+      "options": [
+        "s1 == s2 is true; s1 == s3 is false; s1.equals(s3) is true",
+        "s1 == s2 is false; s1 == s3 is false; s1.equals(s3) is true",
+        "s1 == s2 is true; s1 == s3 is true; s1.equals(s3) is true",
+        "s1 == s2 is true; s1 == s3 is false; s1.equals(s3) is false"
+      ],
+      "answer": "s1 == s2 is true; s1 == s3 is false; s1.equals(s3) is true",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "reference",
+      "diagramData": {
+        "representation": "String Pool and Heap reference layout",
+        "values": [
+          "String Pool (inside Metaspace/Heap):",
+          "  [0xA1] → 'hello'",
+          "",
+          "Heap:",
+          "  [0xB1] → String object 'hello'  (new String)",
+          "",
+          "Variables:",
+          "  s1 = 'hello'         → points to [0xA1] (pool literal)",
+          "  s2 = 'hello'         → points to [0xA1] (pool literal)",
+          "  s3 = new String('hello') → points to [0xB1] (heap)",
+          "",
+          "Assertions:",
+          "  s1 == s2    → ?",
+          "  s1 == s3    → ?",
+          "  s1.equals(s3) → ?"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "question": "Which statement about Java's 'volatile' keyword is TRUE?",
+      "options": [
+        "volatile guarantees visibility of changes across threads but does NOT guarantee atomicity of compound actions",
+        "volatile makes a variable immutable and thread-safe for all operations",
+        "volatile is equivalent to using synchronized on the variable",
+        "volatile forces the JVM to store the variable on the stack instead of heap"
+      ],
+      "answer": "volatile guarantees visibility of changes across threads but does NOT guarantee atomicity of compound actions",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "In Java generics, what does the wildcard '? extends Number' allow?",
+      "options": [
+        "Reading elements as Number; writing is prohibited (except null)",
+        "Writing any subtype of Number; reading returns Object",
+        "Reading and writing any subtype of Number freely",
+        "Restricting the generic type to exactly Number, no subtypes"
+      ],
+      "answer": "Reading elements as Number; writing is prohibited (except null)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "What happens when serialization encounters a field marked 'transient'?",
+      "options": [
+        "The field is skipped during serialization and gets its default value upon deserialization",
+        "The field causes a NotSerializableException to be thrown",
+        "The field is serialized normally but marked with a special flag",
+        "The field retains its last value upon deserialization via object caching"
+      ],
+      "answer": "The field is skipped during serialization and gets its default value upon deserialization",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 13,
+      "question": "What is the output of this code?",
+      "options": [
+        "Static block: 15\nMain: 15",
+        "Main: 10\nStatic block: 15",
+        "Static block: 10\nMain: 15",
+        "Main: 15\nStatic block: 15"
+      ],
+      "answer": "Static block: 15\nMain: 15",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class StaticBlock {",
+        "    static int x = 10;",
+        "    static {",
+        "        x = x + 5;",
+        "        System.out.println(\"Static block: \" + x);",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        System.out.println(\"Main: \" + x);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 14,
+      "question": "What is the output of this constructor chaining code?",
+      "options": [
+        "Parent\nChild\nGrandChild",
+        "GrandChild\nChild\nParent",
+        "Child\nParent\nGrandChild",
+        "Parent\nGrandChild\nChild"
+      ],
+      "answer": "Parent\nChild\nGrandChild",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "class Parent {",
+        "    Parent() { System.out.println(\"Parent\"); }",
+        "}",
+        "class Child extends Parent {",
+        "    Child() {",
+        "        super();",
+        "        System.out.println(\"Child\");",
+        "    }",
+        "}",
+        "class GrandChild extends Child {",
+        "    GrandChild() {",
+        "        System.out.println(\"GrandChild\");",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        new GrandChild();",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 15,
+      "question": "What does this code print?",
+      "options": [
+        "2",
+        "1",
+        "Compilation error",
+        "Runtime exception"
+      ],
+      "answer": "2",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class FinallyTest {",
+        "    static int method() {",
+        "        try {",
+        "            return 1;",
+        "        } finally {",
+        "            return 2;",
+        "        }",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        System.out.println(method());",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 16,
+      "question": "What is the output of this lambda and functional interface code?",
+      "options": [
+        "25",
+        "45",
+        "55",
+        "15"
+      ],
+      "answer": "25",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.function.Function;",
+        "public class LambdaTest {",
+        "    public static void main(String[] args) {",
+        "        Function<Integer, Integer> triple = x -> x * 3;",
+        "        Function<Integer, Integer> addTen = x -> x + 10;",
+        "        Function<Integer, Integer> combined = triple.andThen(addTen);",
+        "        System.out.println(combined.apply(5));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 17,
+      "question": "What is the output of this String pool code?",
+      "options": [
+        "true\nfalse\ntrue",
+        "true\ntrue\ntrue",
+        "false\nfalse\nfalse",
+        "true\nfalse\nfalse"
+      ],
+      "answer": "true\nfalse\ntrue",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class StringTest {",
+        "    public static void main(String[] args) {",
+        "        String a = \"Java\";",
+        "        String b = \"Java\";",
+        "        String c = new String(\"Java\");",
+        "        String d = c.intern();",
+        "        System.out.println(a == b);",
+        "        System.out.println(a == c);",
+        "        System.out.println(a == d);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 18,
+      "question": "What is the output of this autoboxing and Integer cache code?",
+      "options": [
+        "true\nfalse",
+        "true\ntrue",
+        "false\nfalse",
+        "false\ntrue"
+      ],
+      "answer": "true\nfalse",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class WrapperTest {",
+        "    public static void main(String[] args) {",
+        "        Integer a = 127;",
+        "        Integer b = 127;",
+        "        Integer c = 128;",
+        "        Integer d = 128;",
+        "        System.out.println(a == b);",
+        "        System.out.println(c == d);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 19,
+      "question": "What is the output of this exception propagation code?",
+      "options": [
+        "Caught: From C\nAfter A",
+        "Caught: From C",
+        "RuntimeException propagates to main",
+        "After A"
+      ],
+      "answer": "Caught: From C\nAfter A",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class ExPropagation {",
+        "    static void methodC() {",
+        "        throw new RuntimeException(\"From C\");",
+        "    }",
+        "    static void methodB() { methodC(); }",
+        "    static void methodA() {",
+        "        try { methodB(); }",
+        "        catch (RuntimeException e) {",
+        "            System.out.println(\"Caught: \" + e.getMessage());",
+        "        }",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        methodA();",
+        "        System.out.println(\"After A\");",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 20,
+      "question": "What is the output of this streams code?",
+      "options": [
+        "56",
+        "14",
+        "36",
+        "20"
+      ],
+      "answer": "56",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.stream.*;",
+        "public class StreamTest {",
+        "    public static void main(String[] args) {",
+        "        List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 6);",
+        "        int result = nums.stream()",
+        "                         .filter(n -> n % 2 == 0)",
+        "                         .mapToInt(n -> n * n)",
+        "                         .sum();",
+        "        System.out.println(result);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 21,
+      "question": "What is the output of this synchronized block code with two threads incrementing a shared counter?",
+      "options": [
+        "2000",
+        "Some value less than 2000 due to race condition",
+        "1000",
+        "Deadlock occurs"
+      ],
+      "answer": "2000",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "public class SyncTest {",
+        "    static int count = 0;",
+        "    static synchronized void increment() {",
+        "        count++;",
+        "    }",
+        "    public static void main(String[] args) throws InterruptedException {",
+        "        Thread t1 = new Thread(() -> {",
+        "            for (int i = 0; i < 1000; i++) increment();",
+        "        });",
+        "        Thread t2 = new Thread(() -> {",
+        "            for (int i = 0; i < 1000; i++) increment();",
+        "        });",
+        "        t1.start(); t2.start();",
+        "        t1.join();  t2.join();",
+        "        System.out.println(count);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 22,
+      "question": "What does this generic method print?",
+      "options": [
+        "9",
+        "3",
+        "7",
+        "4"
+      ],
+      "answer": "9",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class GenericTest {",
+        "    static <T extends Comparable<T>> T findMax(List<T> list) {",
+        "        T max = list.get(0);",
+        "        for (T item : list) {",
+        "            if (item.compareTo(max) > 0) max = item;",
+        "        }",
+        "        return max;",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        List<Integer> nums = Arrays.asList(3, 7, 1, 9, 4);",
+        "        System.out.println(findMax(nums));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 23,
+      "question": "What is the output of this Comparable-based sorting?",
+      "options": [
+        "Bob:72",
+        "Alice:85",
+        "Carol:90",
+        "Alice:72"
+      ],
+      "answer": "Bob:72",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "class Student implements Comparable<Student> {",
+        "    String name; int marks;",
+        "    Student(String n, int m) { name = n; marks = m; }",
+        "    public int compareTo(Student o) {",
+        "        return Integer.compare(this.marks, o.marks);",
+        "    }",
+        "    public String toString() { return name + \":\" + marks; }",
+        "}",
+        "public class SortDemo {",
+        "    public static void main(String[] args) {",
+        "        List<Student> list = new ArrayList<>();",
+        "        list.add(new Student(\"Alice\", 85));",
+        "        list.add(new Student(\"Bob\", 72));",
+        "        list.add(new Student(\"Carol\", 90));",
+        "        Collections.sort(list);",
+        "        System.out.println(list.get(0));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 24,
+      "question": "What does this reflection code print?",
+      "options": [
+        "hidden",
+        "null",
+        "IllegalAccessException",
+        "Compilation error"
+      ],
+      "answer": "hidden",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.lang.reflect.*;",
+        "public class ReflectDemo {",
+        "    private String secret = \"hidden\";",
+        "    public static void main(String[] args) throws Exception {",
+        "        ReflectDemo obj = new ReflectDemo();",
+        "        Field f = ReflectDemo.class.getDeclaredField(\"secret\");",
+        "        f.setAccessible(true);",
+        "        System.out.println(f.get(obj));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 25,
+      "question": "Based on this array memory layout, what does arr[2] hold after the shown assignments?",
+      "options": [
+        "30",
+        "20",
+        "0",
+        "40"
+      ],
+      "answer": "30",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "array",
+      "diagramData": {
+        "representation": "Heap memory: int[] arr = new int[5]",
+        "values": [
+          "Index:  [0]  [1]  [2]  [3]  [4]",
+          "Value:   0    0    0    0    0   ← after new int[5]",
+          "--- assignments ---",
+          "arr[0] = 10;",
+          "arr[1] = 20;",
+          "arr[2] = arr[0] + arr[1];",
+          "arr[3] = arr[2] * 2;",
+          "Index:  [0]  [1]  [2]  [3]  [4]",
+          "Value:  10   20    ?   60    0"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is NOT a feature of Java?",
+      "options": [
+        "Multiple class inheritance",
+        "Platform independence via bytecode",
+        "Automatic garbage collection",
+        "Strong type checking at compile time"
+      ],
+      "answer": "Multiple class inheritance",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "What is the default value of an instance variable of type 'boolean' in Java?",
+      "options": [
+        "false",
+        "true",
+        "0",
+        "null"
+      ],
+      "answer": "false",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Which Java collection maintains insertion order and allows duplicates?",
+      "options": [
+        "ArrayList",
+        "HashSet",
+        "TreeSet",
+        "HashMap"
+      ],
+      "answer": "ArrayList",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "This execution flow diagram shows a try-catch-finally block. In which order are the blocks executed when an exception IS thrown in try?",
+      "options": [
+        "try → catch → finally",
+        "try → finally → catch",
+        "catch → try → finally",
+        "try → catch (finally skipped on exception)"
+      ],
+      "answer": "try → catch → finally",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "execution",
+      "diagramData": {
+        "representation": "Execution flow of try-catch-finally",
+        "values": [
+          "START",
+          "  ↓",
+          "[ try block ]",
+          "  ↓ exception thrown",
+          "[ catch block ]   ← handles exception",
+          "  ↓",
+          "[ finally block ] ← always executes",
+          "  ↓",
+          "CONTINUE after try-catch-finally"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "question": "What is encapsulation in Java OOP?",
+      "options": [
+        "Bundling data and methods together and restricting direct access using access modifiers",
+        "The ability of one class to inherit properties from another class",
+        "Defining multiple methods with the same name but different parameters",
+        "The ability of an object to take many forms"
+      ],
+      "answer": "Bundling data and methods together and restricting direct access using access modifiers",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "Which exception is thrown when you try to access an array element with an invalid index?",
+      "options": [
+        "ArrayIndexOutOfBoundsException",
+        "NullPointerException",
+        "ClassCastException",
+        "IllegalArgumentException"
+      ],
+      "answer": "ArrayIndexOutOfBoundsException",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Which of the following is TRUE about abstract classes in Java?",
+      "options": [
+        "An abstract class can have both abstract and concrete methods",
+        "An abstract class cannot have constructors",
+        "An abstract class can be instantiated using 'new'",
+        "All methods in an abstract class must be abstract"
+      ],
+      "answer": "An abstract class can have both abstract and concrete methods",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "What is the purpose of the 'super' keyword when used as the first statement in a constructor?",
+      "options": [
+        "To explicitly call the parent class constructor",
+        "To call a static method of the parent class",
+        "To access the parent class object from a static context",
+        "To override the default constructor of the parent class"
+      ],
+      "answer": "To explicitly call the parent class constructor",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "Which Java 8 feature allows passing behavior as method arguments using a concise syntax?",
+      "options": [
+        "Lambda expressions",
+        "Anonymous inner classes only",
+        "Abstract method references",
+        "Static factory methods"
+      ],
+      "answer": "Lambda expressions",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "What does the 'HashMap.put(key, value)' method return when inserting a key that already exists?",
+      "options": [
+        "The previous value associated with the key",
+        "null always",
+        "The new value just inserted",
+        "A boolean indicating success"
+      ],
+      "answer": "The previous value associated with the key",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "What is method overloading in Java?",
+      "options": [
+        "Defining multiple methods with the same name but different parameter lists in the same class",
+        "Providing a new implementation of a method from the parent class in a subclass",
+        "Calling a method using a reference of the parent class type",
+        "Defining a method with a variable number of arguments using '...'"
+      ],
+      "answer": "Defining multiple methods with the same name but different parameter lists in the same class",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "What is the output of this ArrayList iteration and removal?",
+      "options": [
+        "[1, 3, 5]",
+        "[2, 4]",
+        "[1, 2, 3, 4, 5]",
+        "ConcurrentModificationException"
+      ],
+      "answer": "[1, 3, 5]",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class ListDemo {",
+        "    public static void main(String[] args) {",
+        "        List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));",
+        "        Iterator<Integer> it = list.iterator();",
+        "        while (it.hasNext()) {",
+        "            int val = it.next();",
+        "            if (val % 2 == 0) it.remove();",
+        "        }",
+        "        System.out.println(list);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 38,
+      "question": "What does this StringBuilder code print?",
+      "options": [
+        "Hello, W",
+        "Hello World",
+        "Hello,World",
+        "Hello,"
+      ],
+      "answer": "Hello, W",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class SBDemo {",
+        "    public static void main(String[] args) {",
+        "        StringBuilder sb = new StringBuilder(\"Hello\");",
+        "        sb.append(\" World\");",
+        "        sb.insert(5, \",\");",
+        "        sb.delete(7, 12);",
+        "        System.out.println(sb.toString());",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 39,
+      "question": "What is the output of this code that uses pass-by-value with a reference type?",
+      "options": [
+        "99",
+        "0",
+        "10",
+        "NullPointerException"
+      ],
+      "answer": "99",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "class Box { int val; Box(int v) { val = v; } }",
+        "public class PassTest {",
+        "    static void modify(Box b) {",
+        "        b.val = 99;",
+        "        b = new Box(0);",
+        "        b.val = 0;",
+        "    }",
+        "    public static void main(String[] args) {",
+        "        Box box = new Box(10);",
+        "        modify(box);",
+        "        System.out.println(box.val);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 40,
+      "question": "What is the output of this enum usage in Java?",
+      "options": [
+        "2 WED",
+        "3 WED",
+        "2 Wednesday",
+        "WED 2"
+      ],
+      "answer": "2 WED",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class EnumDemo {",
+        "    enum Day { MON, TUE, WED, THU, FRI, SAT, SUN }",
+        "    public static void main(String[] args) {",
+        "        Day d = Day.WED;",
+        "        System.out.println(d.ordinal() + \" \" + d.name());",
+        "    }",
+        "}"
+      ]
+    }
+  ]
+}

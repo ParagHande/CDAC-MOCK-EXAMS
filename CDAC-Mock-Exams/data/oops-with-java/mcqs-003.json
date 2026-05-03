@@ -1,0 +1,872 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Study this stack-and-heap layout. After the code runs, how many objects are eligible for garbage collection?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": "1",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "memory",
+      "diagramData": {
+        "representation": "Stack | Heap layout after code runs",
+        "values": [
+          "Stack: p → [0x10]   Heap: [0x10] Node{data=1, next→[0x20]}",
+          "Stack: q → [0x20]   Heap: [0x20] Node{data=2, next→null}",
+          "                         [0x30] Node{data=3, next→null}  ← no ref",
+          "--- p = q; ---",
+          "Stack: p → [0x20]   Heap: [0x10] Node{data=1}  ← no ref ← GC eligible",
+          "Stack: q → [0x20]        [0x20] Node{data=2}   ← held by p and q",
+          "                         [0x30] Node{data=3}   ← still no ref BUT was never reachable"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "question": "Which statement correctly describes the behavior of 'String.intern()' in Java?",
+      "options": [
+        "It returns the canonical representation from the string pool, adding the string to the pool if absent",
+        "It creates a new String object on the heap and returns its reference",
+        "It converts all characters to their Unicode code points",
+        "It is equivalent to calling 'new String(original)'"
+      ],
+      "answer": "It returns the canonical representation from the string pool, adding the string to the pool if absent",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 3,
+      "question": "What is the correct output order when a class with BOTH a static initializer block and instance initializer block is first loaded and then instantiated twice?",
+      "options": [
+        "Static block once, then instance block twice (once per instantiation)",
+        "Static block twice, then instance block twice",
+        "Instance block twice, then static block once",
+        "Static block and instance block interleaved per instantiation"
+      ],
+      "answer": "Static block once, then instance block twice (once per instantiation)",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 4,
+      "question": "In Java, which of the following statements about 'covariant return types' is TRUE?",
+      "options": [
+        "An overriding method can return a subtype of the return type declared in the parent method",
+        "An overriding method must return the exact same type as the parent method",
+        "Covariant return types apply only to static methods",
+        "Covariant return types were introduced in Java 11"
+      ],
+      "answer": "An overriding method can return a subtype of the return type declared in the parent method",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 5,
+      "question": "Based on this class hierarchy, which line causes a compile-time error?",
+      "options": [
+        "Line C — cannot assign Dog reference to Cat variable without explicit cast",
+        "Line A — cannot assign Dog to Animal reference",
+        "Line B — Dog.fetch() is not accessible via Animal reference",
+        "Line D — instanceof always returns false for unrelated types"
+      ],
+      "answer": "Line C — cannot assign Dog reference to Cat variable without explicit cast",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "class",
+      "diagramData": {
+        "representation": "Compile-time vs runtime type errors",
+        "values": [
+          "Animal (abstract)",
+          "  +move() : void  [abstract]",
+          "Dog extends Animal",
+          "  +move() : void  [override: prints 'Dog runs']",
+          "  +fetch() : void  [concrete]",
+          "Cat extends Animal",
+          "  +move() : void  [override: prints 'Cat slinks']",
+          "--- Usage ---",
+          "Animal a = new Dog();   // Line A",
+          "a.move();               // Line B",
+          "Cat c = a;              // Line C  ← compile error?",
+          "System.out.println(a instanceof Cat); // Line D"
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "question": "What is the correct statement about Java's 'LinkedList' versus 'ArrayList' performance characteristics?",
+      "options": [
+        "ArrayList offers O(1) random access; LinkedList offers O(1) insertion/deletion at the ends",
+        "LinkedList offers O(1) random access; ArrayList offers O(1) insertion at head",
+        "Both offer O(1) random access but LinkedList uses less memory",
+        "ArrayList and LinkedList have identical time complexity for all operations"
+      ],
+      "answer": "ArrayList offers O(1) random access; LinkedList offers O(1) insertion/deletion at the ends",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 7,
+      "question": "Which statement about Java's 'Optional<T>' class is TRUE?",
+      "options": [
+        "Optional is a container that may or may not hold a non-null value, designed to express the possible absence of a value",
+        "Optional<T> is a subclass of Collection<T> and supports iteration",
+        "Optional.get() returns null if the value is absent instead of throwing an exception",
+        "Optional was introduced in Java 11 as a replacement for null references"
+      ],
+      "answer": "Optional is a container that may or may not hold a non-null value, designed to express the possible absence of a value",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 8,
+      "question": "What does 'double-checked locking' accomplish in the Singleton design pattern in Java?",
+      "options": [
+        "It reduces synchronization overhead by only locking when the instance is null, using volatile to ensure visibility",
+        "It checks the singleton's state twice before returning it to ensure data integrity",
+        "It applies two independent locks so two threads can initialize independently",
+        "It is a deprecated pattern; Java 5+ does not need it because synchronized is faster"
+      ],
+      "answer": "It reduces synchronization overhead by only locking when the instance is null, using volatile to ensure visibility",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 9,
+      "question": "This reference layout shows object graphs. Which objects form an 'island of isolation' eligible for GC?",
+      "options": [
+        "Objects at [0xC1] and [0xC2] form an island — they reference each other but no GC root reaches them",
+        "Only [0xC1] is eligible because [0xC2] is referenced by the stack variable x",
+        "No objects are eligible — all are reachable from main",
+        "[0xA1] is eligible because it is only referenced by [0xC1]"
+      ],
+      "answer": "Objects at [0xC1] and [0xC2] form an island — they reference each other but no GC root reaches them",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "reference",
+      "diagramData": {
+        "representation": "Object graph — island of isolation",
+        "values": [
+          "GC Roots (Stack):",
+          "  main → [0xA1]",
+          "  x    → [0xB1]",
+          "",
+          "Heap:",
+          "  [0xA1] → obj { ref → [0xB1] }",
+          "  [0xB1] → obj { ref → null  }",
+          "  [0xC1] → obj { ref → [0xC2] }  ← no stack ref",
+          "  [0xC2] → obj { ref → [0xC1] }  ← no stack ref",
+          "",
+          "Question: which objects are GC-eligible?"
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "question": "What is the difference between 'ReentrantLock' and the 'synchronized' keyword in Java?",
+      "options": [
+        "ReentrantLock provides explicit lock/unlock, tryLock with timeout, and fairness policy; synchronized is implicit and has none of these features",
+        "synchronized supports tryLock; ReentrantLock does not support reentrancy",
+        "ReentrantLock is slower than synchronized in all scenarios",
+        "Both are identical — ReentrantLock was added in Java 8 as syntactic sugar for synchronized"
+      ],
+      "answer": "ReentrantLock provides explicit lock/unlock, tryLock with timeout, and fairness policy; synchronized is implicit and has none of these features",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 11,
+      "question": "In Java generics, what does '? super T' (lower bounded wildcard) permit that '? extends T' does not?",
+      "options": [
+        "Writing/adding elements of type T or its subtypes; extends-bounded collections are read-only",
+        "Reading elements as T with full type safety; extends-bounded collections return Object",
+        "Using the collection in a for-each loop without casting",
+        "Declaring the generic type parameter in a class definition"
+      ],
+      "answer": "Writing/adding elements of type T or its subtypes; extends-bounded collections are read-only",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 12,
+      "question": "What is the effect of declaring a method 'synchronized' at the instance level versus using a 'synchronized(this)' block inside the method?",
+      "options": [
+        "Both lock on 'this'; synchronized method locks the entire method while synchronized block can lock a smaller critical section for better concurrency",
+        "synchronized method locks on the Class object; synchronized(this) locks on the instance",
+        "synchronized method is only visible within the package; synchronized block is public",
+        "There is no difference — they compile to identical bytecode"
+      ],
+      "answer": "Both lock on 'this'; synchronized method locks the entire method while synchronized block can lock a smaller critical section for better concurrency",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 13,
+      "question": "What is the output of this code involving interface default method and class method resolution?",
+      "options": [
+        "From Class\nFrom Class",
+        "From Interface\nFrom Class",
+        "From Class\nFrom Interface",
+        "Compilation error"
+      ],
+      "answer": "From Class\nFrom Class",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "interface Printable {",
+        "    default void print() {",
+        "        System.out.println(\"From Interface\");",
+        "    }",
+        "}",
+        "class Document implements Printable {",
+        "    public void print() {",
+        "        System.out.println(\"From Class\");",
+        "    }",
+        "}",
+        "public class Test {",
+        "    public static void main(String[] args) {",
+        "        Printable p = new Document();",
+        "        p.print();",
+        "        Document d = new Document();",
+        "        d.print();",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 14,
+      "question": "What is the output of this code involving exception in a finally block?",
+      "options": [
+        "start\nfinally\nRuntimeException propagates",
+        "start\ncatch\nfinally",
+        "start\nfinally",
+        "start\ncatch"
+      ],
+      "answer": "start\nfinally\nRuntimeException propagates",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class FinallyEx {",
+        "    public static void main(String[] args) {",
+        "        try {",
+        "            System.out.println(\"start\");",
+        "            if (true) throw new IllegalArgumentException();",
+        "        } catch (NullPointerException e) {",
+        "            System.out.println(\"catch\");",
+        "        } finally {",
+        "            System.out.println(\"finally\");",
+        "        }",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 15,
+      "question": "What does this code print? Analyze the StringBuilder reverse and delete operations carefully.",
+      "options": [
+        "avaJ",
+        "Java",
+        "aJ",
+        "vaJ"
+      ],
+      "answer": "avaJ",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class SBTest {",
+        "    public static void main(String[] args) {",
+        "        StringBuilder sb = new StringBuilder(\"Java8\");",
+        "        sb.delete(4, 5);",
+        "        sb.reverse();",
+        "        System.out.println(sb.toString());",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 16,
+      "question": "What is the output of this Stream pipeline with flatMap?",
+      "options": [
+        "6",
+        "3",
+        "9",
+        "12"
+      ],
+      "answer": "6",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.stream.*;",
+        "public class FlatMapTest {",
+        "    public static void main(String[] args) {",
+        "        List<List<Integer>> nested = Arrays.asList(",
+        "            Arrays.asList(1, 2),",
+        "            Arrays.asList(3, 4),",
+        "            Arrays.asList(5, 6)",
+        "        );",
+        "        long count = nested.stream()",
+        "            .flatMap(Collection::stream)",
+        "            .filter(n -> n % 2 == 0)",
+        "            .count();",
+        "        System.out.println(count);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 17,
+      "question": "What is the output of this code involving static method hiding across packages?",
+      "options": [
+        "Animal\nDog",
+        "Dog\nDog",
+        "Animal\nAnimal",
+        "Compilation error"
+      ],
+      "answer": "Animal\nDog",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "class Animal {",
+        "    static String type() { return \"Animal\"; }",
+        "    String name()        { return \"Animal\"; }",
+        "}",
+        "class Dog extends Animal {",
+        "    static String type() { return \"Dog\"; }",
+        "    String name()        { return \"Dog\"; }",
+        "}",
+        "public class HideTest {",
+        "    public static void main(String[] args) {",
+        "        Animal ref = new Dog();",
+        "        System.out.println(ref.type());",
+        "        System.out.println(ref.name());",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 18,
+      "question": "What is the output of this HashMap with custom hashCode and equals?",
+      "options": [
+        "1\n1",
+        "2\n2",
+        "1\n2",
+        "2\n1"
+      ],
+      "answer": "1\n1",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "class Key {",
+        "    int id;",
+        "    Key(int id) { this.id = id; }",
+        "    public int hashCode() { return 1; }",
+        "    public boolean equals(Object o) {",
+        "        return o instanceof Key && ((Key)o).id == this.id;",
+        "    }",
+        "}",
+        "public class MapKey {",
+        "    public static void main(String[] args) {",
+        "        Map<Key, String> map = new HashMap<>();",
+        "        map.put(new Key(1), \"A\");",
+        "        map.put(new Key(1), \"B\");",
+        "        map.put(new Key(2), \"C\");",
+        "        System.out.println(map.get(new Key(2)) != null ? map.size() : 0);",
+        "        System.out.println(map.get(new Key(1)) != null ? map.size() : 0);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 19,
+      "question": "What is the output of this enum with abstract method?",
+      "options": [
+        "CIRCLE area: 78.53981633974483\nSQUARE area: 25.0",
+        "CIRCLE area: 25.0\nSQUARE area: 78.53981633974483",
+        "Compilation error",
+        "CIRCLE area: 50.26548245743669\nSQUARE area: 25.0"
+      ],
+      "answer": "CIRCLE area: 78.53981633974483\nSQUARE area: 25.0",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "enum Shape {",
+        "    CIRCLE {",
+        "        public double area(double r) { return Math.PI * r * r; }",
+        "    },",
+        "    SQUARE {",
+        "        public double area(double r) { return r * r; }",
+        "    };",
+        "    public abstract double area(double r);",
+        "}",
+        "public class EnumAbstract {",
+        "    public static void main(String[] args) {",
+        "        System.out.println(\"CIRCLE area: \" + Shape.CIRCLE.area(5));",
+        "        System.out.println(\"SQUARE area: \" + Shape.SQUARE.area(5));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 20,
+      "question": "What is the output of this code demonstrating ThreadLocal?",
+      "options": [
+        "Thread-0: 1\nThread-1: 1",
+        "Thread-0: 2\nThread-1: 2",
+        "Thread-0: 1\nThread-1: 2",
+        "Thread-0: 0\nThread-1: 0"
+      ],
+      "answer": "Thread-0: 1\nThread-1: 1",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "public class TLDemo {",
+        "    static ThreadLocal<Integer> tl = ThreadLocal.withInitial(() -> 0);",
+        "    public static void main(String[] args) throws Exception {",
+        "        Runnable task = () -> {",
+        "            tl.set(tl.get() + 1);",
+        "            System.out.println(Thread.currentThread().getName() + \": \" + tl.get());",
+        "        };",
+        "        Thread t1 = new Thread(task);",
+        "        Thread t2 = new Thread(task);",
+        "        t1.start(); t1.join();",
+        "        t2.start(); t2.join();",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 21,
+      "question": "What does this varargs and array interaction code print?",
+      "options": [
+        "3\n3",
+        "1\n3",
+        "3\n1",
+        "1\n1"
+      ],
+      "answer": "3\n3",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "public class VarArrTest {",
+        "    static int len(int... nums) { return nums.length; }",
+        "    public static void main(String[] args) {",
+        "        int[] arr = {10, 20, 30};",
+        "        System.out.println(len(1, 2, 3));",
+        "        System.out.println(len(arr));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 22,
+      "question": "What is the output of this code involving try-with-resources and close() order?",
+      "options": [
+        "Opening R1\nOpening R2\nClosing R2\nClosing R1\nDone",
+        "Opening R1\nOpening R2\nClosing R1\nClosing R2\nDone",
+        "Opening R2\nOpening R1\nClosing R1\nClosing R2\nDone",
+        "Opening R1\nOpening R2\nDone\nClosing R2\nClosing R1"
+      ],
+      "answer": "Opening R1\nOpening R2\nClosing R2\nClosing R1\nDone",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "public class TWROrder {",
+        "    static class Res implements AutoCloseable {",
+        "        String name;",
+        "        Res(String n) { name = n; System.out.println(\"Opening \" + n); }",
+        "        public void close() { System.out.println(\"Closing \" + name); }",
+        "    }",
+        "    public static void main(String[] args) throws Exception {",
+        "        try (Res r1 = new Res(\"R1\"); Res r2 = new Res(\"R2\")) {",
+        "            // do nothing",
+        "        }",
+        "        System.out.println(\"Done\");",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 23,
+      "question": "What is the output of this code using Comparator chaining?",
+      "options": [
+        "Alice Bob Carol",
+        "Carol Bob Alice",
+        "Bob Alice Carol",
+        "Alice Carol Bob"
+      ],
+      "answer": "Alice Bob Carol",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class CompChain {",
+        "    public static void main(String[] args) {",
+        "        List<String> names = Arrays.asList(\"Carol\", \"Alice\", \"Bob\");",
+        "        names.sort(Comparator.comparingInt(String::length)",
+        "                             .thenComparing(Comparator.naturalOrder()));",
+        "        names.forEach(n -> System.out.print(n + \" \"));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 24,
+      "question": "What is the output of this code that uses a method reference to an instance method of an arbitrary object?",
+      "options": [
+        "HELLO\nWORLD",
+        "hello\nworld",
+        "Hello\nWorld",
+        "Compilation error"
+      ],
+      "answer": "HELLO\nWORLD",
+      "difficulty": "hard",
+      "type": "code",
+      "scenario": false,
+      "snippetLines": [
+        "import java.util.*;",
+        "import java.util.stream.*;",
+        "public class MethodRefTest {",
+        "    public static void main(String[] args) {",
+        "        List<String> words = Arrays.asList(\"hello\", \"world\");",
+        "        words.stream()",
+        "             .map(String::toUpperCase)",
+        "             .forEach(System.out::println);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 25,
+      "question": "This array layout shows a 2D array after a specific sequence of assignments. What is the value at arr[1][2]?",
+      "options": [
+        "7",
+        "0",
+        "5",
+        "3"
+      ],
+      "answer": "7",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "array",
+      "diagramData": {
+        "representation": "2D int array — int[][] arr = new int[3][3]",
+        "values": [
+          "Initial (all zeros):",
+          "  [0][0]=0 [0][1]=0 [0][2]=0",
+          "  [1][0]=0 [1][1]=0 [1][2]=0",
+          "  [2][0]=0 [2][1]=0 [2][2]=0",
+          "--- assignments ---",
+          "for(int i=0;i<3;i++) for(int j=0;j<3;j++) arr[i][j] = i*3 + j + 1;",
+          "Result:",
+          "  [0][0]=1 [0][1]=2 [0][2]=3",
+          "  [1][0]=4 [1][1]=5 [1][2]=?",
+          "  [2][0]=7 [2][1]=8 [2][2]=9"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "question": "Which of the following correctly describes the Java Memory Model's 'happens-before' relationship?",
+      "options": [
+        "If action A happens-before action B, then all memory writes visible to A are also visible to B",
+        "happens-before guarantees that A executes before B in wall-clock time",
+        "happens-before only applies to synchronized methods, not synchronized blocks",
+        "happens-before is a hardware guarantee provided by the CPU, not the JVM"
+      ],
+      "answer": "If action A happens-before action B, then all memory writes visible to A are also visible to B",
+      "difficulty": "hard",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 27,
+      "question": "What is the default load factor of a HashMap in Java?",
+      "options": [
+        "0.75",
+        "0.5",
+        "1.0",
+        "0.25"
+      ],
+      "answer": "0.75",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 28,
+      "question": "Which Java keyword is used to prevent a subclass from overriding a method?",
+      "options": [
+        "final",
+        "sealed",
+        "static",
+        "native"
+      ],
+      "answer": "final",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 29,
+      "question": "This execution flow shows constructor chaining using 'this()'. In which order do the constructors execute?",
+      "options": [
+        "C3 calls C2, C2 calls C1 — output is C1 then C2 then C3",
+        "C1 calls C2, C2 calls C3 — output is C3 then C2 then C1",
+        "All three run in parallel",
+        "C3 runs alone because this() skips intermediate constructors"
+      ],
+      "answer": "C3 calls C2, C2 calls C1 — output is C1 then C2 then C3",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false,
+      "diagramType": "execution",
+      "diagramData": {
+        "representation": "Constructor chaining with this()",
+        "values": [
+          "class Demo {",
+          "  Demo()        { System.out.println('C1'); }",
+          "  Demo(int x)   { this(); System.out.println('C2'); }",
+          "  Demo(int x, int y) { this(x); System.out.println('C3'); }",
+          "}",
+          "new Demo(1, 2)  ← which constructor chain fires?",
+          "",
+          "Flow: Demo(1,2) → this(1) → this() → prints C1 → returns → prints C2 → returns → prints C3"
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "question": "What does the 'transient' keyword do when applied to a field in a serializable class?",
+      "options": [
+        "The field is excluded from serialization and restored to its default value on deserialization",
+        "The field is serialized but encrypted for security",
+        "The field throws NotSerializableException if serialization is attempted",
+        "The field is serialized last, after all non-transient fields"
+      ],
+      "answer": "The field is excluded from serialization and restored to its default value on deserialization",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 31,
+      "question": "What exception is thrown when you call 'Integer.parseInt(\"abc\")'?",
+      "options": [
+        "NumberFormatException",
+        "IllegalArgumentException",
+        "ClassCastException",
+        "ArithmeticException"
+      ],
+      "answer": "NumberFormatException",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 32,
+      "question": "Which statement about Java interfaces (Java 8+) is TRUE?",
+      "options": [
+        "Interfaces can have default methods with implementations and static methods, but cannot have instance fields",
+        "Interfaces can have instance fields if they are declared final",
+        "Static methods in interfaces are inherited by implementing classes",
+        "An interface can extend multiple classes in Java 8+"
+      ],
+      "answer": "Interfaces can have default methods with implementations and static methods, but cannot have instance fields",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 33,
+      "question": "What is the difference between 'checked' and 'unchecked' exceptions in Java?",
+      "options": [
+        "Checked exceptions must be declared or caught at compile time; unchecked exceptions (RuntimeException subclasses) do not require explicit handling",
+        "Checked exceptions are caught at runtime; unchecked exceptions are caught at compile time",
+        "Unchecked exceptions can only be thrown inside synchronized blocks",
+        "Checked exceptions always cause program termination while unchecked can be recovered from"
+      ],
+      "answer": "Checked exceptions must be declared or caught at compile time; unchecked exceptions (RuntimeException subclasses) do not require explicit handling",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 34,
+      "question": "Which functional interface in java.util.function takes no argument and returns a value?",
+      "options": [
+        "Supplier<T>",
+        "Consumer<T>",
+        "Runnable",
+        "BiFunction<T,U,R>"
+      ],
+      "answer": "Supplier<T>",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 35,
+      "question": "What is the result of calling 'Collections.unmodifiableList()' on a list and then trying to add an element?",
+      "options": [
+        "UnsupportedOperationException at runtime",
+        "The element is silently ignored",
+        "Compilation error",
+        "ConcurrentModificationException"
+      ],
+      "answer": "UnsupportedOperationException at runtime",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 36,
+      "question": "What is the purpose of the 'yield' method in Thread class?",
+      "options": [
+        "It hints to the scheduler that the current thread is willing to give up its current use of a processor, allowing other threads of the same or higher priority to run",
+        "It permanently suspends the thread until notify() is called",
+        "It terminates the thread and releases all its locks",
+        "It causes the thread to sleep for a random amount of time"
+      ],
+      "answer": "It hints to the scheduler that the current thread is willing to give up its current use of a processor, allowing other threads of the same or higher priority to run",
+      "difficulty": "medium",
+      "type": "theoretical",
+      "scenario": false
+    },
+    {
+      "id": 37,
+      "question": "What is the output of this code using Collections.frequency()?",
+      "options": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": "3",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.*;",
+        "public class FreqDemo {",
+        "    public static void main(String[] args) {",
+        "        List<String> list = Arrays.asList(",
+        "            \"cdac\", \"acts\", \"cdac\", \"pune\", \"cdac\"",
+        "        );",
+        "        System.out.println(Collections.frequency(list, \"cdac\"));",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 38,
+      "question": "What is the output of this code using instanceof with a null reference?",
+      "options": [
+        "false\ntrue",
+        "true\ntrue",
+        "NullPointerException",
+        "false\nfalse"
+      ],
+      "answer": "false\ntrue",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "public class InstanceofNull {",
+        "    public static void main(String[] args) {",
+        "        String s = null;",
+        "        Object o = \"hello\";",
+        "        System.out.println(s instanceof String);",
+        "        System.out.println(o instanceof String);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 39,
+      "question": "What is the output of this code that chains Optional operations?",
+      "options": [
+        "CDAC",
+        "cdac",
+        "EMPTY",
+        "NullPointerException"
+      ],
+      "answer": "CDAC",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.Optional;",
+        "public class OptTest {",
+        "    public static void main(String[] args) {",
+        "        Optional<String> opt = Optional.ofNullable(\"cdac\");",
+        "        String result = opt",
+        "            .filter(s -> s.length() > 2)",
+        "            .map(String::toUpperCase)",
+        "            .orElse(\"EMPTY\");",
+        "        System.out.println(result);",
+        "    }",
+        "}"
+      ]
+    },
+    {
+      "id": 40,
+      "question": "What is the output of this code using Callable and Future?",
+      "options": [
+        "Result: 25",
+        "Result: 5",
+        "Result: 0",
+        "InterruptedException"
+      ],
+      "answer": "Result: 25",
+      "difficulty": "medium",
+      "type": "code",
+      "scenario": true,
+      "snippetLines": [
+        "import java.util.concurrent.*;",
+        "public class CallableDemo {",
+        "    public static void main(String[] args) throws Exception {",
+        "        ExecutorService es = Executors.newSingleThreadExecutor();",
+        "        Callable<Integer> task = () -> {",
+        "            int sum = 0;",
+        "            for (int i = 1; i <= 5; i++) sum += i;",
+        "            return sum;",
+        "        };",
+        "        Future<Integer> future = es.submit(task);",
+        "        System.out.println(\"Result: \" + future.get());",
+        "        es.shutdown();",
+        "    }",
+        "}"
+      ]
+    }
+  ]
+}
